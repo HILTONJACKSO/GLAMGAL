@@ -194,6 +194,17 @@ export interface AnnouncementMetaobject {
   active: boolean;
 }
 
+export interface TestimonialItem {
+  id: string;
+  name: string;
+  rating: number;
+  testimonial: string;
+  productPurchased: string;
+  productHandle: string;
+  verified: boolean;
+  skinType?: string;
+}
+
 export interface PromoCode {
   id: string;
   code: string;
@@ -204,4 +215,5 @@ export interface PromoCode {
   active: boolean;
   appliesTo: string;
 }
+
 

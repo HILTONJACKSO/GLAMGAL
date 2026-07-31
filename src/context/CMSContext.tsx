@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { HeroCampaignMetaobject, Product, JournalArticle, PromoCode } from '../types/shopify';
+import { HeroCampaignMetaobject, Product, JournalArticle, PromoCode, TestimonialItem } from '../types/shopify';
 import { MOCK_PRODUCTS, MOCK_ARTICLES } from '../lib/shopify/mock-adapter';
 
 export interface CMSSectionData {
@@ -23,6 +23,7 @@ export interface CMSState {
   products: Product[];
   articles: JournalArticle[];
   promos: PromoCode[];
+  testimonials: TestimonialItem[];
 }
 
 interface CMSContextType {
@@ -44,8 +45,47 @@ interface CMSContextType {
   updatePromo: (id: string, updated: Partial<PromoCode>) => void;
   deletePromo: (id: string) => void;
   togglePromo: (id: string) => void;
+  addTestimonial: (item: TestimonialItem) => void;
+  updateTestimonial: (id: string, updated: Partial<TestimonialItem>) => void;
+  deleteTestimonial: (id: string) => void;
   resetToDefaults: () => void;
 }
+
+const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
+  {
+    id: 't-1',
+    name: 'SOPHIA V.',
+    rating: 5,
+    testimonial:
+      'The Luminous Barrier Serum completely transformed my skin texture in less than a week. My foundation glides on like glass, and the 72-hour hydration is real!',
+    productPurchased: 'LUMINOUS BARRIER SERUM',
+    productHandle: 'luminous-barrier-serum',
+    verified: true,
+    skinType: 'Sensitive & Dry Skin',
+  },
+  {
+    id: 't-2',
+    name: 'CLARA M.',
+    rating: 5,
+    testimonial:
+      "Finally a matte lipstick that doesn't crack or dry out my lips! The Velvet Matte in Warm Taupe is my permanent holy grail shade for daily glam.",
+    productPurchased: 'VELVET MATTE COUTURE LIPSTICK',
+    productHandle: 'velvet-matte-lipstick',
+    verified: true,
+    skinType: 'Combination Skin',
+  },
+  {
+    id: 't-3',
+    name: 'ELENA R.',
+    rating: 5,
+    testimonial:
+      'The Obsidian Gua Sha tool feels ultra-luxurious and heavy in hand. I use it every morning with the serum to de-puff and sculpt my jawline.',
+    productPurchased: 'OBSIDIAN CONTOUR GUA SHA',
+    productHandle: 'precision-contour-gua-sha',
+    verified: true,
+    skinType: 'All Skin Types',
+  },
+];
 
 const DEFAULT_PROMOS: PromoCode[] = [
   {
@@ -122,6 +162,7 @@ const DEFAULT_HOMEPAGE_SECTIONS: Record<string, CMSSectionData> = {
     id: 'testimonials',
     title: 'COMMUNITY PRAISE',
     subtitle: '4.9 OUT OF 5 STARS • 1,200+ VERIFIED REVIEWS',
+    description: 'Real feedback and verified experiences from our GLAMGAL beauty community.',
     enabled: true,
   },
 };
@@ -148,6 +189,7 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           products: parsed.products && parsed.products.length > 0 ? parsed.products : MOCK_PRODUCTS,
           articles: parsed.articles && parsed.articles.length > 0 ? parsed.articles : MOCK_ARTICLES,
           promos: parsed.promos && parsed.promos.length > 0 ? parsed.promos : DEFAULT_PROMOS,
+          testimonials: parsed.testimonials && parsed.testimonials.length > 0 ? parsed.testimonials : DEFAULT_TESTIMONIALS,
         };
       }
     } catch (e) {
@@ -162,6 +204,7 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       products: MOCK_PRODUCTS,
       articles: MOCK_ARTICLES,
       promos: DEFAULT_PROMOS,
+      testimonials: DEFAULT_TESTIMONIALS,
     };
   });
 
@@ -308,6 +351,27 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }));
   };
 
+  const addTestimonial = (item: TestimonialItem) => {
+    setState((prev) => ({
+      ...prev,
+      testimonials: [item, ...prev.testimonials],
+    }));
+  };
+
+  const updateTestimonial = (id: string, updated: Partial<TestimonialItem>) => {
+    setState((prev) => ({
+      ...prev,
+      testimonials: prev.testimonials.map((t) => (t.id === id ? { ...t, ...updated } : t)),
+    }));
+  };
+
+  const deleteTestimonial = (id: string) => {
+    setState((prev) => ({
+      ...prev,
+      testimonials: prev.testimonials.filter((t) => t.id !== id),
+    }));
+  };
+
   const resetToDefaults = () => {
     setState({
       isAuthenticated: state.isAuthenticated,
@@ -318,6 +382,7 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       products: MOCK_PRODUCTS,
       articles: MOCK_ARTICLES,
       promos: DEFAULT_PROMOS,
+      testimonials: DEFAULT_TESTIMONIALS,
     });
   };
 
@@ -342,6 +407,9 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         updatePromo,
         deletePromo,
         togglePromo,
+        addTestimonial,
+        updateTestimonial,
+        deleteTestimonial,
         resetToDefaults,
       }}
     >
@@ -349,6 +417,7 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     </CMSContext.Provider>
   );
 };
+
 
 export const useCMS = () => {
   const context = useContext(CMSContext);
