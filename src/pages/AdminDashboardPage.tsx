@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useCMS } from '../context/CMSContext';
-import { Product, JournalArticle, PromoCode } from '../types/shopify';
+import { Product, JournalArticle, PromoCode, TestimonialItem } from '../types/shopify';
 import { SEO } from '../components/common/SEO';
 import {
   LayoutDashboard,
@@ -28,9 +28,9 @@ import {
   AlertTriangle,
   BookOpen,
   Tag,
-  Percent,
-  DollarSign,
-  Truck,
+  Star,
+  MessageSquareQuote,
+  CheckCircle,
 } from 'lucide-react';
 
 export const AdminDashboardPage: React.FC = () => {
@@ -52,11 +52,14 @@ export const AdminDashboardPage: React.FC = () => {
     updatePromo,
     deletePromo,
     togglePromo,
+    addTestimonial,
+    updateTestimonial,
+    deleteTestimonial,
     resetToDefaults,
   } = useCMS();
   const navigate = useNavigate();
 
-  const [activeTab, setActiveTab] = useState<'promos' | 'products' | 'journal' | 'hero' | 'homepage' | 'media' | 'pages' | 'shopify'>('promos');
+  const [activeTab, setActiveTab] = useState<'reviews' | 'promos' | 'products' | 'journal' | 'hero' | 'homepage' | 'media' | 'pages' | 'shopify'>('reviews');
   const [saveNotification, setSaveNotification] = useState('');
   const [newImageUrl, setNewImageUrl] = useState('');
   
@@ -71,6 +74,19 @@ export const AdminDashboardPage: React.FC = () => {
   // Promo Modal State
   const [showPromoModal, setShowPromoModal] = useState(false);
   const [editingPromo, setEditingPromo] = useState<PromoCode | null>(null);
+
+  // Testimonial Review Modal State
+  const [showReviewModal, setShowReviewModal] = useState(false);
+  const [editingReview, setEditingReview] = useState<TestimonialItem | null>(null);
+
+  // Review Form State
+  const [revName, setRevName] = useState('SOPHIA V.');
+  const [revRating, setRevRating] = useState('5');
+  const [revQuote, setRevQuote] = useState('The Luminous Barrier Serum completely transformed my skin texture in less than a week.');
+  const [revProductPurchased, setRevProductPurchased] = useState('LUMINOUS BARRIER SERUM');
+  const [revProductHandle, setRevProductHandle] = useState('luminous-barrier-serum');
+  const [revSkinType, setRevSkinType] = useState('Sensitive & Dry Skin');
+  const [revVerified, setRevVerified] = useState(true);
 
   // Shopify Credentials State
   const [shopifyDomain, setShopifyDomain] = useState(
@@ -130,6 +146,64 @@ export const AdminDashboardPage: React.FC = () => {
   const triggerSaveNotification = (msg: string) => {
     setSaveNotification(msg);
     setTimeout(() => setSaveNotification(''), 3000);
+  };
+
+  const handleCreateOrUpdateReview = (e: React.FormEvent) => {
+    e.preventDefault();
+    const ratingNum = parseInt(revRating, 10) || 5;
+    const cleanHandle = revProductHandle || revProductPurchased.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+
+    if (editingReview) {
+      updateTestimonial(editingReview.id, {
+        name: revName,
+        rating: ratingNum,
+        testimonial: revQuote,
+        productPurchased: revProductPurchased,
+        productHandle: cleanHandle,
+        verified: revVerified,
+        skinType: revSkinType,
+      });
+      triggerSaveNotification(`Updated review from "${revName}"!`);
+    } else {
+      const newRev: TestimonialItem = {
+        id: `t-${Date.now()}`,
+        name: revName,
+        rating: ratingNum,
+        testimonial: revQuote,
+        productPurchased: revProductPurchased,
+        productHandle: cleanHandle,
+        verified: revVerified,
+        skinType: revSkinType,
+      };
+      addTestimonial(newRev);
+      triggerSaveNotification(`Added new buyer review from "${revName}"!`);
+    }
+
+    setShowReviewModal(false);
+    setEditingReview(null);
+    resetReviewForm();
+  };
+
+  const handleStartEditReview = (item: TestimonialItem) => {
+    setEditingReview(item);
+    setRevName(item.name);
+    setRevRating(item.rating.toString());
+    setRevQuote(item.testimonial);
+    setRevProductPurchased(item.productPurchased);
+    setRevProductHandle(item.productHandle);
+    setRevSkinType(item.skinType || '');
+    setRevVerified(item.verified);
+    setShowReviewModal(true);
+  };
+
+  const resetReviewForm = () => {
+    setRevName('');
+    setRevRating('5');
+    setRevQuote('');
+    setRevProductPurchased('');
+    setRevProductHandle('');
+    setRevSkinType('');
+    setRevVerified(true);
   };
 
   const handleShopifyCredentialsSubmit = (e: React.FormEvent) => {
@@ -397,7 +471,7 @@ export const AdminDashboardPage: React.FC = () => {
     setProdSubtitle('');
     setProdCategory('Skincare');
     setProdPrice('58.00');
-    setProdComparePrice('70.00');
+    setProdPrice('70.00');
     setProdImage('https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80');
     setProdDescription('High-performance botanical formulation engineered for skin radiance and moisture barrier repair.');
     setProdBadge('NEW');
@@ -444,7 +518,7 @@ export const AdminDashboardPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#0D0D0D] text-warm-white flex flex-col font-body">
-      <SEO title="Admin Control Center — GLAMGAL CMS" description="Manage products, promo codes, journal articles, homepage sections, page content, hero campaign & media assets." />
+      <SEO title="Admin Control Center — GLAMGAL CMS" description="Manage products, buyer reviews, promo codes, journal articles, homepage sections & media assets." />
 
       {saveNotification && (
         <div className="fixed top-5 right-5 z-50 bg-[#B89275] text-white px-5 py-3 rounded-xl shadow-2xl font-display text-xs tracking-wider uppercase flex items-center space-x-2 animate-bounce">
@@ -497,8 +571,18 @@ export const AdminDashboardPage: React.FC = () => {
         {/* Left Navigation Sidebar */}
         <aside className="w-full md:w-64 bg-[#141414] border-r border-deep-charcoal p-4 space-y-2">
           <span className="text-[9px] font-display tracking-mega text-warm-taupe uppercase block px-3 py-2">
-            PROMOS & CATALOG
+            REVIEWS & CONTENT
           </span>
+
+          <button
+            onClick={() => setActiveTab('reviews')}
+            className={`w-full text-left font-display text-xs tracking-wider uppercase px-4 py-3 rounded-xl flex items-center space-x-3 transition-colors ${
+              activeTab === 'reviews' ? 'bg-[#B89275] text-white font-bold' : 'text-warm-white hover:bg-deep-charcoal'
+            }`}
+          >
+            <Star className="w-4 h-4 text-amber-400" />
+            <span>REVIEWS & PRAISE</span>
+          </button>
 
           <button
             onClick={() => setActiveTab('promos')}
@@ -583,7 +667,7 @@ export const AdminDashboardPage: React.FC = () => {
           <div className="pt-8 px-3 border-t border-deep-charcoal">
             <button
               onClick={() => {
-                if (confirm('Reset all CMS products, promos & content to default settings?')) {
+                if (confirm('Reset all CMS products, reviews, promos & content to default settings?')) {
                   resetToDefaults();
                   triggerSaveNotification('Catalog & CMS reset to defaults!');
                 }
@@ -598,7 +682,99 @@ export const AdminDashboardPage: React.FC = () => {
 
         {/* Right Content Workspace */}
         <main className="flex-1 p-6 md:p-10 space-y-8 max-w-5xl">
-          {/* TAB 1: PROMO & DISCOUNTS MANAGER */}
+          {/* TAB 1: REVIEWS & COMMUNITY PRAISE MANAGER */}
+          {activeTab === 'reviews' && (
+            <div className="space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <h2 className="font-display text-xl tracking-widest text-warm-white uppercase font-bold">
+                    COMMUNITY REVIEWS & PRAISE MANAGER
+                  </h2>
+                  <p className="text-xs text-soft-stone font-body">
+                    Edit customer quotes, verified buyer badges, star ratings, and review headline banners.
+                  </p>
+                </div>
+
+                <button
+                  onClick={() => {
+                    setEditingReview(null);
+                    resetReviewForm();
+                    setShowReviewModal(true);
+                  }}
+                  className="bg-[#B89275] hover:bg-[#A37E62] text-white font-display text-xs tracking-wider uppercase px-5 py-3 rounded-xl flex items-center space-x-2 transition-all font-bold shadow-lg"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>+ ADD NEW BUYER REVIEW</span>
+                </button>
+              </div>
+
+              {/* Verified Buyer Reviews Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {state.testimonials.map((rev) => (
+                  <div
+                    key={rev.id}
+                    className="bg-[#141414] rounded-2xl p-5 border border-deep-charcoal space-y-3 group hover:border-[#B89275]/60 transition-all flex flex-col justify-between"
+                  >
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-1 text-amber-400">
+                          {Array.from({ length: rev.rating }).map((_, i) => (
+                            <Star key={i} className="w-3.5 h-3.5 fill-amber-400" />
+                          ))}
+                        </div>
+
+                        {rev.verified && (
+                          <span className="inline-flex items-center space-x-1 bg-emerald-950 text-emerald-400 text-[9px] font-display font-bold tracking-widest px-2.5 py-0.5 rounded-full uppercase border border-emerald-800">
+                            <CheckCircle className="w-3 h-3 text-emerald-400" />
+                            <span>VERIFIED BUYER</span>
+                          </span>
+                        )}
+                      </div>
+
+                      <p className="text-xs text-warm-white font-body italic leading-relaxed">
+                        "{rev.testimonial}"
+                      </p>
+                    </div>
+
+                    <div className="pt-3 border-t border-deep-charcoal flex items-center justify-between text-xs">
+                      <div>
+                        <h4 className="font-display text-xs text-warm-white uppercase font-bold">
+                          {rev.name}
+                        </h4>
+                        <span className="text-[10px] text-warm-taupe font-mono block">
+                          Purchased: {rev.productPurchased}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center space-x-2">
+                        <button
+                          onClick={() => handleStartEditReview(rev)}
+                          className="bg-deep-charcoal hover:bg-[#B89275] text-warm-white p-2 rounded-lg transition-colors"
+                          title="Edit Review"
+                        >
+                          <Edit3 className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          onClick={() => {
+                            if (confirm(`Are you sure you want to delete review from "${rev.name}"?`)) {
+                              deleteTestimonial(rev.id);
+                              triggerSaveNotification(`Deleted review from "${rev.name}"`);
+                            }
+                          }}
+                          className="bg-red-950/80 hover:bg-red-900 text-red-200 p-2 rounded-lg transition-colors"
+                          title="Delete Review"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* TAB 2: PROMO & DISCOUNTS MANAGER */}
           {activeTab === 'promos' && (
             <div className="space-y-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -624,7 +800,6 @@ export const AdminDashboardPage: React.FC = () => {
                 </button>
               </div>
 
-              {/* Active Promos List */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {state.promos.map((promo) => (
                   <div
@@ -694,7 +869,89 @@ export const AdminDashboardPage: React.FC = () => {
             </div>
           )}
 
-          {/* TAB 2: JOURNAL ARTICLES */}
+          {/* TAB 3: PRODUCTS MANAGER */}
+          {activeTab === 'products' && (
+            <div className="space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <h2 className="font-display text-xl tracking-widest text-warm-white uppercase font-bold">
+                    STORE PRODUCTS MANAGEMENT
+                  </h2>
+                  <p className="text-xs text-soft-stone font-body">
+                    Add new products, modify prices, upload photos, and delete items from your live storefront.
+                  </p>
+                </div>
+
+                <button
+                  onClick={() => {
+                    setEditingProduct(null);
+                    resetProductForm();
+                    setShowAddProductModal(true);
+                  }}
+                  className="bg-[#B89275] hover:bg-[#A37E62] text-white font-display text-xs tracking-wider uppercase px-5 py-3 rounded-xl flex items-center space-x-2 transition-all font-bold shadow-lg"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>ADD NEW PRODUCT</span>
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {state.products.map((product) => (
+                  <div
+                    key={product.id}
+                    className="bg-[#141414] rounded-2xl p-4 border border-deep-charcoal flex space-x-4 items-center justify-between group hover:border-[#B89275]/60 transition-all"
+                  >
+                    <div className="flex items-center space-x-4">
+                      <div className="w-16 h-16 rounded-xl overflow-hidden bg-deep-charcoal flex-shrink-0">
+                        <img
+                          src={product.featuredImage?.url}
+                          alt={product.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+
+                      <div className="space-y-0.5">
+                        <span className="text-[9px] font-display text-[#B89275] uppercase block font-semibold">
+                          {product.category}
+                        </span>
+                        <h4 className="font-display text-xs tracking-wider text-warm-white uppercase font-bold line-clamp-1">
+                          {product.title}
+                        </h4>
+                        <span className="text-xs font-display text-warm-white font-semibold">
+                          ${parseFloat(product.variants[0]?.price.amount || product.priceRange.minVariantPrice.amount).toFixed(2)} USD
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center space-x-2">
+                      <button
+                        onClick={() => handleStartEdit(product)}
+                        className="bg-deep-charcoal hover:bg-[#B89275] text-warm-white p-2 rounded-lg transition-colors"
+                        title="Edit Product"
+                      >
+                        <Edit3 className="w-4 h-4" />
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          if (confirm(`Are you sure you want to delete "${product.title}"?`)) {
+                            deleteProduct(product.id);
+                            triggerSaveNotification(`Deleted "${product.title}"`);
+                          }
+                        }}
+                        className="bg-red-950/80 hover:bg-red-900 text-red-200 p-2 rounded-lg transition-colors"
+                        title="Delete Product"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* TAB 4: JOURNAL ARTICLES */}
           {activeTab === 'journal' && (
             <div className="space-y-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -789,89 +1046,7 @@ export const AdminDashboardPage: React.FC = () => {
             </div>
           )}
 
-          {/* TAB 3: PRODUCTS MANAGER */}
-          {activeTab === 'products' && (
-            <div className="space-y-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                  <h2 className="font-display text-xl tracking-widest text-warm-white uppercase font-bold">
-                    STORE PRODUCTS MANAGEMENT
-                  </h2>
-                  <p className="text-xs text-soft-stone font-body">
-                    Add new products, modify prices, upload photos, and delete items from your live storefront.
-                  </p>
-                </div>
-
-                <button
-                  onClick={() => {
-                    setEditingProduct(null);
-                    resetProductForm();
-                    setShowAddProductModal(true);
-                  }}
-                  className="bg-[#B89275] hover:bg-[#A37E62] text-white font-display text-xs tracking-wider uppercase px-5 py-3 rounded-xl flex items-center space-x-2 transition-all font-bold shadow-lg"
-                >
-                  <Plus className="w-4 h-4" />
-                  <span>ADD NEW PRODUCT</span>
-                </button>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {state.products.map((product) => (
-                  <div
-                    key={product.id}
-                    className="bg-[#141414] rounded-2xl p-4 border border-deep-charcoal flex space-x-4 items-center justify-between group hover:border-[#B89275]/60 transition-all"
-                  >
-                    <div className="flex items-center space-x-4">
-                      <div className="w-16 h-16 rounded-xl overflow-hidden bg-deep-charcoal flex-shrink-0">
-                        <img
-                          src={product.featuredImage?.url}
-                          alt={product.title}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-
-                      <div className="space-y-0.5">
-                        <span className="text-[9px] font-display text-[#B89275] uppercase block font-semibold">
-                          {product.category}
-                        </span>
-                        <h4 className="font-display text-xs tracking-wider text-warm-white uppercase font-bold line-clamp-1">
-                          {product.title}
-                        </h4>
-                        <span className="text-xs font-display text-warm-white font-semibold">
-                          ${parseFloat(product.variants[0]?.price.amount || product.priceRange.minVariantPrice.amount).toFixed(2)} USD
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center space-x-2">
-                      <button
-                        onClick={() => handleStartEdit(product)}
-                        className="bg-deep-charcoal hover:bg-[#B89275] text-warm-white p-2 rounded-lg transition-colors"
-                        title="Edit Product"
-                      >
-                        <Edit3 className="w-4 h-4" />
-                      </button>
-
-                      <button
-                        onClick={() => {
-                          if (confirm(`Are you sure you want to delete "${product.title}"?`)) {
-                            deleteProduct(product.id);
-                            triggerSaveNotification(`Deleted "${product.title}"`);
-                          }
-                        }}
-                        className="bg-red-950/80 hover:bg-red-900 text-red-200 p-2 rounded-lg transition-colors"
-                        title="Delete Product"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* TAB 4: HERO CAMPAIGN EDITOR */}
+          {/* TAB 5: HERO CAMPAIGN EDITOR */}
           {activeTab === 'hero' && (
             <div className="space-y-6">
               <div>
@@ -1035,7 +1210,7 @@ export const AdminDashboardPage: React.FC = () => {
             </div>
           )}
 
-          {/* TAB 5: HOMEPAGE SECTIONS MANAGER */}
+          {/* TAB 6: HOMEPAGE SECTIONS MANAGER */}
           {activeTab === 'homepage' && (
             <div className="space-y-6">
               <div>
@@ -1096,7 +1271,7 @@ export const AdminDashboardPage: React.FC = () => {
             </div>
           )}
 
-          {/* TAB 6: MEDIA LIBRARY */}
+          {/* TAB 7: MEDIA LIBRARY */}
           {activeTab === 'media' && (
             <div className="space-y-6">
               <div>
@@ -1192,7 +1367,7 @@ export const AdminDashboardPage: React.FC = () => {
             </div>
           )}
 
-          {/* TAB 7: PAGES CONTENT MANAGER */}
+          {/* TAB 8: PAGES CONTENT MANAGER */}
           {activeTab === 'pages' && (
             <div className="space-y-6">
               <div>
@@ -1238,7 +1413,7 @@ export const AdminDashboardPage: React.FC = () => {
             </div>
           )}
 
-          {/* TAB 8: SHOPIFY CONNECTIVITY */}
+          {/* TAB 9: SHOPIFY CONNECTIVITY */}
           {activeTab === 'shopify' && (
             <div className="space-y-6">
               <div>
@@ -1311,6 +1486,135 @@ export const AdminDashboardPage: React.FC = () => {
           )}
         </main>
       </div>
+
+      {/* ADD / EDIT REVIEW MODAL */}
+      {showReviewModal && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="bg-[#141414] rounded-[24px] border border-deep-charcoal p-6 sm:p-8 max-w-xl w-full space-y-6 relative max-h-[90vh] overflow-y-auto">
+            <button
+              onClick={() => setShowReviewModal(false)}
+              className="absolute top-6 right-6 text-warm-taupe hover:text-white"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div>
+              <h3 className="font-display text-lg tracking-wider text-warm-white uppercase font-bold">
+                {editingReview ? 'EDIT BUYER REVIEW' : 'ADD NEW BUYER REVIEW'}
+              </h3>
+              <p className="text-xs text-soft-stone font-body">
+                Add authentic buyer feedback, star ratings, and skin type tags to display on the storefront.
+              </p>
+            </div>
+
+            <form onSubmit={handleCreateOrUpdateReview} className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                    CUSTOMER NAME *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={revName}
+                    onChange={(e) => setRevName(e.target.value)}
+                    placeholder="e.g. SOPHIA V."
+                    className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none uppercase font-bold"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                    STAR RATING (1 to 5) *
+                  </label>
+                  <select
+                    value={revRating}
+                    onChange={(e) => setRevRating(e.target.value)}
+                    className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none font-bold text-amber-400"
+                  >
+                    <option value="5">⭐⭐⭐⭐⭐ (5 Stars)</option>
+                    <option value="4">⭐⭐⭐⭐ (4 Stars)</option>
+                    <option value="3">⭐⭐⭐ (3 Stars)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                  REVIEW QUOTE / TESTIMONIAL *
+                </label>
+                <textarea
+                  rows={3}
+                  required
+                  value={revQuote}
+                  onChange={(e) => setRevQuote(e.target.value)}
+                  placeholder="The Luminous Barrier Serum completely transformed my skin texture..."
+                  className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none font-body"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                    PRODUCT PURCHASED NAME *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={revProductPurchased}
+                    onChange={(e) => setRevProductPurchased(e.target.value)}
+                    placeholder="LUMINOUS BARRIER SERUM"
+                    className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none uppercase font-bold"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                    SKIN TYPE TAG
+                  </label>
+                  <input
+                    type="text"
+                    value={revSkinType}
+                    onChange={(e) => setRevSkinType(e.target.value)}
+                    placeholder="Sensitive & Dry Skin"
+                    className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none"
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-2 pt-2">
+                <input
+                  type="checkbox"
+                  id="revVerified"
+                  checked={revVerified}
+                  onChange={(e) => setRevVerified(e.target.checked)}
+                  className="w-4 h-4 accent-[#B89275]"
+                />
+                <label htmlFor="revVerified" className="text-xs text-warm-white font-display uppercase tracking-widest cursor-pointer">
+                  SHOW "VERIFIED BUYER" BADGE
+                </label>
+              </div>
+
+              <div className="pt-4 flex items-center justify-end space-x-3">
+                <button
+                  type="button"
+                  onClick={() => setShowReviewModal(false)}
+                  className="bg-deep-charcoal hover:bg-deep-charcoal/80 text-warm-white font-display text-xs tracking-wider px-5 py-3 rounded-xl uppercase font-bold"
+                >
+                  CANCEL
+                </button>
+                <button
+                  type="submit"
+                  className="bg-[#B89275] hover:bg-[#A37E62] text-white font-display text-xs tracking-wider px-6 py-3 rounded-xl uppercase font-bold flex items-center space-x-2"
+                >
+                  <Save className="w-4 h-4" />
+                  <span>{editingReview ? 'UPDATE REVIEW' : 'PUBLISH BUYER REVIEW'}</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* CREATE / EDIT PROMO CODE MODAL */}
       {showPromoModal && (
