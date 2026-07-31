@@ -720,16 +720,29 @@ export async function getMockCollectionByHandle(handle: string): Promise<Collect
   };
 
   const allProducts = getLiveProducts();
-  const matchingProducts = allProducts.filter(p => 
-    p.category.toLowerCase().includes(handle) || 
-    handle === 'all' || 
-    handle === 'new-arrivals' || 
-    handle === 'best-sellers' ||
-    (handle === 'skincare' && p.category.toLowerCase() === 'skincare') ||
-    (handle === 'makeup' && p.category.toLowerCase() === 'makeup') ||
-    (handle === 'body-care' && p.category.toLowerCase() === 'body care') ||
-    (handle === 'beauty-tools' && p.category.toLowerCase() === 'beauty tools')
-  );
+  const matchingProducts = allProducts.filter(p => {
+    if (handle === 'all') return true;
+    if (handle === 'best-sellers') {
+      return (
+        p.badges?.some(b => b.type === 'best-seller' || b.text.toLowerCase().includes('best')) ||
+        p.tags.some(t => t.toLowerCase().includes('best')) ||
+        (p.rating && p.rating >= 4.8)
+      );
+    }
+    if (handle === 'new-arrivals') {
+      return (
+        p.badges?.some(b => b.type === 'new' || b.text.toLowerCase().includes('new')) ||
+        p.tags.some(t => t.toLowerCase().includes('new'))
+      );
+    }
+    return (
+      p.category.toLowerCase().includes(handle) ||
+      (handle === 'skincare' && p.category.toLowerCase() === 'skincare') ||
+      (handle === 'makeup' && p.category.toLowerCase() === 'makeup') ||
+      (handle === 'body-care' && p.category.toLowerCase() === 'body care') ||
+      (handle === 'beauty-tools' && p.category.toLowerCase() === 'beauty tools')
+    );
+  });
 
   return {
     id: `gid://shopify/Collection/${handle}`,
