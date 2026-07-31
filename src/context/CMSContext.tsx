@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { HeroCampaignMetaobject, Product } from '../types/shopify';
-import { MOCK_PRODUCTS } from '../lib/shopify/mock-adapter';
+import { HeroCampaignMetaobject, Product, JournalArticle } from '../types/shopify';
+import { MOCK_PRODUCTS, MOCK_ARTICLES } from '../lib/shopify/mock-adapter';
 
 export interface CMSSectionData {
   id: string;
@@ -21,6 +21,7 @@ export interface CMSState {
   homepageSections: Record<string, CMSSectionData>;
   mediaLibrary: string[];
   products: Product[];
+  articles: JournalArticle[];
 }
 
 interface CMSContextType {
@@ -35,6 +36,9 @@ interface CMSContextType {
   addProduct: (product: Product) => void;
   updateProduct: (id: string, updated: Partial<Product>) => void;
   deleteProduct: (id: string) => void;
+  addArticle: (article: JournalArticle) => void;
+  updateArticle: (id: string, updated: Partial<JournalArticle>) => void;
+  deleteArticle: (id: string) => void;
   resetToDefaults: () => void;
 }
 
@@ -104,6 +108,7 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         return {
           ...parsed,
           products: parsed.products && parsed.products.length > 0 ? parsed.products : MOCK_PRODUCTS,
+          articles: parsed.articles && parsed.articles.length > 0 ? parsed.articles : MOCK_ARTICLES,
         };
       }
     } catch (e) {
@@ -116,6 +121,7 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       homepageSections: DEFAULT_HOMEPAGE_SECTIONS,
       mediaLibrary: INITIAL_MEDIA,
       products: MOCK_PRODUCTS,
+      articles: MOCK_ARTICLES,
     };
   });
 
@@ -213,6 +219,27 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }));
   };
 
+  const addArticle = (article: JournalArticle) => {
+    setState((prev) => ({
+      ...prev,
+      articles: [article, ...prev.articles],
+    }));
+  };
+
+  const updateArticle = (id: string, updated: Partial<JournalArticle>) => {
+    setState((prev) => ({
+      ...prev,
+      articles: prev.articles.map((a) => (a.id === id ? { ...a, ...updated } : a)),
+    }));
+  };
+
+  const deleteArticle = (id: string) => {
+    setState((prev) => ({
+      ...prev,
+      articles: prev.articles.filter((a) => a.id !== id),
+    }));
+  };
+
   const resetToDefaults = () => {
     setState({
       isAuthenticated: state.isAuthenticated,
@@ -221,6 +248,7 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       homepageSections: DEFAULT_HOMEPAGE_SECTIONS,
       mediaLibrary: INITIAL_MEDIA,
       products: MOCK_PRODUCTS,
+      articles: MOCK_ARTICLES,
     });
   };
 
@@ -238,6 +266,9 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         addProduct,
         updateProduct,
         deleteProduct,
+        addArticle,
+        updateArticle,
+        deleteArticle,
         resetToDefaults,
       }}
     >

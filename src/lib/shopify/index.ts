@@ -256,10 +256,18 @@ export async function getRoutineByHandle(handle: string): Promise<BeautyRoutine 
 }
 
 export async function getArticles(): Promise<JournalArticle[]> {
+  if (isMockMode()) {
+    const { getLiveArticles } = await import('./mock-adapter');
+    return getLiveArticles();
+  }
   return MOCK_ARTICLES;
 }
 
 export async function getArticleByHandle(handle: string): Promise<JournalArticle | null> {
+  if (isMockMode()) {
+    const { getLiveArticleByHandle } = await import('./mock-adapter');
+    return getLiveArticleByHandle(handle);
+  }
   return MOCK_ARTICLES.find(a => a.handle === handle) || null;
 }
 

@@ -741,3 +741,24 @@ export async function getMockCollectionByHandle(handle: string): Promise<Collect
     productCount: matchingProducts.length,
   };
 }
+
+export function getLiveArticles(): JournalArticle[] {
+  try {
+    const saved = localStorage.getItem('glamgal_cms_state');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed.articles && Array.isArray(parsed.articles) && parsed.articles.length > 0) {
+        return parsed.articles;
+      }
+    }
+  } catch (e) {
+    console.error('Error parsing live articles:', e);
+  }
+  return MOCK_ARTICLES;
+}
+
+export function getLiveArticleByHandle(handle: string): JournalArticle | null {
+  const articles = getLiveArticles();
+  return articles.find(a => a.handle === handle) || null;
+}
+

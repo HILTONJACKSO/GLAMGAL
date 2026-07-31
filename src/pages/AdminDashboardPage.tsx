@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useCMS } from '../context/CMSContext';
-import { Product } from '../types/shopify';
+import { Product, JournalArticle } from '../types/shopify';
 import { SEO } from '../components/common/SEO';
 import {
   LayoutDashboard,
@@ -26,7 +26,7 @@ import {
   Key,
   Globe,
   AlertTriangle,
-  CheckCircle2,
+  BookOpen,
 } from 'lucide-react';
 
 export const AdminDashboardPage: React.FC = () => {
@@ -41,31 +41,37 @@ export const AdminDashboardPage: React.FC = () => {
     addProduct,
     updateProduct,
     deleteProduct,
+    addArticle,
+    updateArticle,
+    deleteArticle,
     resetToDefaults,
   } = useCMS();
   const navigate = useNavigate();
 
-  const [activeTab, setActiveTab] = useState<'products' | 'hero' | 'homepage' | 'media' | 'pages' | 'shopify'>('shopify');
+  const [activeTab, setActiveTab] = useState<'products' | 'journal' | 'hero' | 'homepage' | 'media' | 'pages' | 'shopify'>('journal');
   const [saveNotification, setSaveNotification] = useState('');
   const [newImageUrl, setNewImageUrl] = useState('');
+  
+  // Product Modal State
   const [showAddProductModal, setShowAddProductModal] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 
-  // Shopify Connection Credentials State
+  // Journal Modal State
+  const [showArticleModal, setShowArticleModal] = useState(false);
+  const [editingArticle, setEditingArticle] = useState<JournalArticle | null>(null);
+
+  // Shopify Credentials State
   const [shopifyDomain, setShopifyDomain] = useState(
     import.meta.env.VITE_PUBLIC_STORE_DOMAIN || 'glamgal-beauty.myshopify.com'
   );
   const [shopifyToken, setShopifyToken] = useState(
     import.meta.env.VITE_PUBLIC_STOREFRONT_API_TOKEN || 'c781d4e08a01f901a88b'
   );
-  const [useLiveShopify, setUseLiveShopify] = useState(
-    import.meta.env.VITE_USE_MOCK_SHOPIFY === 'false'
-  );
 
   // Hero Image Picker State
   const [heroImage, setHeroImage] = useState<string>(state.hero.featuredImageUrl || '/hero_model.png');
 
-  // Form State for Adding / Editing Product
+  // Product Form State
   const [prodTitle, setProdTitle] = useState('');
   const [prodSubtitle, setProdSubtitle] = useState('');
   const [prodCategory, setProdCategory] = useState<'Skincare' | 'Makeup' | 'Body Care' | 'Beauty Tools'>('Skincare');
@@ -75,7 +81,15 @@ export const AdminDashboardPage: React.FC = () => {
   const [prodDescription, setProdDescription] = useState('High-performance botanical formulation engineered for skin radiance and moisture barrier repair.');
   const [prodBadge, setProdBadge] = useState('NEW');
 
-  // Protect Admin Dashboard Route
+  // Article Form State
+  const [artTitle, setArtTitle] = useState('');
+  const [artSummary, setArtSummary] = useState('');
+  const [artCategory, setArtCategory] = useState('Skincare Education');
+  const [artAuthor, setArtAuthor] = useState('Dr. Elena Vance, Lead Chemist');
+  const [artReadTime, setArtReadTime] = useState('4 min read');
+  const [artCoverImage, setArtCoverImage] = useState('https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1000&q=80');
+  const [artContentHtml, setArtContentHtml] = useState('<p class="lead">Understanding the architecture of your skin barrier is the first step toward achieving lasting radiance.</p>');
+
   if (!state.isAuthenticated) {
     return (
       <div className="min-h-screen bg-obsidian text-warm-white flex items-center justify-center p-6 text-center space-y-4">
@@ -103,7 +117,6 @@ export const AdminDashboardPage: React.FC = () => {
     triggerSaveNotification(`Saved Shopify domain "${shopifyDomain}" & Access Token!`);
   };
 
-  // Direct File Upload Handler for Hero Image
   const handleHeroFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -120,7 +133,6 @@ export const AdminDashboardPage: React.FC = () => {
     }
   };
 
-  // Direct File Upload Handler for Product Image
   const handleProductFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -135,6 +147,82 @@ export const AdminDashboardPage: React.FC = () => {
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleArticleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const result = event.target?.result as string;
+        if (result) {
+          setArtCoverImage(result);
+          addMedia(result);
+          triggerSaveNotification(`Uploaded cover photo "${file.name}" for Journal!`);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleCreateOrUpdateArticle = (e: React.FormEvent) => {
+    e.preventDefault();
+    const handle = artTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+
+    if (editingArticle) {
+      updateArticle(editingArticle.id, {
+        title: artTitle,
+        summary: artSummary,
+        category: artCategory,
+        author: artAuthor,
+        readTime: artReadTime,
+        coverImage: artCoverImage,
+        contentHtml: artContentHtml,
+      });
+      triggerSaveNotification(`Updated Journal article "${artTitle}"!`);
+    } else {
+      const newArt: JournalArticle = {
+        id: `art-${Date.now()}`,
+        handle: handle || `article-${Date.now()}`,
+        title: artTitle,
+        summary: artSummary,
+        category: artCategory,
+        author: artAuthor,
+        publishedAt: new Date().toISOString().split('T')[0],
+        readTime: artReadTime,
+        coverImage: artCoverImage,
+        contentHtml: artContentHtml,
+        relatedProductHandles: ['luminous-barrier-serum'],
+      };
+      addArticle(newArt);
+      triggerSaveNotification(`Published new Journal article "${artTitle}"!`);
+    }
+
+    setShowArticleModal(false);
+    setEditingArticle(null);
+    resetArticleForm();
+  };
+
+  const handleStartEditArticle = (article: JournalArticle) => {
+    setEditingArticle(article);
+    setArtTitle(article.title);
+    setArtSummary(article.summary);
+    setArtCategory(article.category);
+    setArtAuthor(article.author);
+    setArtReadTime(article.readTime);
+    setArtCoverImage(article.coverImage);
+    setArtContentHtml(article.contentHtml);
+    setShowArticleModal(true);
+  };
+
+  const resetArticleForm = () => {
+    setArtTitle('');
+    setArtSummary('');
+    setArtCategory('Skincare Education');
+    setArtAuthor('Dr. Elena Vance, Lead Chemist');
+    setArtReadTime('4 min read');
+    setArtCoverImage('https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1000&q=80');
+    setArtContentHtml('<p class="lead">Understanding the architecture of your skin barrier is the first step toward achieving lasting radiance.</p>');
   };
 
   const handleCreateOrUpdateProduct = (e: React.FormEvent) => {
@@ -212,7 +300,7 @@ export const AdminDashboardPage: React.FC = () => {
 
     setShowAddProductModal(false);
     setEditingProduct(null);
-    resetForm();
+    resetProductForm();
   };
 
   const handleStartEdit = (product: Product) => {
@@ -228,7 +316,7 @@ export const AdminDashboardPage: React.FC = () => {
     setShowAddProductModal(true);
   };
 
-  const resetForm = () => {
+  const resetProductForm = () => {
     setProdTitle('');
     setProdSubtitle('');
     setProdCategory('Skincare');
@@ -280,9 +368,8 @@ export const AdminDashboardPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#0D0D0D] text-warm-white flex flex-col font-body">
-      <SEO title="Admin Control Center — GLAMGAL CMS" description="Manage products, homepage sections, page content, hero campaign & media assets." />
+      <SEO title="Admin Control Center — GLAMGAL CMS" description="Manage products, journal articles, homepage sections, page content, hero campaign & media assets." />
 
-      {/* Save Toast Notification */}
       {saveNotification && (
         <div className="fixed top-5 right-5 z-50 bg-[#B89275] text-white px-5 py-3 rounded-xl shadow-2xl font-display text-xs tracking-wider uppercase flex items-center space-x-2 animate-bounce">
           <Check className="w-4 h-4" />
@@ -334,27 +421,17 @@ export const AdminDashboardPage: React.FC = () => {
         {/* Left Navigation Sidebar */}
         <aside className="w-full md:w-64 bg-[#141414] border-r border-deep-charcoal p-4 space-y-2">
           <span className="text-[9px] font-display tracking-mega text-warm-taupe uppercase block px-3 py-2">
-            SHOPIFY & CATALOG
+            EDITORIAL & CATALOG
           </span>
 
           <button
-            onClick={() => setActiveTab('shopify')}
+            onClick={() => setActiveTab('journal')}
             className={`w-full text-left font-display text-xs tracking-wider uppercase px-4 py-3 rounded-xl flex items-center space-x-3 transition-colors ${
-              activeTab === 'shopify' ? 'bg-[#B89275] text-white font-bold' : 'text-warm-white hover:bg-deep-charcoal'
+              activeTab === 'journal' ? 'bg-[#B89275] text-white font-bold' : 'text-warm-white hover:bg-deep-charcoal'
             }`}
           >
-            <ShoppingBag className="w-4 h-4" />
-            <span>SHOPIFY CONNECTIVITY</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('hero')}
-            className={`w-full text-left font-display text-xs tracking-wider uppercase px-4 py-3 rounded-xl flex items-center space-x-3 transition-colors ${
-              activeTab === 'hero' ? 'bg-[#B89275] text-white font-bold' : 'text-warm-white hover:bg-deep-charcoal'
-            }`}
-          >
-            <Sparkles className="w-4 h-4" />
-            <span>HERO CAMPAIGN</span>
+            <BookOpen className="w-4 h-4" />
+            <span>JOURNAL ARTICLES</span>
           </button>
 
           <button
@@ -365,6 +442,16 @@ export const AdminDashboardPage: React.FC = () => {
           >
             <Package className="w-4 h-4" />
             <span>PRODUCTS MANAGER</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('hero')}
+            className={`w-full text-left font-display text-xs tracking-wider uppercase px-4 py-3 rounded-xl flex items-center space-x-3 transition-colors ${
+              activeTab === 'hero' ? 'bg-[#B89275] text-white font-bold' : 'text-warm-white hover:bg-deep-charcoal'
+            }`}
+          >
+            <Sparkles className="w-4 h-4" />
+            <span>HERO CAMPAIGN</span>
           </button>
 
           <button
@@ -397,10 +484,20 @@ export const AdminDashboardPage: React.FC = () => {
             <span>PAGE CONTENT</span>
           </button>
 
+          <button
+            onClick={() => setActiveTab('shopify')}
+            className={`w-full text-left font-display text-xs tracking-wider uppercase px-4 py-3 rounded-xl flex items-center space-x-3 transition-colors ${
+              activeTab === 'shopify' ? 'bg-[#B89275] text-white font-bold' : 'text-warm-white hover:bg-deep-charcoal'
+            }`}
+          >
+            <ShoppingBag className="w-4 h-4" />
+            <span>SHOPIFY CONNECTIVITY</span>
+          </button>
+
           <div className="pt-8 px-3 border-t border-deep-charcoal">
             <button
               onClick={() => {
-                if (confirm('Reset all CMS products & content to default settings?')) {
+                if (confirm('Reset all CMS products, articles & content to default settings?')) {
                   resetToDefaults();
                   triggerSaveNotification('Catalog & CMS reset to defaults!');
                 }
@@ -415,7 +512,103 @@ export const AdminDashboardPage: React.FC = () => {
 
         {/* Right Content Workspace */}
         <main className="flex-1 p-6 md:p-10 space-y-8 max-w-5xl">
-          {/* TAB 1: SHOPIFY CONNECTIVITY & LIVE CHECKOUT GUIDE */}
+          {/* TAB 1: JOURNAL ARTICLES MANAGER */}
+          {activeTab === 'journal' && (
+            <div className="space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <h2 className="font-display text-xl tracking-widest text-warm-white uppercase font-bold">
+                    BEAUTY JOURNAL ARTICLES MANAGER
+                  </h2>
+                  <p className="text-xs text-soft-stone font-body">
+                    Create, edit, upload cover images, and publish beauty tutorials or skincare articles live.
+                  </p>
+                </div>
+
+                <div className="flex items-center space-x-3">
+                  <Link
+                    to="/journal"
+                    target="_blank"
+                    className="bg-deep-charcoal hover:bg-deep-charcoal/80 text-warm-white font-display text-xs tracking-wider uppercase px-4 py-3 rounded-xl flex items-center space-x-1.5 transition-all font-bold"
+                  >
+                    <span>VIEW LIVE JOURNAL ↗</span>
+                  </Link>
+
+                  <button
+                    onClick={() => {
+                      setEditingArticle(null);
+                      resetArticleForm();
+                      setShowArticleModal(true);
+                    }}
+                    className="bg-[#B89275] hover:bg-[#A37E62] text-white font-display text-xs tracking-wider uppercase px-5 py-3 rounded-xl flex items-center space-x-2 transition-all font-bold shadow-lg"
+                  >
+                    <Plus className="w-4 h-4" />
+                    <span>ADD NEW ARTICLE</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Journal Articles Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {state.articles.map((article) => (
+                  <div
+                    key={article.id}
+                    className="bg-[#141414] rounded-2xl p-4 border border-deep-charcoal flex space-x-4 items-center justify-between group hover:border-[#B89275]/60 transition-all"
+                  >
+                    <div className="flex items-center space-x-4 overflow-hidden">
+                      <div className="w-20 h-20 rounded-xl overflow-hidden bg-deep-charcoal flex-shrink-0">
+                        <img
+                          src={article.coverImage}
+                          alt={article.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+
+                      <div className="space-y-1">
+                        <div className="flex items-center space-x-2">
+                          <span className="text-[9px] font-display text-[#B89275] uppercase font-semibold">
+                            {article.category}
+                          </span>
+                          <span className="text-[9px] text-warm-taupe font-mono">• {article.readTime}</span>
+                        </div>
+                        <h4 className="font-display text-xs tracking-wider text-warm-white uppercase font-bold line-clamp-1">
+                          {article.title}
+                        </h4>
+                        <p className="text-[11px] text-soft-stone line-clamp-1 font-body">
+                          {article.summary}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center space-x-2 flex-shrink-0">
+                      <button
+                        onClick={() => handleStartEditArticle(article)}
+                        className="bg-deep-charcoal hover:bg-[#B89275] text-warm-white p-2 rounded-lg transition-colors"
+                        title="Edit Article"
+                      >
+                        <Edit3 className="w-4 h-4" />
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          if (confirm(`Are you sure you want to delete "${article.title}"?`)) {
+                            deleteArticle(article.id);
+                            triggerSaveNotification(`Deleted article "${article.title}"`);
+                          }
+                        }}
+                        className="bg-red-950/80 hover:bg-red-900 text-red-200 p-2 rounded-lg transition-colors"
+                        title="Delete Article"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* TAB 2: SHOPIFY CONNECTIVITY */}
           {activeTab === 'shopify' && (
             <div className="space-y-6">
               <div>
@@ -427,7 +620,6 @@ export const AdminDashboardPage: React.FC = () => {
                 </p>
               </div>
 
-              {/* Troubleshooting Banner for Storefront Password */}
               <div className="bg-[#1A1612] rounded-2xl p-6 border border-[#B89275]/50 space-y-4">
                 <div className="flex items-center space-x-3 text-[#B89275]">
                   <AlertTriangle className="w-5 h-5 flex-shrink-0" />
@@ -453,14 +645,9 @@ export const AdminDashboardPage: React.FC = () => {
                     <span className="font-bold text-[#B89275]">Step 3:</span>
                     <span>Uncheck <em>"Restrict access to visitors with the password"</em> and click <strong>Save</strong>.</span>
                   </div>
-                  <div className="flex items-start space-x-2">
-                    <span className="font-bold text-[#B89275]">Step 4:</span>
-                    <span>If on a trial, select any Shopify plan (Basic/Shopify) to activate live checkout processing!</span>
-                  </div>
                 </div>
               </div>
 
-              {/* Live Shopify Credentials Configuration Form */}
               <form onSubmit={handleShopifyCredentialsSubmit} className="bg-[#141414] rounded-2xl p-6 border border-deep-charcoal space-y-6">
                 <h3 className="font-display text-xs tracking-wider text-warm-white uppercase font-bold">
                   SHOPIFY STOREFRONT API CREDENTIALS (.ENV)
@@ -521,7 +708,7 @@ export const AdminDashboardPage: React.FC = () => {
             </div>
           )}
 
-          {/* TAB 2: HERO CAMPAIGN EDITOR */}
+          {/* TAB 3: HERO CAMPAIGN EDITOR */}
           {activeTab === 'hero' && (
             <div className="space-y-6">
               <div>
@@ -685,7 +872,7 @@ export const AdminDashboardPage: React.FC = () => {
             </div>
           )}
 
-          {/* TAB 3: PRODUCTS MANAGER */}
+          {/* TAB 4: PRODUCTS MANAGER */}
           {activeTab === 'products' && (
             <div className="space-y-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -701,7 +888,7 @@ export const AdminDashboardPage: React.FC = () => {
                 <button
                   onClick={() => {
                     setEditingProduct(null);
-                    resetForm();
+                    resetProductForm();
                     setShowAddProductModal(true);
                   }}
                   className="bg-[#B89275] hover:bg-[#A37E62] text-white font-display text-xs tracking-wider uppercase px-5 py-3 rounded-xl flex items-center space-x-2 transition-all font-bold shadow-lg"
@@ -767,7 +954,7 @@ export const AdminDashboardPage: React.FC = () => {
             </div>
           )}
 
-          {/* TAB 4: HOMEPAGE SECTIONS MANAGER */}
+          {/* TAB 5: HOMEPAGE SECTIONS MANAGER */}
           {activeTab === 'homepage' && (
             <div className="space-y-6">
               <div>
@@ -828,7 +1015,7 @@ export const AdminDashboardPage: React.FC = () => {
             </div>
           )}
 
-          {/* TAB 5: MEDIA LIBRARY */}
+          {/* TAB 6: MEDIA LIBRARY */}
           {activeTab === 'media' && (
             <div className="space-y-6">
               <div>
@@ -924,7 +1111,7 @@ export const AdminDashboardPage: React.FC = () => {
             </div>
           )}
 
-          {/* TAB 6: PAGES CONTENT MANAGER */}
+          {/* TAB 7: PAGES CONTENT MANAGER */}
           {activeTab === 'pages' && (
             <div className="space-y-6">
               <div>
@@ -938,6 +1125,7 @@ export const AdminDashboardPage: React.FC = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
+                  { name: 'Beauty Journal Editorial', path: '/journal' },
                   { name: 'Skincare Collection Page', path: '/collections/skincare' },
                   { name: 'Makeup Couture Collection', path: '/collections/makeup' },
                   { name: 'Body Care Nectars', path: '/collections/body-care' },
@@ -947,7 +1135,6 @@ export const AdminDashboardPage: React.FC = () => {
                   { name: 'Ingredient Science Guide', path: '/ingredients' },
                   { name: 'Skin Concern Matrix', path: '/concerns' },
                   { name: 'Frequently Asked Questions (FAQ)', path: '/faq' },
-                  { name: 'Beauty Journal Editorial', path: '/journal' },
                 ].map((p, idx) => (
                   <div key={idx} className="bg-[#141414] rounded-2xl p-5 border border-deep-charcoal flex items-center justify-between">
                     <div>
@@ -971,6 +1158,169 @@ export const AdminDashboardPage: React.FC = () => {
           )}
         </main>
       </div>
+
+      {/* ADD / EDIT JOURNAL ARTICLE MODAL */}
+      {showArticleModal && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="bg-[#141414] rounded-[24px] border border-deep-charcoal p-6 sm:p-8 max-w-xl w-full space-y-6 relative max-h-[90vh] overflow-y-auto">
+            <button
+              onClick={() => setShowArticleModal(false)}
+              className="absolute top-6 right-6 text-warm-taupe hover:text-white"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div>
+              <h3 className="font-display text-lg tracking-wider text-warm-white uppercase font-bold">
+                {editingArticle ? 'EDIT JOURNAL ARTICLE' : 'CREATE NEW JOURNAL ARTICLE'}
+              </h3>
+              <p className="text-xs text-soft-stone font-body">
+                Publish skincare guides, makeup tutorials, or formulation articles live to your storefront.
+              </p>
+            </div>
+
+            <form onSubmit={handleCreateOrUpdateArticle} className="space-y-4">
+              <div className="space-y-1">
+                <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                  ARTICLE TITLE *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={artTitle}
+                  onChange={(e) => setArtTitle(e.target.value)}
+                  placeholder="e.g. Master the Velvet Matte Lip Without Any Drying"
+                  className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                  SUMMARY / EXCERPT *
+                </label>
+                <textarea
+                  rows={2}
+                  required
+                  value={artSummary}
+                  onChange={(e) => setArtSummary(e.target.value)}
+                  placeholder="Pro editorial makeup secrets to achieve seamless matte lips..."
+                  className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                    CATEGORY *
+                  </label>
+                  <select
+                    value={artCategory}
+                    onChange={(e) => setArtCategory(e.target.value)}
+                    className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none"
+                  >
+                    <option value="Skincare Education">Skincare Education</option>
+                    <option value="Makeup Tutorials">Makeup Tutorials</option>
+                    <option value="Formulation Science">Formulation Science</option>
+                    <option value="Editorial Rituals">Editorial Rituals</option>
+                  </select>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                    READ TIME
+                  </label>
+                  <input
+                    type="text"
+                    value={artReadTime}
+                    onChange={(e) => setArtReadTime(e.target.value)}
+                    placeholder="4 min read"
+                    className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                  AUTHOR *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={artAuthor}
+                  onChange={(e) => setArtAuthor(e.target.value)}
+                  placeholder="Dr. Elena Vance, Lead Chemist"
+                  className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none"
+                />
+              </div>
+
+              {/* Direct Cover Image Upload Box */}
+              <div className="space-y-2 border-t border-deep-charcoal pt-3">
+                <label className="block font-display text-[10px] tracking-widest text-[#B89275] uppercase font-bold">
+                  COVER PHOTO UPLOADER & PREVIEW
+                </label>
+
+                <div className="flex space-x-4 items-center">
+                  <div className="w-20 h-20 rounded-xl overflow-hidden bg-deep-charcoal border border-[#B89275]/50 flex-shrink-0">
+                    <img src={artCoverImage} alt="Cover Preview" className="w-full h-full object-cover" />
+                  </div>
+
+                  <div className="flex-1 space-y-2">
+                    <div className="bg-deep-charcoal border border-dashed border-[#B89275]/60 hover:border-[#B89275] p-3 rounded-xl relative text-center cursor-pointer">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleArticleFileUpload}
+                        className="absolute inset-0 opacity-0 cursor-pointer"
+                      />
+                      <span className="text-[11px] font-display text-warm-white uppercase block font-bold">
+                        UPLOAD PHOTO FROM COMPUTER
+                      </span>
+                    </div>
+
+                    <input
+                      type="url"
+                      value={artCoverImage}
+                      onChange={(e) => setArtCoverImage(e.target.value)}
+                      placeholder="Or paste cover image URL"
+                      className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-[11px] p-2.5 rounded-xl outline-none"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                  ARTICLE CONTENT (HTML / TEXT)
+                </label>
+                <textarea
+                  rows={4}
+                  value={artContentHtml}
+                  onChange={(e) => setArtContentHtml(e.target.value)}
+                  placeholder="<p class='lead'>Article body text...</p>"
+                  className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none font-mono"
+                />
+              </div>
+
+              <div className="pt-4 flex items-center justify-end space-x-3">
+                <button
+                  type="button"
+                  onClick={() => setShowArticleModal(false)}
+                  className="bg-deep-charcoal hover:bg-deep-charcoal/80 text-warm-white font-display text-xs tracking-wider px-5 py-3 rounded-xl uppercase font-bold"
+                >
+                  CANCEL
+                </button>
+                <button
+                  type="submit"
+                  className="bg-[#B89275] hover:bg-[#A37E62] text-white font-display text-xs tracking-wider px-6 py-3 rounded-xl uppercase font-bold flex items-center space-x-2"
+                >
+                  <Save className="w-4 h-4" />
+                  <span>{editingArticle ? 'UPDATE ARTICLE' : 'PUBLISH ARTICLE'}</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* ADD / EDIT PRODUCT MODAL */}
       {showAddProductModal && (
