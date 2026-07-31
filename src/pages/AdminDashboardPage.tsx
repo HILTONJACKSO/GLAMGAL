@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useCMS } from '../context/CMSContext';
-import { Product, JournalArticle } from '../types/shopify';
+import { Product, JournalArticle, PromoCode } from '../types/shopify';
 import { SEO } from '../components/common/SEO';
 import {
   LayoutDashboard,
@@ -27,6 +27,10 @@ import {
   Globe,
   AlertTriangle,
   BookOpen,
+  Tag,
+  Percent,
+  DollarSign,
+  Truck,
 } from 'lucide-react';
 
 export const AdminDashboardPage: React.FC = () => {
@@ -44,11 +48,15 @@ export const AdminDashboardPage: React.FC = () => {
     addArticle,
     updateArticle,
     deleteArticle,
+    addPromo,
+    updatePromo,
+    deletePromo,
+    togglePromo,
     resetToDefaults,
   } = useCMS();
   const navigate = useNavigate();
 
-  const [activeTab, setActiveTab] = useState<'products' | 'journal' | 'hero' | 'homepage' | 'media' | 'pages' | 'shopify'>('journal');
+  const [activeTab, setActiveTab] = useState<'promos' | 'products' | 'journal' | 'hero' | 'homepage' | 'media' | 'pages' | 'shopify'>('promos');
   const [saveNotification, setSaveNotification] = useState('');
   const [newImageUrl, setNewImageUrl] = useState('');
   
@@ -59,6 +67,10 @@ export const AdminDashboardPage: React.FC = () => {
   // Journal Modal State
   const [showArticleModal, setShowArticleModal] = useState(false);
   const [editingArticle, setEditingArticle] = useState<JournalArticle | null>(null);
+
+  // Promo Modal State
+  const [showPromoModal, setShowPromoModal] = useState(false);
+  const [editingPromo, setEditingPromo] = useState<PromoCode | null>(null);
 
   // Shopify Credentials State
   const [shopifyDomain, setShopifyDomain] = useState(
@@ -90,6 +102,14 @@ export const AdminDashboardPage: React.FC = () => {
   const [artCoverImage, setArtCoverImage] = useState('https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1000&q=80');
   const [artContentHtml, setArtContentHtml] = useState('<p class="lead">Understanding the architecture of your skin barrier is the first step toward achieving lasting radiance.</p>');
 
+  // Promo Form State
+  const [promoCodeText, setPromoCodeText] = useState('GLAM20');
+  const [promoType, setPromoType] = useState<'percentage' | 'fixed' | 'free_shipping'>('percentage');
+  const [promoValue, setPromoValue] = useState('20');
+  const [promoDesc, setPromoDesc] = useState('20% OFF all luxury beauty formulations & couture lipstick');
+  const [promoMinSpend, setPromoMinSpend] = useState('50');
+  const [promoAppliesTo, setPromoAppliesTo] = useState('All Products');
+
   if (!state.isAuthenticated) {
     return (
       <div className="min-h-screen bg-obsidian text-warm-white flex items-center justify-center p-6 text-center space-y-4">
@@ -115,6 +135,62 @@ export const AdminDashboardPage: React.FC = () => {
   const handleShopifyCredentialsSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     triggerSaveNotification(`Saved Shopify domain "${shopifyDomain}" & Access Token!`);
+  };
+
+  const handleCreateOrUpdatePromo = (e: React.FormEvent) => {
+    e.preventDefault();
+    const cleanCode = promoCodeText.toUpperCase().trim();
+    const val = parseFloat(promoValue) || 0;
+    const spend = promoMinSpend ? parseFloat(promoMinSpend) : undefined;
+
+    if (editingPromo) {
+      updatePromo(editingPromo.id, {
+        code: cleanCode,
+        discountType: promoType,
+        discountValue: val,
+        description: promoDesc,
+        minSpend: spend,
+        appliesTo: promoAppliesTo,
+      });
+      triggerSaveNotification(`Updated promo code "${cleanCode}"!`);
+    } else {
+      const newP: PromoCode = {
+        id: `promo-${Date.now()}`,
+        code: cleanCode,
+        discountType: promoType,
+        discountValue: val,
+        description: promoDesc,
+        minSpend: spend,
+        active: true,
+        appliesTo: promoAppliesTo,
+      };
+      addPromo(newP);
+      triggerSaveNotification(`Added discount code "${cleanCode}"!`);
+    }
+
+    setShowPromoModal(false);
+    setEditingPromo(null);
+    resetPromoForm();
+  };
+
+  const handleStartEditPromo = (promo: PromoCode) => {
+    setEditingPromo(promo);
+    setPromoCodeText(promo.code);
+    setPromoType(promo.discountType);
+    setPromoValue(promo.discountValue.toString());
+    setPromoDesc(promo.description);
+    setPromoMinSpend(promo.minSpend ? promo.minSpend.toString() : '');
+    setPromoAppliesTo(promo.appliesTo);
+    setShowPromoModal(true);
+  };
+
+  const resetPromoForm = () => {
+    setPromoCodeText('');
+    setPromoType('percentage');
+    setPromoValue('20');
+    setPromoDesc('20% OFF all luxury beauty formulations & couture lipstick');
+    setPromoMinSpend('50');
+    setPromoAppliesTo('All Products');
   };
 
   const handleHeroFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -368,7 +444,7 @@ export const AdminDashboardPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#0D0D0D] text-warm-white flex flex-col font-body">
-      <SEO title="Admin Control Center — GLAMGAL CMS" description="Manage products, journal articles, homepage sections, page content, hero campaign & media assets." />
+      <SEO title="Admin Control Center — GLAMGAL CMS" description="Manage products, promo codes, journal articles, homepage sections, page content, hero campaign & media assets." />
 
       {saveNotification && (
         <div className="fixed top-5 right-5 z-50 bg-[#B89275] text-white px-5 py-3 rounded-xl shadow-2xl font-display text-xs tracking-wider uppercase flex items-center space-x-2 animate-bounce">
@@ -421,17 +497,17 @@ export const AdminDashboardPage: React.FC = () => {
         {/* Left Navigation Sidebar */}
         <aside className="w-full md:w-64 bg-[#141414] border-r border-deep-charcoal p-4 space-y-2">
           <span className="text-[9px] font-display tracking-mega text-warm-taupe uppercase block px-3 py-2">
-            EDITORIAL & CATALOG
+            PROMOS & CATALOG
           </span>
 
           <button
-            onClick={() => setActiveTab('journal')}
+            onClick={() => setActiveTab('promos')}
             className={`w-full text-left font-display text-xs tracking-wider uppercase px-4 py-3 rounded-xl flex items-center space-x-3 transition-colors ${
-              activeTab === 'journal' ? 'bg-[#B89275] text-white font-bold' : 'text-warm-white hover:bg-deep-charcoal'
+              activeTab === 'promos' ? 'bg-[#B89275] text-white font-bold' : 'text-warm-white hover:bg-deep-charcoal'
             }`}
           >
-            <BookOpen className="w-4 h-4" />
-            <span>JOURNAL ARTICLES</span>
+            <Tag className="w-4 h-4" />
+            <span>PROMO & DISCOUNTS</span>
           </button>
 
           <button
@@ -442,6 +518,16 @@ export const AdminDashboardPage: React.FC = () => {
           >
             <Package className="w-4 h-4" />
             <span>PRODUCTS MANAGER</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('journal')}
+            className={`w-full text-left font-display text-xs tracking-wider uppercase px-4 py-3 rounded-xl flex items-center space-x-3 transition-colors ${
+              activeTab === 'journal' ? 'bg-[#B89275] text-white font-bold' : 'text-warm-white hover:bg-deep-charcoal'
+            }`}
+          >
+            <BookOpen className="w-4 h-4" />
+            <span>JOURNAL ARTICLES</span>
           </button>
 
           <button
@@ -497,7 +583,7 @@ export const AdminDashboardPage: React.FC = () => {
           <div className="pt-8 px-3 border-t border-deep-charcoal">
             <button
               onClick={() => {
-                if (confirm('Reset all CMS products, articles & content to default settings?')) {
+                if (confirm('Reset all CMS products, promos & content to default settings?')) {
                   resetToDefaults();
                   triggerSaveNotification('Catalog & CMS reset to defaults!');
                 }
@@ -512,7 +598,103 @@ export const AdminDashboardPage: React.FC = () => {
 
         {/* Right Content Workspace */}
         <main className="flex-1 p-6 md:p-10 space-y-8 max-w-5xl">
-          {/* TAB 1: JOURNAL ARTICLES MANAGER */}
+          {/* TAB 1: PROMO & DISCOUNTS MANAGER */}
+          {activeTab === 'promos' && (
+            <div className="space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <h2 className="font-display text-xl tracking-widest text-warm-white uppercase font-bold">
+                    PROMO & DISCOUNT CODES MANAGER
+                  </h2>
+                  <p className="text-xs text-soft-stone font-body">
+                    Create promo codes, manage percentage/fixed discounts, minimum order requirements, and toggle active status.
+                  </p>
+                </div>
+
+                <button
+                  onClick={() => {
+                    setEditingPromo(null);
+                    resetPromoForm();
+                    setShowPromoModal(true);
+                  }}
+                  className="bg-[#B89275] hover:bg-[#A37E62] text-white font-display text-xs tracking-wider uppercase px-5 py-3 rounded-xl flex items-center space-x-2 transition-all font-bold shadow-lg"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>+ CREATE PROMO CODE</span>
+                </button>
+              </div>
+
+              {/* Active Promos List */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {state.promos.map((promo) => (
+                  <div
+                    key={promo.id}
+                    className="bg-[#141414] rounded-2xl p-5 border border-deep-charcoal space-y-3 group hover:border-[#B89275]/60 transition-all"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2">
+                        <span className="font-mono text-sm tracking-wider font-bold bg-[#B89275]/20 text-[#B89275] px-3 py-1 rounded-lg border border-[#B89275]/40">
+                          {promo.code}
+                        </span>
+                        <span className="text-[10px] font-display text-warm-white uppercase bg-deep-charcoal px-2.5 py-1 rounded-full border border-deep-charcoal">
+                          {promo.discountType === 'percentage'
+                            ? `${promo.discountValue}% OFF`
+                            : promo.discountType === 'fixed'
+                            ? `$${promo.discountValue} OFF`
+                            : 'FREE SHIPPING'}
+                        </span>
+                      </div>
+
+                      <button
+                        onClick={() => {
+                          togglePromo(promo.id);
+                          triggerSaveNotification(`Toggled ${promo.code} status`);
+                        }}
+                        className={`text-[9px] font-display tracking-widest px-3 py-1 rounded-full uppercase font-bold ${
+                          promo.active
+                            ? 'bg-emerald-950 text-emerald-400 border border-emerald-800'
+                            : 'bg-red-950 text-red-400 border border-red-800'
+                        }`}
+                      >
+                        {promo.active ? 'ACTIVE' : 'DISABLED'}
+                      </button>
+                    </div>
+
+                    <p className="text-xs text-warm-white font-body">{promo.description}</p>
+
+                    <div className="flex items-center justify-between pt-2 border-t border-deep-charcoal text-[11px] text-warm-taupe font-mono">
+                      <span>Applies: {promo.appliesTo}</span>
+                      {promo.minSpend && <span>Min Order: ${promo.minSpend}</span>}
+
+                      <div className="flex items-center space-x-2">
+                        <button
+                          onClick={() => handleStartEditPromo(promo)}
+                          className="text-warm-white hover:text-[#B89275] p-1 transition-colors"
+                          title="Edit Promo"
+                        >
+                          <Edit3 className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          onClick={() => {
+                            if (confirm(`Are you sure you want to delete "${promo.code}"?`)) {
+                              deletePromo(promo.id);
+                              triggerSaveNotification(`Deleted promo code "${promo.code}"`);
+                            }
+                          }}
+                          className="text-red-400 hover:text-red-300 p-1 transition-colors"
+                          title="Delete Promo"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* TAB 2: JOURNAL ARTICLES */}
           {activeTab === 'journal' && (
             <div className="space-y-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -548,7 +730,6 @@ export const AdminDashboardPage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Journal Articles Cards */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {state.articles.map((article) => (
                   <div
@@ -608,107 +789,89 @@ export const AdminDashboardPage: React.FC = () => {
             </div>
           )}
 
-          {/* TAB 2: SHOPIFY CONNECTIVITY */}
-          {activeTab === 'shopify' && (
+          {/* TAB 3: PRODUCTS MANAGER */}
+          {activeTab === 'products' && (
             <div className="space-y-6">
-              <div>
-                <h2 className="font-display text-xl tracking-widest text-warm-white uppercase font-bold">
-                  CONNECT YOUR LIVE SHOPIFY STORE & CHECKOUT
-                </h2>
-                <p className="text-xs text-soft-stone font-body">
-                  Link your real Shopify store domain so when customers click BUY or CHECKOUT, they complete payment on your exact Shopify checkout.
-                </p>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <h2 className="font-display text-xl tracking-widest text-warm-white uppercase font-bold">
+                    STORE PRODUCTS MANAGEMENT
+                  </h2>
+                  <p className="text-xs text-soft-stone font-body">
+                    Add new products, modify prices, upload photos, and delete items from your live storefront.
+                  </p>
+                </div>
+
+                <button
+                  onClick={() => {
+                    setEditingProduct(null);
+                    resetProductForm();
+                    setShowAddProductModal(true);
+                  }}
+                  className="bg-[#B89275] hover:bg-[#A37E62] text-white font-display text-xs tracking-wider uppercase px-5 py-3 rounded-xl flex items-center space-x-2 transition-all font-bold shadow-lg"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>ADD NEW PRODUCT</span>
+                </button>
               </div>
 
-              <div className="bg-[#1A1612] rounded-2xl p-6 border border-[#B89275]/50 space-y-4">
-                <div className="flex items-center space-x-3 text-[#B89275]">
-                  <AlertTriangle className="w-5 h-5 flex-shrink-0" />
-                  <h3 className="font-display text-xs tracking-wider uppercase font-bold text-warm-white">
-                    WHY DOES SHOPIFY SAY "THIS STORE WILL BE RIGHT BACK"?
-                  </h3>
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {state.products.map((product) => (
+                  <div
+                    key={product.id}
+                    className="bg-[#141414] rounded-2xl p-4 border border-deep-charcoal flex space-x-4 items-center justify-between group hover:border-[#B89275]/60 transition-all"
+                  >
+                    <div className="flex items-center space-x-4">
+                      <div className="w-16 h-16 rounded-xl overflow-hidden bg-deep-charcoal flex-shrink-0">
+                        <img
+                          src={product.featuredImage?.url}
+                          alt={product.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
 
-                <p className="text-xs text-soft-stone font-body leading-relaxed">
-                  If you see <strong className="text-warm-white">"This store will be right back"</strong> or <strong className="text-warm-white">"Start a free trial"</strong> when checking out, your Shopify store is currently password-protected or in trial mode. Here is how to make your Shopify checkout live:
-                </p>
+                      <div className="space-y-0.5">
+                        <span className="text-[9px] font-display text-[#B89275] uppercase block font-semibold">
+                          {product.category}
+                        </span>
+                        <h4 className="font-display text-xs tracking-wider text-warm-white uppercase font-bold line-clamp-1">
+                          {product.title}
+                        </h4>
+                        <span className="text-xs font-display text-warm-white font-semibold">
+                          ${parseFloat(product.variants[0]?.price.amount || product.priceRange.minVariantPrice.amount).toFixed(2)} USD
+                        </span>
+                      </div>
+                    </div>
 
-                <div className="bg-deep-charcoal p-4 rounded-xl space-y-2 text-xs font-body border border-deep-charcoal">
-                  <div className="flex items-start space-x-2">
-                    <span className="font-bold text-[#B89275]">Step 1:</span>
-                    <span>Log into your official <a href="https://admin.shopify.com" target="_blank" rel="noreferrer" className="text-warm-white underline font-bold">Shopify Admin Portal ↗</a>.</span>
+                    <div className="flex items-center space-x-2">
+                      <button
+                        onClick={() => handleStartEdit(product)}
+                        className="bg-deep-charcoal hover:bg-[#B89275] text-warm-white p-2 rounded-lg transition-colors"
+                        title="Edit Product"
+                      >
+                        <Edit3 className="w-4 h-4" />
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          if (confirm(`Are you sure you want to delete "${product.title}"?`)) {
+                            deleteProduct(product.id);
+                            triggerSaveNotification(`Deleted "${product.title}"`);
+                          }
+                        }}
+                        className="bg-red-950/80 hover:bg-red-900 text-red-200 p-2 rounded-lg transition-colors"
+                        title="Delete Product"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
                   </div>
-                  <div className="flex items-start space-x-2">
-                    <span className="font-bold text-[#B89275]">Step 2:</span>
-                    <span>Go to <strong>Online Store → Preferences → Password Protection</strong>.</span>
-                  </div>
-                  <div className="flex items-start space-x-2">
-                    <span className="font-bold text-[#B89275]">Step 3:</span>
-                    <span>Uncheck <em>"Restrict access to visitors with the password"</em> and click <strong>Save</strong>.</span>
-                  </div>
-                </div>
+                ))}
               </div>
-
-              <form onSubmit={handleShopifyCredentialsSubmit} className="bg-[#141414] rounded-2xl p-6 border border-deep-charcoal space-y-6">
-                <h3 className="font-display text-xs tracking-wider text-warm-white uppercase font-bold">
-                  SHOPIFY STOREFRONT API CREDENTIALS (.ENV)
-                </h3>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
-                      SHOPIFY STORE DOMAIN *
-                    </label>
-                    <div className="relative">
-                      <Globe className="w-4 h-4 text-warm-taupe absolute left-3.5 top-1/2 -translate-y-1/2" />
-                      <input
-                        type="text"
-                        value={shopifyDomain}
-                        onChange={(e) => setShopifyDomain(e.target.value)}
-                        placeholder="your-store-name.myshopify.com"
-                        className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs pl-10 pr-4 py-3 rounded-xl outline-none font-mono"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
-                      STOREFRONT API ACCESS TOKEN *
-                    </label>
-                    <div className="relative">
-                      <Key className="w-4 h-4 text-warm-taupe absolute left-3.5 top-1/2 -translate-y-1/2" />
-                      <input
-                        type="text"
-                        value={shopifyToken}
-                        onChange={(e) => setShopifyToken(e.target.value)}
-                        placeholder="c781d4e08a01f901a88b..."
-                        className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs pl-10 pr-4 py-3 rounded-xl outline-none font-mono"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="pt-4 border-t border-deep-charcoal flex items-center justify-between">
-                  <a
-                    href="https://admin.shopify.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center space-x-2 bg-[#B89275] hover:bg-[#A37E62] text-white font-display text-xs tracking-wider uppercase px-6 py-3 rounded-xl transition-all font-bold"
-                  >
-                    <span>OPEN SHOPIFY ADMIN ↗</span>
-                  </a>
-
-                  <button
-                    type="submit"
-                    className="bg-warm-white hover:bg-[#B89275] text-obsidian hover:text-white font-display text-xs tracking-wider uppercase px-6 py-3 rounded-xl transition-all font-bold"
-                  >
-                    SAVE CREDENTIALS
-                  </button>
-                </div>
-              </form>
             </div>
           )}
 
-          {/* TAB 3: HERO CAMPAIGN EDITOR */}
+          {/* TAB 4: HERO CAMPAIGN EDITOR */}
           {activeTab === 'hero' && (
             <div className="space-y-6">
               <div>
@@ -869,88 +1032,6 @@ export const AdminDashboardPage: React.FC = () => {
                   </button>
                 </div>
               </form>
-            </div>
-          )}
-
-          {/* TAB 4: PRODUCTS MANAGER */}
-          {activeTab === 'products' && (
-            <div className="space-y-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                  <h2 className="font-display text-xl tracking-widest text-warm-white uppercase font-bold">
-                    STORE PRODUCTS MANAGEMENT
-                  </h2>
-                  <p className="text-xs text-soft-stone font-body">
-                    Add new products, modify prices, upload photos, and delete items from your live storefront.
-                  </p>
-                </div>
-
-                <button
-                  onClick={() => {
-                    setEditingProduct(null);
-                    resetProductForm();
-                    setShowAddProductModal(true);
-                  }}
-                  className="bg-[#B89275] hover:bg-[#A37E62] text-white font-display text-xs tracking-wider uppercase px-5 py-3 rounded-xl flex items-center space-x-2 transition-all font-bold shadow-lg"
-                >
-                  <Plus className="w-4 h-4" />
-                  <span>ADD NEW PRODUCT</span>
-                </button>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {state.products.map((product) => (
-                  <div
-                    key={product.id}
-                    className="bg-[#141414] rounded-2xl p-4 border border-deep-charcoal flex space-x-4 items-center justify-between group hover:border-[#B89275]/60 transition-all"
-                  >
-                    <div className="flex items-center space-x-4">
-                      <div className="w-16 h-16 rounded-xl overflow-hidden bg-deep-charcoal flex-shrink-0">
-                        <img
-                          src={product.featuredImage?.url}
-                          alt={product.title}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-
-                      <div className="space-y-0.5">
-                        <span className="text-[9px] font-display text-[#B89275] uppercase block font-semibold">
-                          {product.category}
-                        </span>
-                        <h4 className="font-display text-xs tracking-wider text-warm-white uppercase font-bold line-clamp-1">
-                          {product.title}
-                        </h4>
-                        <span className="text-xs font-display text-warm-white font-semibold">
-                          ${parseFloat(product.variants[0]?.price.amount || product.priceRange.minVariantPrice.amount).toFixed(2)} USD
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center space-x-2">
-                      <button
-                        onClick={() => handleStartEdit(product)}
-                        className="bg-deep-charcoal hover:bg-[#B89275] text-warm-white p-2 rounded-lg transition-colors"
-                        title="Edit Product"
-                      >
-                        <Edit3 className="w-4 h-4" />
-                      </button>
-
-                      <button
-                        onClick={() => {
-                          if (confirm(`Are you sure you want to delete "${product.title}"?`)) {
-                            deleteProduct(product.id);
-                            triggerSaveNotification(`Deleted "${product.title}"`);
-                          }
-                        }}
-                        className="bg-red-950/80 hover:bg-red-900 text-red-200 p-2 rounded-lg transition-colors"
-                        title="Delete Product"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
           )}
 
@@ -1156,8 +1237,215 @@ export const AdminDashboardPage: React.FC = () => {
               </div>
             </div>
           )}
+
+          {/* TAB 8: SHOPIFY CONNECTIVITY */}
+          {activeTab === 'shopify' && (
+            <div className="space-y-6">
+              <div>
+                <h2 className="font-display text-xl tracking-widest text-warm-white uppercase font-bold">
+                  CONNECT YOUR LIVE SHOPIFY STORE & CHECKOUT
+                </h2>
+                <p className="text-xs text-soft-stone font-body">
+                  Link your real Shopify store domain so when customers click BUY or CHECKOUT, they complete payment on your exact Shopify checkout.
+                </p>
+              </div>
+
+              <form onSubmit={handleShopifyCredentialsSubmit} className="bg-[#141414] rounded-2xl p-6 border border-deep-charcoal space-y-6">
+                <h3 className="font-display text-xs tracking-wider text-warm-white uppercase font-bold">
+                  SHOPIFY STOREFRONT API CREDENTIALS (.ENV)
+                </h3>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-1.5">
+                    <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                      SHOPIFY STORE DOMAIN *
+                    </label>
+                    <div className="relative">
+                      <Globe className="w-4 h-4 text-warm-taupe absolute left-3.5 top-1/2 -translate-y-1/2" />
+                      <input
+                        type="text"
+                        value={shopifyDomain}
+                        onChange={(e) => setShopifyDomain(e.target.value)}
+                        placeholder="your-store-name.myshopify.com"
+                        className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs pl-10 pr-4 py-3 rounded-xl outline-none font-mono"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                      STOREFRONT API ACCESS TOKEN *
+                    </label>
+                    <div className="relative">
+                      <Key className="w-4 h-4 text-warm-taupe absolute left-3.5 top-1/2 -translate-y-1/2" />
+                      <input
+                        type="text"
+                        value={shopifyToken}
+                        onChange={(e) => setShopifyToken(e.target.value)}
+                        placeholder="c781d4e08a01f901a88b..."
+                        className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs pl-10 pr-4 py-3 rounded-xl outline-none font-mono"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-deep-charcoal flex items-center justify-between">
+                  <a
+                    href="https://admin.shopify.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center space-x-2 bg-[#B89275] hover:bg-[#A37E62] text-white font-display text-xs tracking-wider uppercase px-6 py-3 rounded-xl transition-all font-bold"
+                  >
+                    <span>OPEN SHOPIFY ADMIN ↗</span>
+                  </a>
+
+                  <button
+                    type="submit"
+                    className="bg-warm-white hover:bg-[#B89275] text-obsidian hover:text-white font-display text-xs tracking-wider uppercase px-6 py-3 rounded-xl transition-all font-bold"
+                  >
+                    SAVE CREDENTIALS
+                  </button>
+                </div>
+              </form>
+            </div>
+          )}
         </main>
       </div>
+
+      {/* CREATE / EDIT PROMO CODE MODAL */}
+      {showPromoModal && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="bg-[#141414] rounded-[24px] border border-deep-charcoal p-6 sm:p-8 max-w-xl w-full space-y-6 relative max-h-[90vh] overflow-y-auto">
+            <button
+              onClick={() => setShowPromoModal(false)}
+              className="absolute top-6 right-6 text-warm-taupe hover:text-white"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div>
+              <h3 className="font-display text-lg tracking-wider text-warm-white uppercase font-bold">
+                {editingPromo ? 'EDIT PROMO CODE' : 'CREATE NEW PROMO CODE'}
+              </h3>
+              <p className="text-xs text-soft-stone font-body">
+                Define promotional coupon codes, percentage/fixed discounts, and minimum order values.
+              </p>
+            </div>
+
+            <form onSubmit={handleCreateOrUpdatePromo} className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                    PROMO CODE (UPPERCASE) *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={promoCodeText}
+                    onChange={(e) => setPromoCodeText(e.target.value)}
+                    placeholder="e.g. GLAM20"
+                    className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none font-mono uppercase font-bold"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                    DISCOUNT TYPE *
+                  </label>
+                  <select
+                    value={promoType}
+                    onChange={(e) => setPromoType(e.target.value as any)}
+                    className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none"
+                  >
+                    <option value="percentage">Percentage Off (%)</option>
+                    <option value="fixed">Fixed Dollar Off ($)</option>
+                    <option value="free_shipping">Free Shipping</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                    DISCOUNT VALUE ({promoType === 'percentage' ? '%' : '$'}) *
+                  </label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    required
+                    value={promoValue}
+                    onChange={(e) => setPromoValue(e.target.value)}
+                    placeholder="20"
+                    className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none font-mono"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                    MINIMUM SPEND REQUIREMENT ($)
+                  </label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={promoMinSpend}
+                    onChange={(e) => setPromoMinSpend(e.target.value)}
+                    placeholder="50.00"
+                    className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none font-mono"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                  APPLIES TO CATEGORY *
+                </label>
+                <select
+                  value={promoAppliesTo}
+                  onChange={(e) => setPromoAppliesTo(e.target.value)}
+                  className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none"
+                >
+                  <option value="All Products">All Products</option>
+                  <option value="Skincare">Skincare Only</option>
+                  <option value="Makeup">Makeup Only</option>
+                  <option value="Body Care">Body Care Only</option>
+                  <option value="Beauty Tools">Beauty Tools Only</option>
+                </select>
+              </div>
+
+              <div className="space-y-1">
+                <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                  PROMO DESCRIPTION *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={promoDesc}
+                  onChange={(e) => setPromoDesc(e.target.value)}
+                  placeholder="20% OFF all luxury beauty formulations & couture lipstick"
+                  className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none"
+                />
+              </div>
+
+              <div className="pt-4 flex items-center justify-end space-x-3">
+                <button
+                  type="button"
+                  onClick={() => setShowPromoModal(false)}
+                  className="bg-deep-charcoal hover:bg-deep-charcoal/80 text-warm-white font-display text-xs tracking-wider px-5 py-3 rounded-xl uppercase font-bold"
+                >
+                  CANCEL
+                </button>
+                <button
+                  type="submit"
+                  className="bg-[#B89275] hover:bg-[#A37E62] text-white font-display text-xs tracking-wider px-6 py-3 rounded-xl uppercase font-bold flex items-center space-x-2"
+                >
+                  <Save className="w-4 h-4" />
+                  <span>{editingPromo ? 'UPDATE PROMO CODE' : 'CREATE PROMO CODE'}</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* ADD / EDIT JOURNAL ARTICLE MODAL */}
       {showArticleModal && (
@@ -1253,7 +1541,6 @@ export const AdminDashboardPage: React.FC = () => {
                 />
               </div>
 
-              {/* Direct Cover Image Upload Box */}
               <div className="space-y-2 border-t border-deep-charcoal pt-3">
                 <label className="block font-display text-[10px] tracking-widest text-[#B89275] uppercase font-bold">
                   COVER PHOTO UPLOADER & PREVIEW
@@ -1431,7 +1718,6 @@ export const AdminDashboardPage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Direct Product Image Upload Box */}
               <div className="space-y-2 border-t border-deep-charcoal pt-3">
                 <label className="block font-display text-[10px] tracking-widest text-[#B89275] uppercase font-bold">
                   PRODUCT PHOTO UPLOADER & PREVIEW

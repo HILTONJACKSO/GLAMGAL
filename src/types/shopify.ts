@@ -193,3 +193,15 @@ export interface AnnouncementMetaobject {
   link?: string;
   active: boolean;
 }
+
+export interface PromoCode {
+  id: string;
+  code: string;
+  discountType: 'percentage' | 'fixed' | 'free_shipping';
+  discountValue: number;
+  description: string;
+  minSpend?: number;
+  active: boolean;
+  appliesTo: string;
+}
+

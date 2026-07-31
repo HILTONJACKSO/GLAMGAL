@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { HeroCampaignMetaobject, Product, JournalArticle } from '../types/shopify';
+import { HeroCampaignMetaobject, Product, JournalArticle, PromoCode } from '../types/shopify';
 import { MOCK_PRODUCTS, MOCK_ARTICLES } from '../lib/shopify/mock-adapter';
 
 export interface CMSSectionData {
@@ -22,6 +22,7 @@ export interface CMSState {
   mediaLibrary: string[];
   products: Product[];
   articles: JournalArticle[];
+  promos: PromoCode[];
 }
 
 interface CMSContextType {
@@ -39,8 +40,45 @@ interface CMSContextType {
   addArticle: (article: JournalArticle) => void;
   updateArticle: (id: string, updated: Partial<JournalArticle>) => void;
   deleteArticle: (id: string) => void;
+  addPromo: (promo: PromoCode) => void;
+  updatePromo: (id: string, updated: Partial<PromoCode>) => void;
+  deletePromo: (id: string) => void;
+  togglePromo: (id: string) => void;
   resetToDefaults: () => void;
 }
+
+const DEFAULT_PROMOS: PromoCode[] = [
+  {
+    id: 'promo-1',
+    code: 'GLAM20',
+    discountType: 'percentage',
+    discountValue: 20,
+    description: '20% OFF all luxury beauty formulations & couture lipstick',
+    minSpend: 50,
+    active: true,
+    appliesTo: 'All Products',
+  },
+  {
+    id: 'promo-2',
+    code: 'FREESHIP75',
+    discountType: 'free_shipping',
+    discountValue: 0,
+    description: 'Complimentary Express Shipping on orders over $75',
+    minSpend: 75,
+    active: true,
+    appliesTo: 'All Products',
+  },
+  {
+    id: 'promo-3',
+    code: 'GLOW15',
+    discountType: 'fixed',
+    discountValue: 15,
+    description: '$15 OFF Skincare Essentials Routine',
+    minSpend: 60,
+    active: true,
+    appliesTo: 'Skincare',
+  },
+];
 
 const DEFAULT_HERO: HeroCampaignMetaobject = {
   heading: 'BEAUTY, DEFINED YOUR WAY.',
@@ -109,6 +147,7 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           ...parsed,
           products: parsed.products && parsed.products.length > 0 ? parsed.products : MOCK_PRODUCTS,
           articles: parsed.articles && parsed.articles.length > 0 ? parsed.articles : MOCK_ARTICLES,
+          promos: parsed.promos && parsed.promos.length > 0 ? parsed.promos : DEFAULT_PROMOS,
         };
       }
     } catch (e) {
@@ -122,6 +161,7 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       mediaLibrary: INITIAL_MEDIA,
       products: MOCK_PRODUCTS,
       articles: MOCK_ARTICLES,
+      promos: DEFAULT_PROMOS,
     };
   });
 
@@ -240,6 +280,34 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }));
   };
 
+  const addPromo = (promo: PromoCode) => {
+    setState((prev) => ({
+      ...prev,
+      promos: [promo, ...prev.promos],
+    }));
+  };
+
+  const updatePromo = (id: string, updated: Partial<PromoCode>) => {
+    setState((prev) => ({
+      ...prev,
+      promos: prev.promos.map((p) => (p.id === id ? { ...p, ...updated } : p)),
+    }));
+  };
+
+  const deletePromo = (id: string) => {
+    setState((prev) => ({
+      ...prev,
+      promos: prev.promos.filter((p) => p.id !== id),
+    }));
+  };
+
+  const togglePromo = (id: string) => {
+    setState((prev) => ({
+      ...prev,
+      promos: prev.promos.map((p) => (p.id === id ? { ...p, active: !p.active } : p)),
+    }));
+  };
+
   const resetToDefaults = () => {
     setState({
       isAuthenticated: state.isAuthenticated,
@@ -249,6 +317,7 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       mediaLibrary: INITIAL_MEDIA,
       products: MOCK_PRODUCTS,
       articles: MOCK_ARTICLES,
+      promos: DEFAULT_PROMOS,
     });
   };
 
@@ -269,6 +338,10 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         addArticle,
         updateArticle,
         deleteArticle,
+        addPromo,
+        updatePromo,
+        deletePromo,
+        togglePromo,
         resetToDefaults,
       }}
     >
