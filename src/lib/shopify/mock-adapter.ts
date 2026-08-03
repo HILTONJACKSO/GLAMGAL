@@ -856,6 +856,110 @@ export const MOCK_PRODUCTS: Product[] = [
     usageInstructions: 'Using the plush doe-foot applicator, glide gloss across bare lips or layer over lip pencil & lipstick for high-voltage volume and glass shine.'
   },
   {
+    id: 'gid://shopify/Product/20',
+    handle: 'liquid-velvet-lipstick',
+    title: 'LIQUID VELVET LIPSTICK',
+    subtitle: 'Longwear Velvet Cream Liquid Matte Lipstick',
+    description: 'Imbue your lips with couture richness using LIQUID VELVET LIPSTICK. Formulated with saturated silk pigments and hydrating botanical oils, this ultra-lightweight liquid formula glides on velvet-smooth and dries down to a comfortable, non-drying matte finish. Feather-proof and transfer-resistant for 16-hour longwear confidence.',
+    descriptionHtml: '<p>Imbue your lips with couture richness using LIQUID VELVET LIPSTICK.</p><p>Formulated with saturated silk pigments and hydrating botanical oils, this ultra-lightweight liquid formula glides on velvet-smooth and dries down to a comfortable, non-drying matte finish. Feather-proof and transfer-resistant for 16-hour longwear confidence.</p>',
+    category: 'Makeup',
+    productType: 'Liquid Lipstick',
+    vendor: 'GLAMGAL',
+    availableForSale: true,
+    tags: ['New', 'Best Seller', 'Makeup', 'Lips', 'Liquid Lipstick', 'Matte', 'Velvet'],
+    priceRange: {
+      minVariantPrice: { amount: '34.00', currencyCode: 'USD' },
+      maxVariantPrice: { amount: '34.00', currencyCode: 'USD' }
+    },
+    compareAtPriceRange: {
+      minVariantPrice: { amount: '42.00', currencyCode: 'USD' },
+      maxVariantPrice: { amount: '42.00', currencyCode: 'USD' }
+    },
+    featuredImage: {
+      id: 'img-lvl-1',
+      url: '/liquid_velvet_lipstick_mockup.png',
+      altText: 'LIQUID VELVET LIPSTICK Tubes Collection'
+    },
+    secondaryImage: {
+      id: 'img-lvl-2',
+      url: '/liquid_velvet_lipstick_mockup.png',
+      altText: 'LIQUID VELVET LIPSTICK Shades'
+    },
+    images: [
+      { id: 'img-lvl-1', url: '/liquid_velvet_lipstick_mockup.png', altText: 'LIQUID VELVET LIPSTICK Collection' },
+      { id: 'img-lvl-2', url: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=1000&q=80', altText: 'Model Velvet Lip Application' }
+    ],
+    options: [
+      { name: 'Shade', values: ['Beloved (Nude Mauve)', 'Geranium (Deep Pink)', 'Smother (Berry Plum)', 'Anarchy (Dark Merlot)', 'Crimson Velvet (Classic Red)'] }
+    ],
+    variants: [
+      {
+        id: 'gid://shopify/ProductVariant/2001',
+        title: 'Beloved (Nude Mauve)',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Shade', value: 'Beloved (Nude Mauve)' }],
+        price: { amount: '34.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '42.00', currencyCode: 'USD' },
+        sku: 'GG-LVL-BLV'
+      },
+      {
+        id: 'gid://shopify/ProductVariant/2002',
+        title: 'Geranium (Deep Pink)',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Shade', value: 'Geranium (Deep Pink)' }],
+        price: { amount: '34.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '42.00', currencyCode: 'USD' },
+        sku: 'GG-LVL-GRN'
+      },
+      {
+        id: 'gid://shopify/ProductVariant/2003',
+        title: 'Smother (Berry Plum)',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Shade', value: 'Smother (Berry Plum)' }],
+        price: { amount: '34.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '42.00', currencyCode: 'USD' },
+        sku: 'GG-LVL-SMT'
+      },
+      {
+        id: 'gid://shopify/ProductVariant/2004',
+        title: 'Anarchy (Dark Merlot)',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Shade', value: 'Anarchy (Dark Merlot)' }],
+        price: { amount: '34.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '42.00', currencyCode: 'USD' },
+        sku: 'GG-LVL-ANC'
+      },
+      {
+        id: 'gid://shopify/ProductVariant/2005',
+        title: 'Crimson Velvet (Classic Red)',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Shade', value: 'Crimson Velvet (Classic Red)' }],
+        price: { amount: '34.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '42.00', currencyCode: 'USD' },
+        sku: 'GG-LVL-CRV'
+      }
+    ],
+    rating: 4.99,
+    reviewCount: 248,
+    badges: [
+      { text: 'NEW ARRIVAL', type: 'new' },
+      { text: 'BEST SELLER', type: 'best-seller' }
+    ],
+    keyBenefits: [
+      'Velvet creamy liquid formula glides smoothly and dries down to a comfortable matte finish',
+      'Ultra-high pigment opacity delivers intense 1-swipe full color coverage',
+      '16-Hour longwear transfer-resistant formula that will not feather or bleed',
+      'Enriched with Vitamin E & Hyaluronic spheres to prevent lip dryness & cracking'
+    ],
+    ingredientsList: [
+      'Saturated Micro-Pigment Matrix',
+      'Hyaluronic Filling Spheres',
+      'Vitamin E (Tocopherol)',
+      'Jojoba Esters'
+    ],
+    usageInstructions: 'Define lip outline with the precision applicator tip, then fill in lips with a single coat of velvet liquid cream. Allow 60 seconds to dry down into a touch-proof matte finish.'
+  },
+  {
     id: 'gid://shopify/Product/1',
     handle: 'luminous-barrier-serum',
     title: 'LUMINOUS BARRIER SERUM',
