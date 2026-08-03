@@ -286,6 +286,101 @@ export const MOCK_PRODUCTS: Product[] = [
     usageInstructions: 'Unscrew the top cap to pull out the built-in angled brush applicator. Dip into the cream pomade pot, outline brows or lash line, and fill in with light feathered strokes.'
   },
   {
+    id: 'gid://shopify/Product/13',
+    handle: '5-well-eyeshadow-palette',
+    title: '5 WELL EYESHADOW COUTURE PALETTE',
+    subtitle: 'Triple-Milled Pigment Eyeshadow Palette & Dual Applicator',
+    description: 'Unveil effortless couture eye looks with the 5 WELL EYESHADOW COUTURE PALETTE. Featuring 5 color-coordinated triple-milled powder pans in a sleek vertical compact, these silk-texture shadows offer intense color payoff, seamless blendability, and zero creasing for 16-hour longwear beauty.',
+    descriptionHtml: '<p>Unveil effortless couture eye looks with the 5 WELL EYESHADOW COUTURE PALETTE.</p><p>Featuring 5 color-coordinated triple-milled powder pans in a sleek vertical compact, these silk-texture shadows offer intense color payoff, seamless blendability, and zero creasing for 16-hour longwear beauty.</p>',
+    category: 'Makeup',
+    productType: 'Eyeshadow Palette',
+    vendor: 'GLAMGAL',
+    availableForSale: true,
+    tags: ['New', 'Best Seller', 'Makeup', 'Eyeshadow', 'Palette', 'Couture'],
+    priceRange: {
+      minVariantPrice: { amount: '48.00', currencyCode: 'USD' },
+      maxVariantPrice: { amount: '48.00', currencyCode: 'USD' }
+    },
+    compareAtPriceRange: {
+      minVariantPrice: { amount: '60.00', currencyCode: 'USD' },
+      maxVariantPrice: { amount: '60.00', currencyCode: 'USD' }
+    },
+    featuredImage: {
+      id: 'img-5w-1',
+      url: '/five_well_eyeshadow_palette_mockup.png',
+      altText: '5 WELL EYESHADOW COUTURE PALETTE Lineup'
+    },
+    secondaryImage: {
+      id: 'img-5w-2',
+      url: '/five_well_eyeshadow_palette_mockup.png',
+      altText: '5 WELL EYESHADOW Open Compact'
+    },
+    images: [
+      { id: 'img-5w-1', url: '/five_well_eyeshadow_palette_mockup.png', altText: '5 WELL EYESHADOW Palettes' },
+      { id: 'img-5w-2', url: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=1000&q=80', altText: 'Eyeshadow Makeup Model' }
+    ],
+    options: [
+      { name: 'Palette Set', values: ['Warm Gold Nudes', 'Cool Mauve Plum', 'Smokey Charcoal', 'Sunset Rose Gold'] }
+    ],
+    variants: [
+      {
+        id: 'gid://shopify/ProductVariant/1301',
+        title: 'Warm Gold Nudes',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Palette Set', value: 'Warm Gold Nudes' }],
+        price: { amount: '48.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '60.00', currencyCode: 'USD' },
+        sku: 'GG-5W-WGN'
+      },
+      {
+        id: 'gid://shopify/ProductVariant/1302',
+        title: 'Cool Mauve Plum',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Palette Set', value: 'Cool Mauve Plum' }],
+        price: { amount: '48.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '60.00', currencyCode: 'USD' },
+        sku: 'GG-5W-CMP'
+      },
+      {
+        id: 'gid://shopify/ProductVariant/1303',
+        title: 'Smokey Charcoal',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Palette Set', value: 'Smokey Charcoal' }],
+        price: { amount: '48.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '60.00', currencyCode: 'USD' },
+        sku: 'GG-5W-SMC'
+      },
+      {
+        id: 'gid://shopify/ProductVariant/1304',
+        title: 'Sunset Rose Gold',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Palette Set', value: 'Sunset Rose Gold' }],
+        price: { amount: '48.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '60.00', currencyCode: 'USD' },
+        sku: 'GG-5W-SRG'
+      }
+    ],
+    rating: 4.97,
+    reviewCount: 184,
+    badges: [
+      { text: 'NEW ARRIVAL', type: 'new' },
+      { text: 'BEST SELLER', type: 'best-seller' }
+    ],
+    keyBenefits: [
+      '5 color-coordinated triple-milled shadow pans for effortless shading',
+      'Ultra-pigmented velvet powder formula with buttery blendability & zero fallout',
+      'Includes dual-ended applicator brush stored inside sleek obsidian compact',
+      '16-hour crease-resistant & smudge-proof longwear finish'
+    ],
+    ingredientsList: [
+      'Triple-Milled Velvet Mica Pigments',
+      'Silk Protein Binding Powder',
+      'Vitamin E Antioxidant',
+      'Jojoba Oil Powder Sealant'
+    ],
+    usageInstructions: 'Using the included dual-ended applicator, sweep the lightest base shade across the lid, define the crease with medium tones, and accentuate the outer corner with deep sculpted shades.'
+  },
+  {
     id: 'gid://shopify/Product/1',
     handle: 'luminous-barrier-serum',
     title: 'LUMINOUS BARRIER SERUM',
