@@ -97,6 +97,100 @@ export const MOCK_PRODUCTS: Product[] = [
     usageInstructions: 'Using the precision micro-ball brush applicator, sweep upward and outward through brows to tame, lift, and bulk up volume. Allow 30 seconds to set.'
   },
   {
+    id: 'gid://shopify/Product/11',
+    handle: 'brow-dip-liner-powder',
+    title: 'BROW DIP LINER',
+    subtitle: 'Micro-Fine Powder Dip Liner & Brow Architecture Definer',
+    description: 'Master hair-like stroke precision and soft ombre brow definition with BROW DIP LINER. Formulated with micro-milled velvet powder pigments and instant skin-adhesion polymers, this dip-liner wand fills gaps, shapes arches, and delivers 24-hour smudge-proof water resistant wear.',
+    descriptionHtml: '<p>Master hair-like stroke precision and soft ombre brow definition with BROW DIP LINER.</p><p>Formulated with micro-milled velvet powder pigments and instant skin-adhesion polymers, this dip-liner wand fills gaps, shapes arches, and delivers 24-hour smudge-proof water resistant wear.</p>',
+    category: 'Makeup',
+    productType: 'Eyebrow Liner',
+    vendor: 'GLAMGAL',
+    availableForSale: true,
+    tags: ['New', 'Makeup', 'Brows', 'Powder Liner', 'Precision'],
+    priceRange: {
+      minVariantPrice: { amount: '32.00', currencyCode: 'USD' },
+      maxVariantPrice: { amount: '32.00', currencyCode: 'USD' }
+    },
+    compareAtPriceRange: {
+      minVariantPrice: { amount: '40.00', currencyCode: 'USD' },
+      maxVariantPrice: { amount: '40.00', currencyCode: 'USD' }
+    },
+    featuredImage: {
+      id: 'img-bdl-1',
+      url: '/brow_dip_liner_mockup.png',
+      altText: 'BROW DIP LINER Applicator & Pot'
+    },
+    secondaryImage: {
+      id: 'img-bdl-2',
+      url: '/brow_dip_liner_mockup.png',
+      altText: 'BROW DIP LINER Dip Wand'
+    },
+    images: [
+      { id: 'img-bdl-1', url: '/brow_dip_liner_mockup.png', altText: 'BROW DIP LINER Bottle' },
+      { id: 'img-bdl-2', url: 'https://images.unsplash.com/photo-1590156206657-b089c256037e?auto=format&fit=crop&w=1000&q=80', altText: 'Model Precision Brow Makeup' }
+    ],
+    options: [
+      { name: 'Shade', values: ['Taupe Blonde', 'Warm Espresso', 'Charcoal Brown', 'Obsidian Dark'] }
+    ],
+    variants: [
+      {
+        id: 'gid://shopify/ProductVariant/1101',
+        title: 'Taupe Blonde',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Shade', value: 'Taupe Blonde' }],
+        price: { amount: '32.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '40.00', currencyCode: 'USD' },
+        sku: 'GG-BDL-TP'
+      },
+      {
+        id: 'gid://shopify/ProductVariant/1102',
+        title: 'Warm Espresso',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Shade', value: 'Warm Espresso' }],
+        price: { amount: '32.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '40.00', currencyCode: 'USD' },
+        sku: 'GG-BDL-ESP'
+      },
+      {
+        id: 'gid://shopify/ProductVariant/1103',
+        title: 'Charcoal Brown',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Shade', value: 'Charcoal Brown' }],
+        price: { amount: '32.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '40.00', currencyCode: 'USD' },
+        sku: 'GG-BDL-CH'
+      },
+      {
+        id: 'gid://shopify/ProductVariant/1104',
+        title: 'Obsidian Dark',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Shade', value: 'Obsidian Dark' }],
+        price: { amount: '32.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '40.00', currencyCode: 'USD' },
+        sku: 'GG-BDL-OBS'
+      }
+    ],
+    rating: 4.9,
+    reviewCount: 94,
+    badges: [
+      { text: 'NEW ARRIVAL', type: 'new' }
+    ],
+    keyBenefits: [
+      'Micro-fine powder formula defines & refines brow architecture',
+      'Ultimate skin-adhesion technology with zero powder fallout',
+      '24-hour longwear — 100% smudge-free & sweat resistant',
+      'Ultra-fine dip wand tip draws soft hair-like strokes effortlessly'
+    ],
+    ingredientsList: [
+      'Micro-Milled Velvet Mineral Pigments',
+      'Adhesion Silk Polymers',
+      'Vitamin E Complex',
+      'Jojoba Seed Extract'
+    ],
+    usageInstructions: 'Dip the precision felt wand into the powder pot. Lightly feather through sparse brow areas in short upward strokes. Layer for deeper ombre intensity.'
+  },
+  {
     id: 'gid://shopify/Product/1',
     handle: 'luminous-barrier-serum',
     title: 'LUMINOUS BARRIER SERUM',
