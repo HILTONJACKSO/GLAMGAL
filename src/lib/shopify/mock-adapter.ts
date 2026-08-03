@@ -759,6 +759,103 @@ export const MOCK_PRODUCTS: Product[] = [
     usageInstructions: 'Twist up stick and swipe directly onto forehead, cheeks, nose, and chin. Blend outward with a sponge, brush, or fingertips for seamless skin perfection.'
   },
   {
+    id: 'gid://shopify/Product/19',
+    handle: 'lip-plumper-high-shine-gloss',
+    title: 'LIP PLUMPER HIGH SHINE LIP GLOSS',
+    subtitle: 'Peptide-Volume Plumping Gloss with Aloe Vera, Avocado & Vitamin C',
+    description: 'Achieve instantly fuller, firmer, and glass-like shiny lips with LIP PLUMPER HIGH SHINE LIP GLOSS. Formulated with a volume-boosting peptide complex and a refreshing cooling tingle, this silky lip gloss drenches lips in a sheer nude pink glaze. Infused with nourishing Aloe Vera, Avocado Oil, Jojoba Oil, and Vitamins C & E to hydrate, smooth lip lines, and protect your pout.',
+    descriptionHtml: '<p>Achieve instantly fuller, firmer, and glass-like shiny lips with LIP PLUMPER HIGH SHINE LIP GLOSS.</p><p>Formulated with a volume-boosting peptide complex and a refreshing cooling tingle, this silky lip gloss drenches lips in a sheer nude pink glaze. Infused with nourishing Aloe Vera, Avocado Oil, Jojoba Oil, and Vitamins C & E to hydrate, smooth lip lines, and protect your pout.</p>',
+    category: 'Makeup',
+    productType: 'Plumping Lip Gloss',
+    vendor: 'GLAMGAL',
+    availableForSale: true,
+    tags: ['New', 'Best Seller', 'Makeup', 'Lips', 'Lip Gloss', 'Plumping', 'Peptides'],
+    priceRange: {
+      minVariantPrice: { amount: '32.00', currencyCode: 'USD' },
+      maxVariantPrice: { amount: '32.00', currencyCode: 'USD' }
+    },
+    compareAtPriceRange: {
+      minVariantPrice: { amount: '40.00', currencyCode: 'USD' },
+      maxVariantPrice: { amount: '40.00', currencyCode: 'USD' }
+    },
+    featuredImage: {
+      id: 'img-lpg-1',
+      url: '/lip_plumper_gloss_mockup.png',
+      altText: 'LIP PLUMPER HIGH SHINE LIP GLOSS Tube & Wand'
+    },
+    secondaryImage: {
+      id: 'img-lpg-2',
+      url: '/lip_plumper_gloss_mockup.png',
+      altText: 'LIP PLUMPER Doe Foot Applicator'
+    },
+    images: [
+      { id: 'img-lpg-1', url: '/lip_plumper_gloss_mockup.png', altText: 'LIP PLUMPER High Shine Lip Gloss' },
+      { id: 'img-lpg-2', url: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=1000&q=80', altText: 'Model Glossy Lip Makeup' }
+    ],
+    options: [
+      { name: 'Shade', values: ['Sheer Nude Pink', 'Rose Quartz Glaze', 'Peach Blossom', 'Champagne Sparkle'] }
+    ],
+    variants: [
+      {
+        id: 'gid://shopify/ProductVariant/1901',
+        title: 'Sheer Nude Pink',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Shade', value: 'Sheer Nude Pink' }],
+        price: { amount: '32.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '40.00', currencyCode: 'USD' },
+        sku: 'GG-LPG-SNP'
+      },
+      {
+        id: 'gid://shopify/ProductVariant/1902',
+        title: 'Rose Quartz Glaze',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Shade', value: 'Rose Quartz Glaze' }],
+        price: { amount: '32.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '40.00', currencyCode: 'USD' },
+        sku: 'GG-LPG-RQG'
+      },
+      {
+        id: 'gid://shopify/ProductVariant/1903',
+        title: 'Peach Blossom',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Shade', value: 'Peach Blossom' }],
+        price: { amount: '32.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '40.00', currencyCode: 'USD' },
+        sku: 'GG-LPG-PBL'
+      },
+      {
+        id: 'gid://shopify/ProductVariant/1904',
+        title: 'Champagne Sparkle',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Shade', value: 'Champagne Sparkle' }],
+        price: { amount: '32.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '40.00', currencyCode: 'USD' },
+        sku: 'GG-LPG-CSP'
+      }
+    ],
+    rating: 4.98,
+    reviewCount: 215,
+    badges: [
+      { text: 'NEW ARRIVAL', type: 'new' },
+      { text: 'BEST SELLER', type: 'best-seller' }
+    ],
+    keyBenefits: [
+      'Volume-boosting peptide blend hugs lips making them appear instantly fuller & firmer',
+      'Silky sheer nude pink glaze delivers glass-like high shine with a refreshing tingle',
+      'Aloe Vera, Avocado Oil & Jojoba Oil deeply nourish and eliminate dry lip lines',
+      'Vitamins C & E provide antioxidant defense against environmental stress'
+    ],
+    ingredientsList: [
+      'Palmitoyl Tripeptide-1 Plumping Matrix',
+      'Organic Aloe Vera Extract',
+      'Cold-Pressed Avocado Oil',
+      'Jojoba Seed Oil',
+      'Vitamin C (Ascorbyl Palmitate)',
+      'Vitamin E (Tocopherol)'
+    ],
+    usageInstructions: 'Using the plush doe-foot applicator, glide gloss across bare lips or layer over lip pencil & lipstick for high-voltage volume and glass shine.'
+  },
+  {
     id: 'gid://shopify/Product/1',
     handle: 'luminous-barrier-serum',
     title: 'LUMINOUS BARRIER SERUM',
