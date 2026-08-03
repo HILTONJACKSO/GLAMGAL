@@ -593,6 +593,77 @@ export const MOCK_PRODUCTS: Product[] = [
     usageInstructions: 'Apply in the shower, massage a generous amount of scrub onto damp body skin in circular motions, and rinse thoroughly. Follow with GLAMGAL decadent body cream.'
   },
   {
+    id: 'gid://shopify/Product/17',
+    handle: 'luxe-decadent-body-cream',
+    title: 'LUXE DECADENT BODY CREAM',
+    subtitle: '150ml / 5.1 fl. oz. • Coconut Oil, Cocoa Butter, Shea & Niacinamide Elixir (Vegan)',
+    description: 'Indulge skin in deep restorative hydration with LUXE DECADENT BODY CREAM. Formulated with raw Coconut Oil, Cocoa Seed Butter, rich Shea Butter, and 3% Niacinamide, this rich botanical cream melts into skin to repair moisture barrier damage, eliminate dry patches, and veil your body in soothing notes of French Lavender and Warm Vanilla.',
+    descriptionHtml: '<p>Indulge skin in deep restorative hydration with LUXE DECADENT BODY CREAM.</p><p>Formulated with raw Coconut Oil, Cocoa Seed Butter, rich Shea Butter, and 3% Niacinamide, this rich botanical cream melts into skin to repair moisture barrier damage, eliminate dry patches, and veil your body in soothing notes of French Lavender and Warm Vanilla.</p>',
+    category: 'Body Care',
+    productType: 'Body Cream',
+    vendor: 'GLAMGAL',
+    availableForSale: true,
+    tags: ['New', 'Best Seller', 'Body Care', 'Body Cream', 'Coconut Oil', 'Niacinamide', 'Vegan'],
+    priceRange: {
+      minVariantPrice: { amount: '48.00', currencyCode: 'USD' },
+      maxVariantPrice: { amount: '48.00', currencyCode: 'USD' }
+    },
+    compareAtPriceRange: {
+      minVariantPrice: { amount: '60.00', currencyCode: 'USD' },
+      maxVariantPrice: { amount: '60.00', currencyCode: 'USD' }
+    },
+    featuredImage: {
+      id: 'img-ldc-1',
+      url: '/luxe_decadent_body_cream_mockup.png',
+      altText: 'LUXE DECADENT BODY CREAM Tube & Box'
+    },
+    secondaryImage: {
+      id: 'img-ldc-2',
+      url: '/luxe_decadent_body_cream_mockup.png',
+      altText: 'LUXE DECADENT BODY CREAM Product'
+    },
+    images: [
+      { id: 'img-ldc-1', url: '/luxe_decadent_body_cream_mockup.png', altText: 'LUXE DECADENT BODY CREAM Tube & Box' },
+      { id: 'img-ldc-2', url: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1000&q=80', altText: 'Body Care Cream Model' }
+    ],
+    options: [
+      { name: 'Volume', values: ['150ml / 5.1 fl. oz.'] }
+    ],
+    variants: [
+      {
+        id: 'gid://shopify/ProductVariant/1701',
+        title: '150ml / 5.1 fl. oz.',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Volume', value: '150ml / 5.1 fl. oz.' }],
+        price: { amount: '48.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '60.00', currencyCode: 'USD' },
+        sku: 'GG-LDC-150'
+      }
+    ],
+    rating: 4.99,
+    reviewCount: 224,
+    badges: [
+      { text: 'NEW ARRIVAL', type: 'new' },
+      { text: 'BEST SELLER', type: 'best-seller' },
+      { text: 'VEGAN', type: 'vegan' }
+    ],
+    keyBenefits: [
+      'Coconut Oil, Cocoa Seed Butter & Shea Butter provide 48-hour moisture nourishment',
+      'Niacinamide strengthens skin barrier resilience and evens body skin tone',
+      'Infused with calming notes of French Lavender and Warm Vanilla Bean',
+      '100% Vegan & Cruelty-Free rich restorative cream for all skin types'
+    ],
+    ingredientsList: [
+      'Organic Virgin Coconut Oil',
+      'Cocoa Seed Butter',
+      'Pure Shea Butter',
+      '3% Niacinamide (Vitamin B3)',
+      'French Lavender Oil',
+      'Warm Vanilla Extract'
+    ],
+    usageInstructions: 'Apply to the body daily after showering or bathing for soft, deeply nourished, and velvety skin.'
+  },
+  {
     id: 'gid://shopify/Product/1',
     handle: 'luminous-barrier-serum',
     title: 'LUMINOUS BARRIER SERUM',
