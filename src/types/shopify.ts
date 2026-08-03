@@ -77,6 +77,9 @@ export interface Product {
   rating?: number;
   reviewCount?: number;
   badges?: ProductBadge[];
+  keyBenefits?: string[];
+  ingredientsList?: string[];
+  usageInstructions?: string;
 }
 
 export interface Collection {

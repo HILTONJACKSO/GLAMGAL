@@ -2,6 +2,101 @@ import { Product, Collection, Cart, BeautyIngredient, BeautyRoutine, JournalArti
 
 export const MOCK_PRODUCTS: Product[] = [
   {
+    id: 'gid://shopify/Product/10',
+    handle: 'brow-fixx-gel-tint-shaper',
+    title: 'BROW FIXX GEL TINT & SHAPER',
+    subtitle: 'Micro-Fiber Eyebrow Sculpting Gel & Density Filler',
+    description: 'Achieve effortlessly laminated, fuller brows in seconds. Engineered with a revolutionary precision micro-ball spoolie applicator and weightless botanical fibers, BROW FIXX tames unruly hair, bulks up sparse brows, and locks in natural density with waterproof 16-hour flexible hold.',
+    descriptionHtml: '<p>Achieve effortlessly laminated, fuller brows in seconds with BROW FIXX.</p><p>Engineered with a precision micro-ball spoolie applicator and weightless botanical fibers, this tinted gel tames unruly hairs, builds natural volume, and imparts long-wear waterproof hold without flaking or stiffness.</p>',
+    category: 'Makeup',
+    productType: 'Eyebrow Sculptor',
+    vendor: 'GLAMGAL',
+    availableForSale: true,
+    tags: ['New', 'Best Seller', 'Makeup', 'Brows', 'Sculpting'],
+    priceRange: {
+      minVariantPrice: { amount: '34.00', currencyCode: 'USD' },
+      maxVariantPrice: { amount: '34.00', currencyCode: 'USD' }
+    },
+    compareAtPriceRange: {
+      minVariantPrice: { amount: '42.00', currencyCode: 'USD' },
+      maxVariantPrice: { amount: '42.00', currencyCode: 'USD' }
+    },
+    featuredImage: {
+      id: 'img-bf-1',
+      url: '/brow_fixx_mockup.png',
+      altText: 'BROW FIXX Gel Tint & Shaper Bottle'
+    },
+    secondaryImage: {
+      id: 'img-bf-2',
+      url: '/brow_fixx_mockup.png',
+      altText: 'BROW FIXX Ball Brush Applicator'
+    },
+    images: [
+      { id: 'img-bf-1', url: '/brow_fixx_mockup.png', altText: 'BROW FIXX Gel Tint & Shaper' },
+      { id: 'img-bf-2', url: 'https://images.unsplash.com/photo-1590156206657-b089c256037e?auto=format&fit=crop&w=1000&q=80', altText: 'Brow Application Model' }
+    ],
+    options: [
+      { name: 'Shade', values: ['Clear Sculpt', 'Soft Brown', 'Deep Brown', 'Velvet Black'] }
+    ],
+    variants: [
+      {
+        id: 'gid://shopify/ProductVariant/1001',
+        title: 'Clear Sculpt',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Shade', value: 'Clear Sculpt' }],
+        price: { amount: '34.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '42.00', currencyCode: 'USD' },
+        sku: 'GG-BF-CLR'
+      },
+      {
+        id: 'gid://shopify/ProductVariant/1002',
+        title: 'Soft Brown',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Shade', value: 'Soft Brown' }],
+        price: { amount: '34.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '42.00', currencyCode: 'USD' },
+        sku: 'GG-BF-BRN'
+      },
+      {
+        id: 'gid://shopify/ProductVariant/1003',
+        title: 'Deep Brown',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Shade', value: 'Deep Brown' }],
+        price: { amount: '34.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '42.00', currencyCode: 'USD' },
+        sku: 'GG-BF-DBRN'
+      },
+      {
+        id: 'gid://shopify/ProductVariant/1004',
+        title: 'Velvet Black',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Shade', value: 'Velvet Black' }],
+        price: { amount: '34.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '42.00', currencyCode: 'USD' },
+        sku: 'GG-BF-BLK'
+      }
+    ],
+    rating: 4.95,
+    reviewCount: 128,
+    badges: [
+      { text: 'NEW ARRIVAL', type: 'new' },
+      { text: 'BEST SELLER', type: 'best-seller' }
+    ],
+    keyBenefits: [
+      'Tames & fills in brows with micro-fiber density technology',
+      'Precision micro-ball brush applicator targets fine hair with zero clumping',
+      '16-hour flexible hold — smudge-proof & humidity resistant',
+      'Wear alone or layer over brow shadow & pencil'
+    ],
+    ingredientsList: [
+      'Botanical Micro-Fibers',
+      'Pro-Vitamin B5 (Panthenol)',
+      'Bamboo Extract Density Booster',
+      'Organic Castor Oil'
+    ],
+    usageInstructions: 'Using the precision micro-ball brush applicator, sweep upward and outward through brows to tame, lift, and bulk up volume. Allow 30 seconds to set.'
+  },
+  {
     id: 'gid://shopify/Product/1',
     handle: 'luminous-barrier-serum',
     title: 'LUMINOUS BARRIER SERUM',
