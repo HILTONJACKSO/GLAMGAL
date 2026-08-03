@@ -960,6 +960,77 @@ export const MOCK_PRODUCTS: Product[] = [
     usageInstructions: 'Define lip outline with the precision applicator tip, then fill in lips with a single coat of velvet liquid cream. Allow 60 seconds to dry down into a touch-proof matte finish.'
   },
   {
+    id: 'gid://shopify/Product/21',
+    handle: 'balance-rosewater-facial-wash',
+    title: 'BALANCE ROSEWATER FACIAL WASH',
+    subtitle: '120ml / 4.0 fl. oz. • Rosewater, Niacinamide, PHA & AHA Cleansing Gel (Vegan)',
+    description: 'Purify and illuminate your skin with BALANCE ROSEWATER FACIAL WASH. This decadent, multi-tasking gel cleanser effortlessly melts away stubborn makeup, pollution, and daily impurities while protecting your delicate skin barrier. Infused with antioxidant-rich Damask Rosewater, 5% Niacinamide (B3), gentle PHA moisture-binders, and micro-AHA to leave skin calm, brightened, and refreshed.',
+    descriptionHtml: '<p>Purify and illuminate your skin with BALANCE ROSEWATER FACIAL WASH.</p><p>This decadent, multi-tasking gel cleanser effortlessly melts away stubborn makeup, pollution, and daily impurities while protecting your delicate skin barrier. Infused with antioxidant-rich Damask Rosewater, 5% Niacinamide (B3), gentle PHA moisture-binders, and micro-AHA to leave skin calm, brightened, and refreshed.</p>',
+    category: 'Skincare',
+    productType: 'Facial Cleanser',
+    vendor: 'GLAMGAL',
+    availableForSale: true,
+    tags: ['New', 'Best Seller', 'Skincare', 'Cleanser', 'Rosewater', 'Niacinamide', 'Vegan'],
+    priceRange: {
+      minVariantPrice: { amount: '40.00', currencyCode: 'USD' },
+      maxVariantPrice: { amount: '40.00', currencyCode: 'USD' }
+    },
+    compareAtPriceRange: {
+      minVariantPrice: { amount: '50.00', currencyCode: 'USD' },
+      maxVariantPrice: { amount: '50.00', currencyCode: 'USD' }
+    },
+    featuredImage: {
+      id: 'img-brw-1',
+      url: '/balance_rosewater_facial_wash_mockup.png',
+      altText: 'BALANCE ROSEWATER FACIAL WASH Bottle & Box'
+    },
+    secondaryImage: {
+      id: 'img-brw-2',
+      url: '/balance_rosewater_facial_wash_mockup.png',
+      altText: 'BALANCE ROSEWATER Cleanser Texture'
+    },
+    images: [
+      { id: 'img-brw-1', url: '/balance_rosewater_facial_wash_mockup.png', altText: 'BALANCE ROSEWATER FACIAL WASH Bottle & Box' },
+      { id: 'img-brw-2', url: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1000&q=80', altText: 'Model Face Cleansing' }
+    ],
+    options: [
+      { name: 'Volume', values: ['120ml / 4.0 fl. oz.'] }
+    ],
+    variants: [
+      {
+        id: 'gid://shopify/ProductVariant/2101',
+        title: '120ml / 4.0 fl. oz.',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Volume', value: '120ml / 4.0 fl. oz.' }],
+        price: { amount: '40.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '50.00', currencyCode: 'USD' },
+        sku: 'GG-BRW-120'
+      }
+    ],
+    rating: 4.97,
+    reviewCount: 189,
+    badges: [
+      { text: 'NEW ARRIVAL', type: 'new' },
+      { text: 'BEST SELLER', type: 'best-seller' },
+      { text: 'VEGAN', type: 'vegan' }
+    ],
+    keyBenefits: [
+      'Multi-tasking gel formula melts away makeup & impurities without stripping moisture',
+      'Damask Rosewater & Niacinamide (B3) calm redness and maintain skin brightness',
+      'Gentle PHA & micro-AHA smooth texture and refine pores — perfect for sensitive skin',
+      '100% Vegan & Cruelty-Free sulfate-free daily facial wash'
+    ],
+    ingredientsList: [
+      'Pure Damask Rosewater Distillate',
+      '5% Niacinamide (Vitamin B3)',
+      'Gluconolactone (PHA)',
+      'Micro AHA (Lactic Acid)',
+      'Aloe Vera Juice',
+      'Chamomile Extract'
+    ],
+    usageInstructions: 'Massage 1 to 2 pumps onto damp face and neck in gentle circular motions. Rinse well with warm water. Use day and night.'
+  },
+  {
     id: 'gid://shopify/Product/1',
     handle: 'luminous-barrier-serum',
     title: 'LUMINOUS BARRIER SERUM',
