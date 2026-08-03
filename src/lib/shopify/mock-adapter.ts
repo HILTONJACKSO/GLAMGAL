@@ -381,6 +381,76 @@ export const MOCK_PRODUCTS: Product[] = [
     usageInstructions: 'Using the included dual-ended applicator, sweep the lightest base shade across the lid, define the crease with medium tones, and accentuate the outer corner with deep sculpted shades.'
   },
   {
+    id: 'gid://shopify/Product/14',
+    handle: 'calming-rosewater-facial-toner',
+    title: 'CALMING ROSEWATER FACIAL TONER',
+    subtitle: '115ml / 3.9 fl. oz. • Rosewater, Niacinamide & AHA Soothing Elixir (Vegan)',
+    description: 'A softening, nutrient-dense facial toner that instantly calms, hydrates, and balances skin pH. Rosewater is a gentle fragrant distillation of pure rose petals—an antioxidant powerhouse known for its anti-inflammatory properties. Infused with Niacinamide, cooling Cucumber, Green Tea, and gentle micro-AHA, skin is left feeling instantly fresh, calm, and perfectly balanced.',
+    descriptionHtml: '<p>A softening, nutrient-dense facial toner that instantly calms, hydrates, and balances skin pH.</p><p>Rosewater is a gentle fragrant distillation of pure rose petals—an antioxidant powerhouse known for its anti-inflammatory properties. Infused with Niacinamide, cooling Cucumber, Green Tea, and gentle micro-AHA, skin is left feeling instantly fresh, calm, and perfectly balanced.</p>',
+    category: 'Skincare',
+    productType: 'Facial Toner',
+    vendor: 'GLAMGAL',
+    availableForSale: true,
+    tags: ['New', 'Best Seller', 'Skincare', 'Toner', 'Rosewater', 'Vegan', 'Hydration'],
+    priceRange: {
+      minVariantPrice: { amount: '42.00', currencyCode: 'USD' },
+      maxVariantPrice: { amount: '42.00', currencyCode: 'USD' }
+    },
+    compareAtPriceRange: {
+      minVariantPrice: { amount: '52.00', currencyCode: 'USD' },
+      maxVariantPrice: { amount: '52.00', currencyCode: 'USD' }
+    },
+    featuredImage: {
+      id: 'img-crt-1',
+      url: '/calming_rosewater_toner_mockup.png',
+      altText: 'CALMING ROSEWATER FACIAL TONER Bottle & Box'
+    },
+    secondaryImage: {
+      id: 'img-crt-2',
+      url: '/calming_rosewater_toner_mockup.png',
+      altText: 'CALMING ROSEWATER FACIAL TONER Splash'
+    },
+    images: [
+      { id: 'img-crt-1', url: '/calming_rosewater_toner_mockup.png', altText: 'CALMING ROSEWATER TONER Bottle & Box' },
+      { id: 'img-crt-2', url: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1000&q=80', altText: 'Model Application Skin Care' }
+    ],
+    options: [
+      { name: 'Volume', values: ['115ml / 3.9 fl. oz.'] }
+    ],
+    variants: [
+      {
+        id: 'gid://shopify/ProductVariant/1401',
+        title: '115ml / 3.9 fl. oz.',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Volume', value: '115ml / 3.9 fl. oz.' }],
+        price: { amount: '42.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '52.00', currencyCode: 'USD' },
+        sku: 'GG-CRT-115'
+      }
+    ],
+    rating: 4.99,
+    reviewCount: 210,
+    badges: [
+      { text: 'NEW ARRIVAL', type: 'new' },
+      { text: 'BEST SELLER', type: 'best-seller' },
+      { text: 'VEGAN', type: 'vegan' }
+    ],
+    keyBenefits: [
+      'Pure Damask Rosewater distillation soothes inflammation & calms redness',
+      'Niacinamide & Cucumber extract refine pores and balance skin barrier moisture',
+      'Green Tea antioxidants shield against environmental oxidative stress',
+      'Gentle AHA micro-exfoliants leave skin feeling refreshed & supple'
+    ],
+    ingredientsList: [
+      'Pure Rosewater Distillate',
+      'Niacinamide (Vitamin B3)',
+      'Cucumber Fruit Extract',
+      'Green Tea Leaf Extract',
+      'Micro AHA (Lactic Acid)'
+    ],
+    usageInstructions: 'After cleansing, apply to face and neck using a cotton pad or pat directly into skin with clean fingertips. Use day and night before applying serums.'
+  },
+  {
     id: 'gid://shopify/Product/1',
     handle: 'luminous-barrier-serum',
     title: 'LUMINOUS BARRIER SERUM',
