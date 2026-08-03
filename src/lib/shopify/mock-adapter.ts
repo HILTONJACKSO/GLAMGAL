@@ -664,6 +664,101 @@ export const MOCK_PRODUCTS: Product[] = [
     usageInstructions: 'Apply to the body daily after showering or bathing for soft, deeply nourished, and velvety skin.'
   },
   {
+    id: 'gid://shopify/Product/18',
+    handle: 'beauty-stix-foundation-stick',
+    title: 'BEAUTY STIX CREAM FOUNDATION & CONTOUR STICK',
+    subtitle: 'Multi-Tasking Medium-to-Full Coverage Foundation & Sculpting Stick',
+    description: 'Achieve seamless skin perfection on the go with BEAUTY STIX. This creamy, weightless multi-tasking foundation stick glides effortlessly to conceal imperfections, even skin tone, highlight, and contour. Formulated with hydrating botanical squalane and silk pigments, it provides customizable medium-to-full coverage with a natural satin skin-like finish that lasts all day without dryness.',
+    descriptionHtml: '<p>Achieve seamless skin perfection on the go with BEAUTY STIX.</p><p>This creamy, weightless multi-tasking foundation stick glides effortlessly to conceal imperfections, even skin tone, highlight, and contour. Formulated with hydrating botanical squalane and silk pigments, it provides customizable medium-to-full coverage with a natural satin skin-like finish that lasts all day without dryness.</p>',
+    category: 'Makeup',
+    productType: 'Foundation Stick',
+    vendor: 'GLAMGAL',
+    availableForSale: true,
+    tags: ['New', 'Best Seller', 'Makeup', 'Foundation', 'Contour', 'Coverage'],
+    priceRange: {
+      minVariantPrice: { amount: '38.00', currencyCode: 'USD' },
+      maxVariantPrice: { amount: '38.00', currencyCode: 'USD' }
+    },
+    compareAtPriceRange: {
+      minVariantPrice: { amount: '48.00', currencyCode: 'USD' },
+      maxVariantPrice: { amount: '48.00', currencyCode: 'USD' }
+    },
+    featuredImage: {
+      id: 'img-bsf-1',
+      url: '/beauty_stix_foundation_stick_mockup.png',
+      altText: 'BEAUTY STIX Foundation & Contour Stick'
+    },
+    secondaryImage: {
+      id: 'img-bsf-2',
+      url: '/beauty_stix_foundation_stick_mockup.png',
+      altText: 'BEAUTY STIX Cream Bullet'
+    },
+    images: [
+      { id: 'img-bsf-1', url: '/beauty_stix_foundation_stick_mockup.png', altText: 'BEAUTY STIX Foundation Stick' },
+      { id: 'img-bsf-2', url: 'https://images.unsplash.com/photo-1590156206657-b089c256037e?auto=format&fit=crop&w=1000&q=80', altText: 'Model Face Foundation Makeup' }
+    ],
+    options: [
+      { name: 'Shade', values: ['Fair Ivory', 'Nude Beige', 'Warm Honey', 'Deep Mocha'] }
+    ],
+    variants: [
+      {
+        id: 'gid://shopify/ProductVariant/1801',
+        title: 'Fair Ivory',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Shade', value: 'Fair Ivory' }],
+        price: { amount: '38.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '48.00', currencyCode: 'USD' },
+        sku: 'GG-BSF-FIV'
+      },
+      {
+        id: 'gid://shopify/ProductVariant/1802',
+        title: 'Nude Beige',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Shade', value: 'Nude Beige' }],
+        price: { amount: '38.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '48.00', currencyCode: 'USD' },
+        sku: 'GG-BSF-NBG'
+      },
+      {
+        id: 'gid://shopify/ProductVariant/1803',
+        title: 'Warm Honey',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Shade', value: 'Warm Honey' }],
+        price: { amount: '38.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '48.00', currencyCode: 'USD' },
+        sku: 'GG-BSF-WHO'
+      },
+      {
+        id: 'gid://shopify/ProductVariant/1804',
+        title: 'Deep Mocha',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Shade', value: 'Deep Mocha' }],
+        price: { amount: '38.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '48.00', currencyCode: 'USD' },
+        sku: 'GG-BSF-DMC'
+      }
+    ],
+    rating: 4.97,
+    reviewCount: 192,
+    badges: [
+      { text: 'NEW ARRIVAL', type: 'new' },
+      { text: 'BEST SELLER', type: 'best-seller' }
+    ],
+    keyBenefits: [
+      'Multi-tasking cream stick conceals, foundations, contours & highlights in one',
+      'Medium-to-full buildable coverage with a natural satin skin-like finish',
+      'Creamy weightless texture glides effortlessly with zero cakeyness or settling',
+      'Hydrating Botanical Squalane & Vitamin E prevent skin dryness'
+    ],
+    ingredientsList: [
+      'Botanical Olive Squalane',
+      'Silk Elastomer Powder Matrix',
+      'Vitamin E (Tocopherol)',
+      'Jojoba Seed Esters'
+    ],
+    usageInstructions: 'Twist up stick and swipe directly onto forehead, cheeks, nose, and chin. Blend outward with a sponge, brush, or fingertips for seamless skin perfection.'
+  },
+  {
     id: 'gid://shopify/Product/1',
     handle: 'luminous-barrier-serum',
     title: 'LUMINOUS BARRIER SERUM',
