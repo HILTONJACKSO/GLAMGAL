@@ -191,6 +191,101 @@ export const MOCK_PRODUCTS: Product[] = [
     usageInstructions: 'Dip the precision felt wand into the powder pot. Lightly feather through sparse brow areas in short upward strokes. Layer for deeper ombre intensity.'
   },
   {
+    id: 'gid://shopify/Product/12',
+    handle: 'ultimate-brow-eye-cream-liner',
+    title: 'ULTIMATE BROW & EYE CREAM LINER',
+    subtitle: '24-Hour Waterproof Cream Pomade & Built-In Angled Brush Wand',
+    description: 'Define brows and cat-eye flicks with the dual-purpose ULTIMATE BROW & EYE CREAM LINER. Featuring a 24-hour locked-in-place pomade formula and an integrated precision angled brush wand hidden inside the handle cap, this waterproof cream liner glides on like velvet and sets instantly with zero transfer.',
+    descriptionHtml: '<p>Define brows and cat-eye flicks with the dual-purpose ULTIMATE BROW & EYE CREAM LINER.</p><p>Featuring a 24-hour locked-in-place pomade formula and an integrated precision angled brush wand hidden inside the handle cap, this waterproof cream liner glides on like velvet and sets instantly with zero transfer.</p>',
+    category: 'Makeup',
+    productType: 'Cream Pomade Liner',
+    vendor: 'GLAMGAL',
+    availableForSale: true,
+    tags: ['New', 'Best Seller', 'Makeup', 'Brows', 'Eyeliner', 'Pomade', 'Waterproof'],
+    priceRange: {
+      minVariantPrice: { amount: '36.00', currencyCode: 'USD' },
+      maxVariantPrice: { amount: '36.00', currencyCode: 'USD' }
+    },
+    compareAtPriceRange: {
+      minVariantPrice: { amount: '45.00', currencyCode: 'USD' },
+      maxVariantPrice: { amount: '45.00', currencyCode: 'USD' }
+    },
+    featuredImage: {
+      id: 'img-ube-1',
+      url: '/ultimate_brow_eye_cream_liner_mockup.png',
+      altText: 'ULTIMATE BROW & EYE CREAM LINER Pots & Wands'
+    },
+    secondaryImage: {
+      id: 'img-ube-2',
+      url: '/ultimate_brow_eye_cream_liner_mockup.png',
+      altText: 'ULTIMATE BROW & EYE CREAM LINER Angled Brush'
+    },
+    images: [
+      { id: 'img-ube-1', url: '/ultimate_brow_eye_cream_liner_mockup.png', altText: 'ULTIMATE BROW & EYE CREAM LINER Lineup' },
+      { id: 'img-ube-2', url: 'https://images.unsplash.com/photo-1590156206657-b089c256037e?auto=format&fit=crop&w=1000&q=80', altText: 'Model Eye & Brow Makeup' }
+    ],
+    options: [
+      { name: 'Shade', values: ['Soft Blonde', 'Warm Chestnut', 'Dark Espresso', 'Velvet Black'] }
+    ],
+    variants: [
+      {
+        id: 'gid://shopify/ProductVariant/1201',
+        title: 'Soft Blonde',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Shade', value: 'Soft Blonde' }],
+        price: { amount: '36.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '45.00', currencyCode: 'USD' },
+        sku: 'GG-UBE-BLN'
+      },
+      {
+        id: 'gid://shopify/ProductVariant/1202',
+        title: 'Warm Chestnut',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Shade', value: 'Warm Chestnut' }],
+        price: { amount: '36.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '45.00', currencyCode: 'USD' },
+        sku: 'GG-UBE-CHN'
+      },
+      {
+        id: 'gid://shopify/ProductVariant/1203',
+        title: 'Dark Espresso',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Shade', value: 'Dark Espresso' }],
+        price: { amount: '36.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '45.00', currencyCode: 'USD' },
+        sku: 'GG-UBE-ESP'
+      },
+      {
+        id: 'gid://shopify/ProductVariant/1204',
+        title: 'Velvet Black',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Shade', value: 'Velvet Black' }],
+        price: { amount: '36.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '45.00', currencyCode: 'USD' },
+        sku: 'GG-UBE-BLK'
+      }
+    ],
+    rating: 4.98,
+    reviewCount: 156,
+    badges: [
+      { text: 'NEW ARRIVAL', type: 'new' },
+      { text: 'BEST SELLER', type: 'best-seller' }
+    ],
+    keyBenefits: [
+      '24-hour longwear waterproof pomade lines brows and eyes with a locked-in-place look',
+      'Built-in angled brush applicator concealed inside the handle for effortless precision',
+      'Dual-purpose formula acts as rich winged gel eyeliner & sculpted brow pomade',
+      'Zero transfer, smudge-free, and sweat-resistant formula'
+    ],
+    ingredientsList: [
+      'Isododecane Longwear Complex',
+      'Velvet Pigment Matrix',
+      'Carnauba Wax Sealant',
+      'Vitamin E Shield'
+    ],
+    usageInstructions: 'Unscrew the top cap to pull out the built-in angled brush applicator. Dip into the cream pomade pot, outline brows or lash line, and fill in with light feathered strokes.'
+  },
+  {
     id: 'gid://shopify/Product/1',
     handle: 'luminous-barrier-serum',
     title: 'LUMINOUS BARRIER SERUM',
