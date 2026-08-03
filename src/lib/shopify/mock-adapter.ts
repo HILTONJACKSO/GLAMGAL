@@ -521,6 +521,78 @@ export const MOCK_PRODUCTS: Product[] = [
     usageInstructions: 'Lightly massage onto damp cleansed skin in gentle circular motions. Rinse thoroughly with warm water and gently pat dry. For best results, use 1 – 2 times per week.'
   },
   {
+    id: 'gid://shopify/Product/16',
+    handle: 'polished-smoothing-body-scrub',
+    title: 'POLISHED SMOOTHING BODY SCRUB',
+    subtitle: '150ml / 5.1 fl. oz. • Organic Sugar, Coffee Leaf, Shea Butter & Lavender Nectar (Vegan)',
+    description: 'Transform dry, dull skin into silky velvet softness with POLISHED SMOOTHING BODY SCRUB. Formulated with natural fine sugar crystals and energizing Coffee Leaf extracts to gently buff away roughness, while rich Shea Butter, Organic Aloe, Vitamin E, and French Lavender essential oil deeply nourish and veil your body in subtle botanical nectar.',
+    descriptionHtml: '<p>Transform dry, dull skin into silky velvet softness with POLISHED SMOOTHING BODY SCRUB.</p><p>Formulated with natural fine sugar crystals and energizing Coffee Leaf extracts to gently buff away roughness, while rich Shea Butter, Organic Aloe, Vitamin E, and French Lavender essential oil deeply nourish and veil your body in subtle botanical nectar.</p>',
+    category: 'Body Care',
+    productType: 'Body Scrub',
+    vendor: 'GLAMGAL',
+    availableForSale: true,
+    tags: ['New', 'Best Seller', 'Body Care', 'Scrub', 'Shea Butter', 'Lavender', 'Vegan'],
+    priceRange: {
+      minVariantPrice: { amount: '46.00', currencyCode: 'USD' },
+      maxVariantPrice: { amount: '46.00', currencyCode: 'USD' }
+    },
+    compareAtPriceRange: {
+      minVariantPrice: { amount: '58.00', currencyCode: 'USD' },
+      maxVariantPrice: { amount: '58.00', currencyCode: 'USD' }
+    },
+    featuredImage: {
+      id: 'img-psb-1',
+      url: '/polished_smoothing_body_scrub_mockup.png',
+      altText: 'POLISHED SMOOTHING BODY SCRUB Tube & Box'
+    },
+    secondaryImage: {
+      id: 'img-psb-2',
+      url: '/polished_smoothing_body_scrub_mockup.png',
+      altText: 'POLISHED SMOOTHING BODY SCRUB Product'
+    },
+    images: [
+      { id: 'img-psb-1', url: '/polished_smoothing_body_scrub_mockup.png', altText: 'POLISHED SMOOTHING BODY SCRUB Tube & Box' },
+      { id: 'img-psb-2', url: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1000&q=80', altText: 'Body Care Spa Model' }
+    ],
+    options: [
+      { name: 'Volume', values: ['150ml / 5.1 fl. oz.'] }
+    ],
+    variants: [
+      {
+        id: 'gid://shopify/ProductVariant/1601',
+        title: '150ml / 5.1 fl. oz.',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Volume', value: '150ml / 5.1 fl. oz.' }],
+        price: { amount: '46.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '58.00', currencyCode: 'USD' },
+        sku: 'GG-PSB-150'
+      }
+    ],
+    rating: 4.98,
+    reviewCount: 178,
+    badges: [
+      { text: 'NEW ARRIVAL', type: 'new' },
+      { text: 'BEST SELLER', type: 'best-seller' },
+      { text: 'VEGAN', type: 'vegan' }
+    ],
+    keyBenefits: [
+      'Natural Fine Sugar & Coffee Leaf gently exfoliate for visibly soft, renewed skin',
+      'Nourishing Shea Butter & Vitamin E provide deep hydration & moisture lock',
+      'French Lavender Oil & Botanical Fruit extracts leave an intoxicating subtle scent',
+      '100% Vegan & Cruelty-Free creamy body polish for all skin types'
+    ],
+    ingredientsList: [
+      'Fine Natural Sugar Crystals',
+      'Coffee Leaf Extract',
+      'Rich Shea Butter',
+      'French Lavender Essential Oil',
+      'Vitamin E (Tocopherol)',
+      'Organic Aloe Vera Gel',
+      'Green Tea Extract'
+    ],
+    usageInstructions: 'Apply in the shower, massage a generous amount of scrub onto damp body skin in circular motions, and rinse thoroughly. Follow with GLAMGAL decadent body cream.'
+  },
+  {
     id: 'gid://shopify/Product/1',
     handle: 'luminous-barrier-serum',
     title: 'LUMINOUS BARRIER SERUM',
