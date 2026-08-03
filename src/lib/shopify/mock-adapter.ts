@@ -451,6 +451,76 @@ export const MOCK_PRODUCTS: Product[] = [
     usageInstructions: 'After cleansing, apply to face and neck using a cotton pad or pat directly into skin with clean fingertips. Use day and night before applying serums.'
   },
   {
+    id: 'gid://shopify/Product/15',
+    handle: 'purify-charcoal-face-polish',
+    title: 'PURIFY CHARCOAL FACE POLISH',
+    subtitle: '150ml / 5.1 fl. oz. • Activated Charcoal, Apricot Seed & Aloe Detox Scrub',
+    description: 'Detoxify pores and uncover velvety smooth radiance with PURIFY CHARCOAL FACE POLISH. Formulated with micro-activated charcoal, natural apricot seed, and walnut shell micro-exfoliants, this luxurious scrub draws out impurities without stripping natural moisture oils. Infused with soothing Aloe, Vitamin E, and Cucumber to leave your complexion clarified, brightened, and primed for flawless serum absorption.',
+    descriptionHtml: '<p>Detoxify pores and uncover velvety smooth radiance with PURIFY CHARCOAL FACE POLISH.</p><p>Formulated with micro-activated charcoal, natural apricot seed, and walnut shell micro-exfoliants, this luxurious scrub draws out impurities without stripping natural moisture oils. Infused with soothing Aloe, Vitamin E, and Cucumber to leave your complexion clarified, brightened, and primed for flawless serum absorption.</p>',
+    category: 'Skincare',
+    productType: 'Exfoliating Scrub',
+    vendor: 'GLAMGAL',
+    availableForSale: true,
+    tags: ['New', 'Best Seller', 'Skincare', 'Exfoliator', 'Charcoal', 'Detox', 'Scrub'],
+    priceRange: {
+      minVariantPrice: { amount: '44.00', currencyCode: 'USD' },
+      maxVariantPrice: { amount: '44.00', currencyCode: 'USD' }
+    },
+    compareAtPriceRange: {
+      minVariantPrice: { amount: '55.00', currencyCode: 'USD' },
+      maxVariantPrice: { amount: '55.00', currencyCode: 'USD' }
+    },
+    featuredImage: {
+      id: 'img-pcf-1',
+      url: '/purify_charcoal_face_polish_mockup.png',
+      altText: 'PURIFY CHARCOAL FACE POLISH Tube & Box'
+    },
+    secondaryImage: {
+      id: 'img-pcf-2',
+      url: '/purify_charcoal_face_polish_mockup.png',
+      altText: 'PURIFY CHARCOAL FACE POLISH Swatch'
+    },
+    images: [
+      { id: 'img-pcf-1', url: '/purify_charcoal_face_polish_mockup.png', altText: 'PURIFY CHARCOAL FACE POLISH Tube & Box' },
+      { id: 'img-pcf-2', url: 'https://images.unsplash.com/photo-1608248597263-00079996576f?auto=format&fit=crop&w=1000&q=80', altText: 'Skincare Exfoliation Model' }
+    ],
+    options: [
+      { name: 'Volume', values: ['150ml / 5.1 fl. oz.'] }
+    ],
+    variants: [
+      {
+        id: 'gid://shopify/ProductVariant/1501',
+        title: '150ml / 5.1 fl. oz.',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Volume', value: '150ml / 5.1 fl. oz.' }],
+        price: { amount: '44.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '55.00', currencyCode: 'USD' },
+        sku: 'GG-PCF-150'
+      }
+    ],
+    rating: 4.96,
+    reviewCount: 165,
+    badges: [
+      { text: 'NEW ARRIVAL', type: 'new' },
+      { text: 'BEST SELLER', type: 'best-seller' }
+    ],
+    keyBenefits: [
+      'Activated Charcoal draws out deep-seated pore impactions & excess sebum',
+      'Apricot Seed & Walnut Shell micro-grains buff away dead surface skin',
+      'Nourishing Vitamin E, Aloe, & Cucumber calm and hydrate post-polish',
+      'Primes skin texture for maximum serum absorption & seamless makeup glide'
+    ],
+    ingredientsList: [
+      'Micro-Activated Charcoal',
+      'Crushed Apricot Seed Grains',
+      'Fine Walnut Shell Powder',
+      'Vitamin E (Tocopherol)',
+      'Organic Aloe Vera Gel',
+      'Cooling Cucumber Extract'
+    ],
+    usageInstructions: 'Lightly massage onto damp cleansed skin in gentle circular motions. Rinse thoroughly with warm water and gently pat dry. For best results, use 1 – 2 times per week.'
+  },
+  {
     id: 'gid://shopify/Product/1',
     handle: 'luminous-barrier-serum',
     title: 'LUMINOUS BARRIER SERUM',
