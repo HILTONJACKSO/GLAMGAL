@@ -1791,7 +1791,7 @@ export const MOCK_ARTICLES: JournalArticle[] = [
     publishedAt: '2026-07-15',
     readTime: '4 min read',
     category: 'Skincare Education',
-    coverImage: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1000&q=80',
+    coverImage: '/calming_rosewater_toner_mockup.png',
     relatedProductHandles: ['luminous-barrier-serum', 'cellular-overnight-cream']
   },
   {
@@ -1808,7 +1808,7 @@ export const MOCK_ARTICLES: JournalArticle[] = [
     publishedAt: '2026-07-20',
     readTime: '3 min read',
     category: 'Makeup Tutorials',
-    coverImage: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=1000&q=80',
+    coverImage: '/liquid_velvet_lipstick_mockup.png',
     relatedProductHandles: ['velvet-matte-lipstick']
   }
 ];

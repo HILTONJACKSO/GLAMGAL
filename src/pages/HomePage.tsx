@@ -280,26 +280,32 @@ export const HomePage: React.FC = () => {
       </ScrollReveal>
 
       {/* 12. BEAUTY JOURNAL */}
-      <section className="bg-white py-20 border-t border-soft-stone">
-        <div className="max-w-7xl mx-auto px-6 space-y-10">
+      <section className="bg-[#FAF7F2] py-24 border-t border-[#E3D5C8]/80">
+        <div className="max-w-7xl mx-auto px-6 space-y-12">
           <ScrollReveal variant="fade-up">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-              <div>
-                <span className="font-display text-xs tracking-mega text-warm-taupe uppercase">EDITORIAL STORIES</span>
-                <h2 className="font-display text-2xl sm:text-3xl tracking-widest text-obsidian uppercase font-bold">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[#E3D5C8]/60">
+              <div className="space-y-2 max-w-2xl">
+                <span className="inline-block font-display text-[10px] sm:text-xs tracking-mega text-[#A68064] uppercase font-bold px-3 py-1 bg-[#B89275]/10 rounded-full border border-[#B89275]/20">
+                  EDITORIAL STORIES
+                </span>
+                <h2 className="font-display text-2xl sm:text-4xl tracking-widest text-obsidian uppercase font-black">
                   BEAUTY JOURNAL
                 </h2>
+                <p className="font-body text-xs sm:text-sm text-[#5C5046] font-light leading-relaxed">
+                  Pro editorial tutorials, formulation deep dives, and backstage beauty insights curated by our lab chemists and artists.
+                </p>
               </div>
               <Link
                 to="/journal"
-                className="font-display text-xs tracking-widest text-obsidian uppercase underline hover:text-warm-taupe transition-colors"
+                className="inline-flex items-center space-x-2 font-display text-xs font-bold tracking-widest text-obsidian uppercase px-6 py-3 bg-white border border-[#E3D5C8] rounded-full hover:bg-obsidian hover:text-white hover:border-obsidian transition-all shadow-xs"
               >
-                READ ALL JOURNAL ARTICLES →
+                <span>READ ALL JOURNAL ARTICLES</span>
+                <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 items-stretch">
             {articles.map((art, idx) => (
               <ScrollReveal key={art.id} variant="fade-up" delay={idx * 0.15}>
                 <JournalCard article={art} />
