@@ -184,9 +184,21 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const saved = localStorage.getItem('glamgal_cms_state');
       if (saved) {
         const parsed = JSON.parse(saved);
+        const rawProducts: Product[] = parsed.products && parsed.products.length > 0 ? parsed.products : MOCK_PRODUCTS;
+        // Sanitize broken Unsplash URLs from localStorage using latest MOCK_PRODUCTS definitions
+        const sanitizedProducts = rawProducts.map((p) => {
+          const fresh = MOCK_PRODUCTS.find((m) => m.id === p.id || m.handle === p.handle);
+          if (fresh) {
+            const hasBrokenImg = !p.featuredImage?.url || p.featuredImage.url.includes('images.unsplash.com');
+            if (hasBrokenImg) {
+              return { ...p, featuredImage: fresh.featuredImage, secondaryImage: fresh.secondaryImage || fresh.featuredImage, images: fresh.images };
+            }
+          }
+          return p;
+        });
         return {
           ...parsed,
-          products: parsed.products && parsed.products.length > 0 ? parsed.products : MOCK_PRODUCTS,
+          products: sanitizedProducts,
           articles: parsed.articles && parsed.articles.length > 0 ? parsed.articles : MOCK_ARTICLES,
           promos: parsed.promos && parsed.promos.length > 0 ? parsed.promos : DEFAULT_PROMOS,
           testimonials: parsed.testimonials && parsed.testimonials.length > 0 ? parsed.testimonials : DEFAULT_TESTIMONIALS,

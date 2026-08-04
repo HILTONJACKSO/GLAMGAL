@@ -1390,11 +1390,11 @@ export const MOCK_PRODUCTS: Product[] = [
     },
     featuredImage: {
       id: 'img-3-1',
-      url: 'https://images.unsplash.com/photo-1608248597263-00079996576f?auto=format&fit=crop&w=1000&q=80',
+      url: '/polished_smoothing_body_scrub_mockup.png',
       altText: 'Sculpting Glow Body Nectar'
     },
     images: [
-      { id: 'img-3-1', url: 'https://images.unsplash.com/photo-1608248597263-00079996576f?auto=format&fit=crop&w=1000&q=80', altText: 'Body Oil Bottle' }
+      { id: 'img-3-1', url: '/polished_smoothing_body_scrub_mockup.png', altText: 'Body Oil Bottle' }
     ],
     options: [{ name: 'Size', values: ['100ml / 3.4 fl. oz.'] }],
     variants: [
@@ -1441,11 +1441,11 @@ export const MOCK_PRODUCTS: Product[] = [
     },
     featuredImage: {
       id: 'img-4-1',
-      url: 'https://images.unsplash.com/photo-1590156206657-b089c256037e?auto=format&fit=crop&w=1000&q=80',
+      url: '/ultimate_brow_eye_cream_liner_mockup.png',
       altText: 'Obsidian Precision Contour Gua Sha Tool'
     },
     images: [
-      { id: 'img-4-1', url: 'https://images.unsplash.com/photo-1590156206657-b089c256037e?auto=format&fit=crop&w=1000&q=80', altText: 'Gua Sha Tool' }
+      { id: 'img-4-1', url: '/ultimate_brow_eye_cream_liner_mockup.png', altText: 'Gua Sha Tool' }
     ],
     options: [{ name: 'Material', values: ['Natural Obsidian'] }],
     variants: [

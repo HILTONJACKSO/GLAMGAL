@@ -45,6 +45,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           alt={product.featuredImage?.altText || product.title}
           className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-108"
           loading="lazy"
+          onError={(e) => {
+            const target = e.currentTarget as HTMLImageElement;
+            if (!target.src.includes('/hero_model.png')) {
+              target.src = '/hero_model.png';
+            }
+          }}
         />
 
         {/* Badges */}
