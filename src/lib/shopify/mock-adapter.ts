@@ -1120,6 +1120,94 @@ export const MOCK_PRODUCTS: Product[] = [
     usageInstructions: 'In the morning, apply Day Cream onto clean face and neck after serum. In the evening, smooth Night Cream generously over face and neck to allow deep overnight cellular renewal.'
   },
   {
+    id: 'gid://shopify/Product/23',
+    handle: 'soothe-hand-foot-cuticle-protector',
+    title: 'SOOTHE HAND / FOOT / CUTICLE PROTECTION',
+    subtitle: 'Intense Non-Greasy Moisture Barrier for Dry Skin, Cuticles & Callouses (Vegan)',
+    description: 'Relieve dry, cracked skin and restore touchable softness with SOOTHE HAND / FOOT / CUTICLE PROTECTION. Formulated with organic Aloe Leaf juice, cold-pressed Avocado Oil, and calming Chamomile Flower extract, this rich non-greasy balm absorbs quickly to soothe rough hands, nourish cracked cuticles, and soften stubborn foot callouses.',
+    descriptionHtml: '<p>Relieve dry, cracked skin and restore touchable softness with SOOTHE HAND / FOOT / CUTICLE PROTECTION.</p><p>Formulated with organic Aloe Leaf juice, cold-pressed Avocado Oil, and calming Chamomile Flower extract, this rich non-greasy balm absorbs quickly to soothe rough hands, nourish cracked cuticles, and soften stubborn foot callouses.</p>',
+    category: 'Body Care',
+    productType: 'Hand & Foot Balm',
+    vendor: 'GLAMGAL',
+    availableForSale: true,
+    tags: ['New', 'Best Seller', 'Body Care', 'Hand Care', 'Cuticle', 'Foot Care', 'Moisturizer', 'Vegan'],
+    priceRange: {
+      minVariantPrice: { amount: '36.00', currencyCode: 'USD' },
+      maxVariantPrice: { amount: '36.00', currencyCode: 'USD' }
+    },
+    compareAtPriceRange: {
+      minVariantPrice: { amount: '45.00', currencyCode: 'USD' },
+      maxVariantPrice: { amount: '45.00', currencyCode: 'USD' }
+    },
+    featuredImage: {
+      id: 'img-shf-1',
+      url: '/soothe_hand_foot_cuticle_protector_mockup.png',
+      altText: 'SOOTHE Hand & Foot Glass Jar & Tube'
+    },
+    secondaryImage: {
+      id: 'img-shf-2',
+      url: '/soothe_hand_foot_cuticle_protector_mockup.png',
+      altText: 'SOOTHE Cuticle Balm'
+    },
+    images: [
+      { id: 'img-shf-1', url: '/soothe_hand_foot_cuticle_protector_mockup.png', altText: 'SOOTHE Hand / Foot / Cuticle Protector' },
+      { id: 'img-shf-2', url: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1000&q=80', altText: 'Model Hand Care Spa' }
+    ],
+    options: [
+      { name: 'Packaging', values: ['Glass Cream Jar (100ml)', 'Squeeze Travel Tube (150ml)', 'Protector Bundle (Jar + Tube)'] }
+    ],
+    variants: [
+      {
+        id: 'gid://shopify/ProductVariant/2301',
+        title: 'Glass Cream Jar (100ml)',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Packaging', value: 'Glass Cream Jar (100ml)' }],
+        price: { amount: '36.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '45.00', currencyCode: 'USD' },
+        sku: 'GG-SHF-JAR'
+      },
+      {
+        id: 'gid://shopify/ProductVariant/2302',
+        title: 'Squeeze Travel Tube (150ml)',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Packaging', value: 'Squeeze Travel Tube (150ml)' }],
+        price: { amount: '38.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '48.00', currencyCode: 'USD' },
+        sku: 'GG-SHF-TUBE'
+      },
+      {
+        id: 'gid://shopify/ProductVariant/2303',
+        title: 'Protector Bundle (Jar + Tube)',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Packaging', value: 'Protector Bundle (Jar + Tube)' }],
+        price: { amount: '62.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '78.00', currencyCode: 'USD' },
+        sku: 'GG-SHF-BND'
+      }
+    ],
+    rating: 4.98,
+    reviewCount: 196,
+    badges: [
+      { text: 'NEW ARRIVAL', type: 'new' },
+      { text: 'BEST SELLER', type: 'best-seller' },
+      { text: 'VEGAN', type: 'vegan' }
+    ],
+    keyBenefits: [
+      'Intense non-greasy hydration specifically formulated for very dry hands, cuticles & feet',
+      'Aloe Leaf Juice & Avocado Oil deeply nourish cracked cuticles and soften hard callouses',
+      'Chamomile Flower Extract calms irritated, overworked skin barrier',
+      '100% Vegan & Cruelty-Free fast-absorbing luxury balm formula'
+    ],
+    ingredientsList: [
+      'Organic Aloe Barbadensis Leaf Juice',
+      'Cold-Pressed Avocado Oil',
+      'Chamomile Flower Extract',
+      'Shea Butter Glyceryl Esters',
+      'Vitamin E (Tocopherol)'
+    ],
+    usageInstructions: 'Massage generously into dry hands, cuticles, heels, and rough patches on feet daily. For intensive cuticle restoration, apply before bed.'
+  },
+  {
     id: 'gid://shopify/Product/1',
     handle: 'luminous-barrier-serum',
     title: 'LUMINOUS BARRIER SERUM',
