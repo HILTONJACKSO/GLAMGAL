@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useCMS } from '../context/CMSContext';
-import { Product, JournalArticle, PromoCode, TestimonialItem } from '../types/shopify';
+import { Product, JournalArticle, PromoCode, TestimonialItem, SocialPost } from '../types/shopify';
 import { SEO } from '../components/common/SEO';
 import {
   LayoutDashboard,
@@ -31,6 +31,9 @@ import {
   Star,
   MessageSquareQuote,
   CheckCircle,
+  Instagram,
+  Heart,
+  MessageCircle,
 } from 'lucide-react';
 
 export const AdminDashboardPage: React.FC = () => {
@@ -55,11 +58,15 @@ export const AdminDashboardPage: React.FC = () => {
     addTestimonial,
     updateTestimonial,
     deleteTestimonial,
+    addSocialPost,
+    updateSocialPost,
+    deleteSocialPost,
+    updateFooterSettings,
     resetToDefaults,
   } = useCMS();
   const navigate = useNavigate();
 
-  const [activeTab, setActiveTab] = useState<'reviews' | 'promos' | 'products' | 'journal' | 'hero' | 'homepage' | 'media' | 'pages' | 'shopify'>('reviews');
+  const [activeTab, setActiveTab] = useState<'reviews' | 'promos' | 'products' | 'journal' | 'hero' | 'homepage' | 'social' | 'media' | 'pages' | 'footer' | 'shopify'>('reviews');
   const [saveNotification, setSaveNotification] = useState('');
   const [newImageUrl, setNewImageUrl] = useState('');
   
@@ -492,6 +499,89 @@ export const AdminDashboardPage: React.FC = () => {
     triggerSaveNotification('Hero Campaign updated successfully!');
   };
 
+  const [showSocialModal, setShowSocialModal] = useState(false);
+  const [editingSocialPost, setEditingSocialPost] = useState<SocialPost | null>(null);
+  const [spTag, setSpTag] = useState('@glamgalbeauty');
+  const [spUsername, setSpUsername] = useState('glamgalbeauty');
+  const [spAvatar, setSpAvatar] = useState('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80');
+  const [spLocation, setSpLocation] = useState('SoHo, New York');
+  const [spLikes, setSpLikes] = useState(1450);
+  const [spCommentsCount, setSpCommentsCount] = useState(42);
+  const [spCaption, setSpCaption] = useState('');
+  const [spTimeAgo, setSpTimeAgo] = useState('2 HOURS AGO');
+  const [spUrl, setSpUrl] = useState('');
+  const [spProductName, setSpProductName] = useState('');
+  const [spProductPrice, setSpProductPrice] = useState('');
+  const [spProductImage, setSpProductImage] = useState('');
+  const [spProductLink, setSpProductLink] = useState('');
+
+  const resetSocialPostForm = () => {
+    setSpTag('@glamgalbeauty');
+    setSpUsername('glamgalbeauty');
+    setSpAvatar('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80');
+    setSpLocation('SoHo, New York');
+    setSpLikes(1450);
+    setSpCommentsCount(42);
+    setSpCaption('Glass-skin glow achieved ✨ Tag @glamgalbeauty to be featured!');
+    setSpTimeAgo('2 HOURS AGO');
+    setSpUrl('https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80');
+    setSpProductName('Rosewater Hydration Mist');
+    setSpProductPrice('$38.00');
+    setSpProductImage('/calming_rosewater_toner_mockup.png');
+    setSpProductLink('/products/rosewater-hydration-mist');
+  };
+
+  const handleStartEditSocialPost = (post: SocialPost) => {
+    setEditingSocialPost(post);
+    setSpTag(post.tag || '@glamgalbeauty');
+    setSpUsername(post.username || 'glamgalbeauty');
+    setSpAvatar(post.avatar || '');
+    setSpLocation(post.location || '');
+    setSpLikes(post.likes || 1000);
+    setSpCommentsCount(post.commentsCount || 20);
+    setSpCaption(post.caption || '');
+    setSpTimeAgo(post.timeAgo || '1 HOUR AGO');
+    setSpUrl(post.url || '');
+    setSpProductName(post.featuredProduct?.name || '');
+    setSpProductPrice(post.featuredProduct?.price || '');
+    setSpProductImage(post.featuredProduct?.image || '');
+    setSpProductLink(post.featuredProduct?.link || '');
+    setShowSocialModal(true);
+  };
+
+  const handleCreateOrUpdateSocialPost = (e: React.FormEvent) => {
+    e.preventDefault();
+    const postData: SocialPost = {
+      id: editingSocialPost ? editingSocialPost.id : `post-${Date.now()}`,
+      tag: spTag,
+      username: spUsername,
+      avatar: spAvatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+      location: spLocation,
+      likes: Number(spLikes) || 100,
+      commentsCount: Number(spCommentsCount) || 10,
+      caption: spCaption,
+      timeAgo: spTimeAgo,
+      url: spUrl || 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80',
+      isVerified: true,
+      featuredProduct: spProductName ? {
+        name: spProductName,
+        price: spProductPrice || '$35.00',
+        image: spProductImage || '/hero_model.png',
+        link: spProductLink || '/collections/skincare'
+      } : undefined
+    };
+
+    if (editingSocialPost) {
+      updateSocialPost(editingSocialPost.id, postData);
+      triggerSaveNotification(`Updated Instagram post "${postData.tag}"!`);
+    } else {
+      addSocialPost(postData);
+      triggerSaveNotification(`Published new Instagram post "${postData.tag}"!`);
+    }
+    setShowSocialModal(false);
+    setEditingSocialPost(null);
+  };
+
   const handleUploadImage = (e: React.FormEvent) => {
     e.preventDefault();
     if (newImageUrl.trim()) {
@@ -635,6 +725,16 @@ export const AdminDashboardPage: React.FC = () => {
           </button>
 
           <button
+            onClick={() => setActiveTab('social')}
+            className={`w-full text-left font-display text-xs tracking-wider uppercase px-4 py-3 rounded-xl flex items-center space-x-3 transition-colors ${
+              activeTab === 'social' ? 'bg-[#B89275] text-white font-bold' : 'text-warm-white hover:bg-deep-charcoal'
+            }`}
+          >
+            <Instagram className="w-4 h-4 text-pink-400" />
+            <span>INSTAGRAM COMMUNITY</span>
+          </button>
+
+          <button
             onClick={() => setActiveTab('media')}
             className={`w-full text-left font-display text-xs tracking-wider uppercase px-4 py-3 rounded-xl flex items-center space-x-3 transition-colors ${
               activeTab === 'media' ? 'bg-[#B89275] text-white font-bold' : 'text-warm-white hover:bg-deep-charcoal'
@@ -652,6 +752,16 @@ export const AdminDashboardPage: React.FC = () => {
           >
             <FileText className="w-4 h-4" />
             <span>PAGE CONTENT</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('footer')}
+            className={`w-full text-left font-display text-xs tracking-wider uppercase px-4 py-3 rounded-xl flex items-center space-x-3 transition-colors ${
+              activeTab === 'footer' ? 'bg-[#B89275] text-white font-bold' : 'text-warm-white hover:bg-deep-charcoal'
+            }`}
+          >
+            <Globe className="w-4 h-4 text-emerald-400" />
+            <span>FOOTER & NAVIGATION</span>
           </button>
 
           <button
@@ -1271,6 +1381,180 @@ export const AdminDashboardPage: React.FC = () => {
             </div>
           )}
 
+          {/* TAB: INSTAGRAM COMMUNITY MANAGER */}
+          {activeTab === 'social' && (
+            <div className="space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <h2 className="font-display text-xl tracking-widest text-warm-white uppercase font-bold flex items-center space-x-2">
+                    <Instagram className="w-5 h-5 text-pink-400" />
+                    <span>INSTAGRAM COMMUNITY & SOCIAL CARDS MANAGER</span>
+                  </h2>
+                  <p className="text-xs text-soft-stone font-body">
+                    Manage the "JOIN THE GLAMGAL BEAUTY COMMUNITY" section text, toggle storefront visibility, and edit or publish Instagram post cards.
+                  </p>
+                </div>
+
+                <button
+                  onClick={() => {
+                    setEditingSocialPost(null);
+                    resetSocialPostForm();
+                    setShowSocialModal(true);
+                  }}
+                  className="bg-gradient-to-r from-pink-600 to-amber-500 hover:opacity-90 text-white font-display text-xs tracking-wider uppercase px-5 py-3 rounded-xl flex items-center space-x-2 transition-all font-bold shadow-lg"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>ADD NEW INSTAGRAM POST</span>
+                </button>
+              </div>
+
+              {/* SECTION HEADINGS CONTROL */}
+              {state.homepageSections.socialGallery && (
+                <div className="bg-[#141414] rounded-2xl p-6 border border-deep-charcoal space-y-4">
+                  <div className="flex items-center justify-between pb-3 border-b border-deep-charcoal">
+                    <span className="font-display text-xs tracking-widest text-[#B89275] uppercase font-bold">
+                      MAIN SECTION SETTINGS & COPY
+                    </span>
+                    <button
+                      onClick={() => {
+                        toggleSection('socialGallery');
+                        triggerSaveNotification(`Toggled visibility for Social Gallery section`);
+                      }}
+                      className={`text-[10px] font-display tracking-widest px-3 py-1 rounded-full uppercase font-bold ${
+                        state.homepageSections.socialGallery.enabled
+                          ? 'bg-emerald-950 text-emerald-400 border border-emerald-800'
+                          : 'bg-red-950 text-red-400 border border-red-800'
+                      }`}
+                    >
+                      {state.homepageSections.socialGallery.enabled ? 'ENABLED ON HOMEPAGE' : 'DISABLED ON HOMEPAGE'}
+                    </button>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-1">
+                      <label className="text-[9px] font-display tracking-widest text-warm-taupe uppercase">SECTION TITLE</label>
+                      <input
+                        type="text"
+                        value={state.homepageSections.socialGallery.title}
+                        onChange={(e) => updateSection('socialGallery', { title: e.target.value })}
+                        className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none font-bold"
+                      />
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="text-[9px] font-display tracking-widest text-warm-taupe uppercase">INSTAGRAM BADGE SUBTITLE</label>
+                      <input
+                        type="text"
+                        value={state.homepageSections.socialGallery.subtitle || ''}
+                        onChange={(e) => updateSection('socialGallery', { subtitle: e.target.value })}
+                        className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none"
+                      />
+                    </div>
+
+                    <div className="space-y-1 md:col-span-2">
+                      <label className="text-[9px] font-display tracking-widest text-warm-taupe uppercase">SECTION DESCRIPTION / INSTRUCTIONS</label>
+                      <input
+                        type="text"
+                        value={state.homepageSections.socialGallery.description || ''}
+                        onChange={(e) => updateSection('socialGallery', { description: e.target.value })}
+                        className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none"
+                      />
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="text-[9px] font-display tracking-widest text-warm-taupe uppercase">CTA BUTTON TEXT</label>
+                      <input
+                        type="text"
+                        value={state.homepageSections.socialGallery.ctaText || ''}
+                        onChange={(e) => updateSection('socialGallery', { ctaText: e.target.value })}
+                        className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none"
+                      />
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="text-[9px] font-display tracking-widest text-warm-taupe uppercase">CTA LINK URL</label>
+                      <input
+                        type="text"
+                        value={state.homepageSections.socialGallery.ctaLink || ''}
+                        onChange={(e) => updateSection('socialGallery', { ctaLink: e.target.value })}
+                        className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none font-mono"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* INSTAGRAM POST CARDS LIST */}
+              <div className="space-y-3">
+                <h3 className="font-display text-xs tracking-wider text-warm-white uppercase font-bold">
+                  ACTIVE INSTAGRAM POST CARDS ({state.socialPosts.length})
+                </h3>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {state.socialPosts.map((post) => (
+                    <div
+                      key={post.id}
+                      className="bg-[#141414] rounded-2xl p-4 border border-deep-charcoal flex space-x-4 items-center justify-between group hover:border-pink-500/50 transition-all"
+                    >
+                      <div className="flex items-center space-x-4 overflow-hidden">
+                        <div className="w-16 h-16 rounded-xl overflow-hidden bg-deep-charcoal flex-shrink-0 relative">
+                          <img
+                            src={post.url}
+                            alt={post.tag}
+                            className="w-full h-full object-cover"
+                          />
+                          <span className="absolute bottom-1 left-1 bg-black/70 text-pink-400 px-1.5 py-0.5 rounded text-[8px] font-mono">
+                            {post.tag}
+                          </span>
+                        </div>
+
+                        <div className="space-y-1 overflow-hidden">
+                          <div className="flex items-center space-x-2">
+                            <span className="font-display text-xs font-bold text-warm-white">
+                              @{post.username}
+                            </span>
+                            <span className="text-[10px] text-warm-taupe">• {post.location}</span>
+                          </div>
+                          <p className="text-[11px] text-soft-stone line-clamp-1 font-body">
+                            {post.caption}
+                          </p>
+                          <div className="flex items-center space-x-3 text-[10px] text-warm-taupe font-mono">
+                            <span>❤️ {post.likes.toLocaleString()} likes</span>
+                            <span>💬 {post.commentsCount} comments</span>
+                            <span>⏱️ {post.timeAgo}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center space-x-2 flex-shrink-0">
+                        <button
+                          onClick={() => handleStartEditSocialPost(post)}
+                          className="bg-deep-charcoal hover:bg-[#B89275] text-warm-white p-2 rounded-lg transition-colors"
+                          title="Edit Post"
+                        >
+                          <Edit3 className="w-4 h-4" />
+                        </button>
+
+                        <button
+                          onClick={() => {
+                            if (confirm(`Are you sure you want to delete post "${post.tag}"?`)) {
+                              deleteSocialPost(post.id);
+                              triggerSaveNotification(`Deleted Instagram post "${post.tag}"`);
+                            }
+                          }}
+                          className="bg-red-950/80 hover:bg-red-900 text-red-200 p-2 rounded-lg transition-colors"
+                          title="Delete Post"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* TAB 7: MEDIA LIBRARY */}
           {activeTab === 'media' && (
             <div className="space-y-6">
@@ -1410,6 +1694,160 @@ export const AdminDashboardPage: React.FC = () => {
                   </div>
                 ))}
               </div>
+            </div>
+          )}
+
+          {/* TAB: FOOTER & NAVIGATION MANAGER */}
+          {activeTab === 'footer' && (
+            <div className="space-y-6">
+              <div>
+                <h2 className="font-display text-xl tracking-widest text-warm-white uppercase font-bold">
+                  FOOTER & NAVIGATION SETTINGS
+                </h2>
+                <p className="text-xs text-soft-stone font-body">
+                  Manage brand intro description, social media channels, newsletter visibility, payment badges, and copyright notice.
+                </p>
+              </div>
+
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  triggerSaveNotification('Footer settings saved successfully!');
+                }}
+                className="space-y-6"
+              >
+                <div className="bg-[#141414] rounded-2xl p-6 border border-deep-charcoal space-y-4">
+                  <h3 className="font-display text-xs tracking-wider text-[#B89275] uppercase font-bold border-b border-deep-charcoal pb-2">
+                    BRAND BIO & SOCIAL LINKS
+                  </h3>
+
+                  <div className="space-y-2">
+                    <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                      BRAND DESCRIPTION PARAGRAPH
+                    </label>
+                    <textarea
+                      rows={3}
+                      value={state.footerSettings.brandDescription}
+                      onChange={(e) => updateFooterSettings({ brandDescription: e.target.value })}
+                      className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none font-body leading-relaxed"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                    <div className="space-y-1">
+                      <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                        INSTAGRAM URL
+                      </label>
+                      <input
+                        type="url"
+                        value={state.footerSettings.instagramUrl}
+                        onChange={(e) => updateFooterSettings({ instagramUrl: e.target.value })}
+                        className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none"
+                      />
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                        TIKTOK URL
+                      </label>
+                      <input
+                        type="url"
+                        value={state.footerSettings.tiktokUrl}
+                        onChange={(e) => updateFooterSettings({ tiktokUrl: e.target.value })}
+                        className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none"
+                      />
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                        FACEBOOK URL
+                      </label>
+                      <input
+                        type="url"
+                        value={state.footerSettings.facebookUrl}
+                        onChange={(e) => updateFooterSettings({ facebookUrl: e.target.value })}
+                        className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none"
+                      />
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                        YOUTUBE URL
+                      </label>
+                      <input
+                        type="url"
+                        value={state.footerSettings.youtubeUrl}
+                        onChange={(e) => updateFooterSettings({ youtubeUrl: e.target.value })}
+                        className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-[#141414] rounded-2xl p-6 border border-deep-charcoal space-y-4">
+                  <h3 className="font-display text-xs tracking-wider text-[#B89275] uppercase font-bold border-b border-deep-charcoal pb-2">
+                    FOOTER DISPLAY & METADATA
+                  </h3>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-1">
+                      <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                        COPYRIGHT NOTICE
+                      </label>
+                      <input
+                        type="text"
+                        value={state.footerSettings.copyrightText}
+                        onChange={(e) => updateFooterSettings({ copyrightText: e.target.value })}
+                        className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none"
+                      />
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                        REGION & CURRENCY
+                      </label>
+                      <input
+                        type="text"
+                        value={state.footerSettings.countryCurrency}
+                        onChange={(e) => updateFooterSettings({ countryCurrency: e.target.value })}
+                        className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-6 pt-2">
+                    <label className="flex items-center space-x-2 text-xs font-display text-warm-white uppercase cursor-pointer select-none">
+                      <input
+                        type="checkbox"
+                        checked={state.footerSettings.showNewsletter}
+                        onChange={(e) => updateFooterSettings({ showNewsletter: e.target.checked })}
+                        className="accent-[#B89275] w-4 h-4"
+                      />
+                      <span>SHOW NEWSLETTER BANNER IN FOOTER</span>
+                    </label>
+
+                    <label className="flex items-center space-x-2 text-xs font-display text-warm-white uppercase cursor-pointer select-none">
+                      <input
+                        type="checkbox"
+                        checked={state.footerSettings.showPaymentBadges}
+                        onChange={(e) => updateFooterSettings({ showPaymentBadges: e.target.checked })}
+                        className="accent-[#B89275] w-4 h-4"
+                      />
+                      <span>SHOW ACCEPTED PAYMENT BADGES</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div className="flex justify-end">
+                  <button
+                    type="submit"
+                    className="bg-[#B89275] hover:bg-[#A37E62] text-white font-display text-xs tracking-wider uppercase px-6 py-3.5 rounded-xl flex items-center space-x-2 transition-all font-bold shadow-lg"
+                  >
+                    <Save className="w-4 h-4" />
+                    <span>SAVE FOOTER SETTINGS</span>
+                  </button>
+                </div>
+              </form>
             </div>
           )}
 
@@ -2082,6 +2520,200 @@ export const AdminDashboardPage: React.FC = () => {
                 >
                   <Save className="w-4 h-4" />
                   <span>{editingProduct ? 'UPDATE PRODUCT' : 'SAVE & PUBLISH PRODUCT'}</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+      {/* CREATE / EDIT INSTAGRAM POST MODAL */}
+      {showSocialModal && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="bg-[#141414] rounded-[24px] border border-deep-charcoal p-6 sm:p-8 max-w-xl w-full space-y-6 relative max-h-[90vh] overflow-y-auto">
+            <button
+              onClick={() => setShowSocialModal(false)}
+              className="absolute top-6 right-6 text-warm-taupe hover:text-white"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div>
+              <h3 className="font-display text-lg tracking-wider text-warm-white uppercase font-bold flex items-center space-x-2">
+                <Instagram className="w-5 h-5 text-pink-400" />
+                <span>{editingSocialPost ? 'EDIT INSTAGRAM POST CARD' : 'CREATE INSTAGRAM POST CARD'}</span>
+              </h3>
+              <p className="text-xs text-soft-stone font-body">
+                Upload image, set likes count, caption, hashtags, and tag store products to feature on the live homepage gallery.
+              </p>
+            </div>
+
+            <form onSubmit={handleCreateOrUpdateSocialPost} className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                    FILTER TAG / HASHTAG *
+                  </label>
+                  <select
+                    value={spTag}
+                    onChange={(e) => setSpTag(e.target.value)}
+                    className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none font-bold"
+                  >
+                    <option value="@glamgalbeauty">@glamgalbeauty</option>
+                    <option value="#GLAMGALGlow">#GLAMGALGlow</option>
+                    <option value="#GLAMGALRoutine">#GLAMGALRoutine</option>
+                  </select>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                    INSTAGRAM HANDLE *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={spUsername}
+                    onChange={(e) => setSpUsername(e.target.value)}
+                    className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none font-mono"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                    LOCATION TAG
+                  </label>
+                  <input
+                    type="text"
+                    value={spLocation}
+                    onChange={(e) => setSpLocation(e.target.value)}
+                    placeholder="e.g. SoHo, New York"
+                    className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                    TIME AGO TIMESTAMP
+                  </label>
+                  <input
+                    type="text"
+                    value={spTimeAgo}
+                    onChange={(e) => setSpTimeAgo(e.target.value)}
+                    placeholder="e.g. 2 HOURS AGO"
+                    className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none font-mono"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                    LIKES COUNT *
+                  </label>
+                  <input
+                    type="number"
+                    required
+                    value={spLikes}
+                    onChange={(e) => setSpLikes(Number(e.target.value))}
+                    className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none font-mono"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                    COMMENTS COUNT *
+                  </label>
+                  <input
+                    type="number"
+                    required
+                    value={spCommentsCount}
+                    onChange={(e) => setSpCommentsCount(Number(e.target.value))}
+                    className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none font-mono"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                  POST PHOTO IMAGE URL *
+                </label>
+                <input
+                  type="url"
+                  required
+                  value={spUrl}
+                  onChange={(e) => setSpUrl(e.target.value)}
+                  placeholder="https://images.unsplash.com/..."
+                  className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none font-mono"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                  POST CAPTION TEXT *
+                </label>
+                <textarea
+                  rows={3}
+                  required
+                  value={spCaption}
+                  onChange={(e) => setSpCaption(e.target.value)}
+                  placeholder="Glass-skin glow achieved ✨ Step 1: Calming Rosewater Toner..."
+                  className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none font-body"
+                />
+              </div>
+
+              {/* FEATURED PRODUCT IN LOOK */}
+              <div className="space-y-3 pt-3 border-t border-deep-charcoal">
+                <label className="block font-display text-[10px] tracking-widest text-amber-400 uppercase font-bold">
+                  ATTACH FEATURED STORE ITEM (OPTIONAL)
+                </label>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <input
+                    type="text"
+                    value={spProductName}
+                    onChange={(e) => setSpProductName(e.target.value)}
+                    placeholder="Product Title (e.g. Rosewater Mist)"
+                    className="bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-2.5 rounded-xl outline-none"
+                  />
+                  <input
+                    type="text"
+                    value={spProductPrice}
+                    onChange={(e) => setSpProductPrice(e.target.value)}
+                    placeholder="Price (e.g. $38.00)"
+                    className="bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-2.5 rounded-xl outline-none"
+                  />
+                  <input
+                    type="text"
+                    value={spProductImage}
+                    onChange={(e) => setSpProductImage(e.target.value)}
+                    placeholder="Product Mockup Image Path"
+                    className="bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-2.5 rounded-xl outline-none"
+                  />
+                  <input
+                    type="text"
+                    value={spProductLink}
+                    onChange={(e) => setSpProductLink(e.target.value)}
+                    placeholder="Product Link (/products/...)"
+                    className="bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-2.5 rounded-xl outline-none"
+                  />
+                </div>
+              </div>
+
+              <div className="pt-4 flex items-center justify-end space-x-3">
+                <button
+                  type="button"
+                  onClick={() => setShowSocialModal(false)}
+                  className="bg-deep-charcoal hover:bg-deep-charcoal/80 text-warm-white font-display text-xs tracking-wider px-5 py-3 rounded-xl uppercase font-bold"
+                >
+                  CANCEL
+                </button>
+                <button
+                  type="submit"
+                  className="bg-gradient-to-r from-pink-600 to-amber-500 hover:opacity-90 text-white font-display text-xs tracking-wider px-6 py-3 rounded-xl uppercase font-bold flex items-center space-x-2"
+                >
+                  <Save className="w-4 h-4" />
+                  <span>{editingSocialPost ? 'UPDATE POST CARD' : 'PUBLISH POST CARD'}</span>
                 </button>
               </div>
             </form>

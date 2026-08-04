@@ -1,6 +1,18 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { HeroCampaignMetaobject, Product, JournalArticle, PromoCode, TestimonialItem } from '../types/shopify';
+import { HeroCampaignMetaobject, Product, JournalArticle, PromoCode, TestimonialItem, SocialPost } from '../types/shopify';
 import { MOCK_PRODUCTS, MOCK_ARTICLES } from '../lib/shopify/mock-adapter';
+
+export interface FooterSettings {
+  brandDescription: string;
+  instagramUrl: string;
+  tiktokUrl: string;
+  facebookUrl: string;
+  youtubeUrl: string;
+  copyrightText: string;
+  showNewsletter: boolean;
+  showPaymentBadges: boolean;
+  countryCurrency: string;
+}
 
 export interface CMSSectionData {
   id: string;
@@ -24,6 +36,8 @@ export interface CMSState {
   articles: JournalArticle[];
   promos: PromoCode[];
   testimonials: TestimonialItem[];
+  socialPosts: SocialPost[];
+  footerSettings: FooterSettings;
 }
 
 interface CMSContextType {
@@ -48,8 +62,91 @@ interface CMSContextType {
   addTestimonial: (item: TestimonialItem) => void;
   updateTestimonial: (id: string, updated: Partial<TestimonialItem>) => void;
   deleteTestimonial: (id: string) => void;
+  addSocialPost: (post: SocialPost) => void;
+  updateSocialPost: (id: string, updated: Partial<SocialPost>) => void;
+  deleteSocialPost: (id: string) => void;
+  updateFooterSettings: (updated: Partial<FooterSettings>) => void;
   resetToDefaults: () => void;
 }
+
+const DEFAULT_SOCIAL_POSTS: SocialPost[] = [
+  {
+    id: 'post-1',
+    url: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80',
+    tag: '@glamgalbeauty',
+    username: 'glamgalbeauty',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+    location: 'SoHo, New York',
+    likes: 1428,
+    commentsCount: 34,
+    caption: 'Glass-skin glow achieved ✨ Step 1: Calming Rosewater Toner. Step 2: Cellular Hydration Peptide Serum. Who else is obsessed with this combo?',
+    timeAgo: '2 HOURS AGO',
+    isVerified: true,
+    featuredProduct: {
+      name: 'Rosewater Hydration Mist',
+      price: '$38.00',
+      image: '/calming_rosewater_toner_mockup.png',
+      link: '/products/rosewater-hydration-mist'
+    }
+  },
+  {
+    id: 'post-2',
+    url: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=800&q=80',
+    tag: '#GLAMGALGlow',
+    username: 'glamgalbeauty',
+    avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=80',
+    location: 'Le Marais, Paris',
+    likes: 3892,
+    commentsCount: 89,
+    caption: 'Golden hour moments hit different when your lip game is Velvet Matte Couture 💄 Shade: Royal Velvet. Tag us in your #GLAMGALGlow looks!',
+    timeAgo: '6 HOURS AGO',
+    isVerified: true,
+    featuredProduct: {
+      name: 'Liquid Velvet Lipstick',
+      price: '$32.00',
+      image: '/liquid_velvet_lipstick_mockup.png',
+      link: '/products/liquid-velvet-lipstick'
+    }
+  },
+  {
+    id: 'post-3',
+    url: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80',
+    tag: '#GLAMGALRoutine',
+    username: 'glamgalbeauty',
+    avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80',
+    location: 'Beverly Hills, CA',
+    likes: 2150,
+    commentsCount: 45,
+    caption: 'Sunday ritual with our Obsidian Volcanic Sculpting Stone. Smooth skin, enhanced blood circulation & instant tension release ✨ #GLAMGALRoutine',
+    timeAgo: '1 DAY AGO',
+    isVerified: true,
+    featuredProduct: {
+      name: 'Obsidian Sculpting Gua Sha',
+      price: '$45.00',
+      image: '/ultimate_brow_eye_cream_liner_mockup.png',
+      link: '/products/obsidian-sculpting-gua-sha'
+    }
+  },
+  {
+    id: 'post-4',
+    url: 'https://images.unsplash.com/photo-1608248597263-00079996576f?auto=format&fit=crop&w=800&q=80',
+    tag: '@glamgalbeauty',
+    username: 'glamgalbeauty',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+    location: 'Mayfair, London',
+    likes: 4105,
+    commentsCount: 112,
+    caption: 'Backstage at Fashion Week! Ultra-luxe texture, non-drying formula & 12hr weightless coverage. Tag @glamgalbeauty to be featured next 💋',
+    timeAgo: '2 DAYS AGO',
+    isVerified: true,
+    featuredProduct: {
+      name: 'Polished Body Scrub',
+      price: '$42.00',
+      image: '/polished_smoothing_body_scrub_mockup.png',
+      link: '/products/polished-smoothing-body-scrub'
+    }
+  }
+];
 
 const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
   {
@@ -158,6 +255,15 @@ const DEFAULT_HOMEPAGE_SECTIONS: Record<string, CMSSectionData> = {
     subtitle: 'COVETED BEAUTY ICONS',
     enabled: true,
   },
+  socialGallery: {
+    id: 'socialGallery',
+    title: 'JOIN THE GLAMGAL BEAUTY COMMUNITY',
+    subtitle: '@GLAMGALBEAUTY',
+    description: 'Tag @glamgalbeauty on Instagram & TikTok to be featured on our official global gallery.',
+    ctaText: 'FOLLOW ON INSTAGRAM',
+    ctaLink: 'https://instagram.com',
+    enabled: true,
+  },
   testimonials: {
     id: 'testimonials',
     title: 'COMMUNITY PRAISE',
@@ -165,6 +271,20 @@ const DEFAULT_HOMEPAGE_SECTIONS: Record<string, CMSSectionData> = {
     description: 'Real feedback and verified experiences from our GLAMGAL beauty community.',
     enabled: true,
   },
+};
+
+
+const DEFAULT_FOOTER_SETTINGS: FooterSettings = {
+  brandDescription:
+    'GLAMGAL is a modern luxury beauty brand delivering high-impact couture makeup, skin-first care, and everyday essentials crafted for confident self-expression.',
+  instagramUrl: 'https://instagram.com',
+  tiktokUrl: 'https://tiktok.com',
+  facebookUrl: 'https://facebook.com',
+  youtubeUrl: 'https://youtube.com',
+  copyrightText: '© 2026 GLAMGAL Beauty Inc. All rights reserved.',
+  showNewsletter: true,
+  showPaymentBadges: true,
+  countryCurrency: 'United States (USD $)',
 };
 
 const INITIAL_MEDIA = [
@@ -203,10 +323,13 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         return {
           ...parsed,
           hero: heroState,
+          homepageSections: { ...DEFAULT_HOMEPAGE_SECTIONS, ...parsed.homepageSections },
           products: sanitizedProducts,
           articles: parsed.articles && parsed.articles.length > 0 ? parsed.articles : MOCK_ARTICLES,
           promos: parsed.promos && parsed.promos.length > 0 ? parsed.promos : DEFAULT_PROMOS,
           testimonials: parsed.testimonials && parsed.testimonials.length > 0 ? parsed.testimonials : DEFAULT_TESTIMONIALS,
+          socialPosts: parsed.socialPosts && parsed.socialPosts.length > 0 ? parsed.socialPosts : DEFAULT_SOCIAL_POSTS,
+          footerSettings: parsed.footerSettings || DEFAULT_FOOTER_SETTINGS,
         };
       }
     } catch (e) {
@@ -222,6 +345,8 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       articles: MOCK_ARTICLES,
       promos: DEFAULT_PROMOS,
       testimonials: DEFAULT_TESTIMONIALS,
+      socialPosts: DEFAULT_SOCIAL_POSTS,
+      footerSettings: DEFAULT_FOOTER_SETTINGS,
     };
   });
 
@@ -389,6 +514,34 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }));
   };
 
+  const addSocialPost = (post: SocialPost) => {
+    setState((prev) => ({
+      ...prev,
+      socialPosts: [post, ...prev.socialPosts],
+    }));
+  };
+
+  const updateSocialPost = (id: string, updated: Partial<SocialPost>) => {
+    setState((prev) => ({
+      ...prev,
+      socialPosts: prev.socialPosts.map((sp) => (sp.id === id ? { ...sp, ...updated } : sp)),
+    }));
+  };
+
+  const deleteSocialPost = (id: string) => {
+    setState((prev) => ({
+      ...prev,
+      socialPosts: prev.socialPosts.filter((sp) => sp.id !== id),
+    }));
+  };
+
+  const updateFooterSettings = (updated: Partial<FooterSettings>) => {
+    setState((prev) => ({
+      ...prev,
+      footerSettings: { ...prev.footerSettings, ...updated },
+    }));
+  };
+
   const resetToDefaults = () => {
     setState({
       isAuthenticated: state.isAuthenticated,
@@ -400,6 +553,8 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       articles: MOCK_ARTICLES,
       promos: DEFAULT_PROMOS,
       testimonials: DEFAULT_TESTIMONIALS,
+      socialPosts: DEFAULT_SOCIAL_POSTS,
+      footerSettings: DEFAULT_FOOTER_SETTINGS,
     });
   };
 
@@ -427,6 +582,10 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         addTestimonial,
         updateTestimonial,
         deleteTestimonial,
+        addSocialPost,
+        updateSocialPost,
+        deleteSocialPost,
+        updateFooterSettings,
         resetToDefaults,
       }}
     >

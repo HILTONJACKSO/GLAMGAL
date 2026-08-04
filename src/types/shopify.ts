@@ -219,4 +219,25 @@ export interface PromoCode {
   appliesTo: string;
 }
 
+export interface SocialPost {
+  id: string;
+  url: string;
+  tag: string;
+  username: string;
+  avatar: string;
+  location: string;
+  likes: number;
+  commentsCount: number;
+  caption: string;
+  timeAgo: string;
+  isVerified?: boolean;
+  featuredProduct?: {
+    name: string;
+    price: string;
+    image: string;
+    link: string;
+  };
+}
+
+
 

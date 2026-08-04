@@ -3,14 +3,20 @@ import { Link } from 'react-router-dom';
 import { Logo } from '../common/Logo';
 import { Instagram, Facebook, Youtube, Globe, CreditCard } from 'lucide-react';
 import { NewsletterForm } from '../sections/NewsletterForm';
+import { useCMS } from '../../context/CMSContext';
 
 export const Footer: React.FC = () => {
+  const { state } = useCMS();
+  const f = state.footerSettings;
+
   return (
     <footer className="bg-obsidian text-warm-white border-t border-deep-charcoal" aria-label="Website Footer">
       {/* Upper Newsletter Section */}
-      <div className="border-b border-deep-charcoal">
-        <NewsletterForm />
-      </div>
+      {f.showNewsletter && (
+        <div className="border-b border-deep-charcoal">
+          <NewsletterForm />
+        </div>
+      )}
 
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
@@ -18,21 +24,55 @@ export const Footer: React.FC = () => {
           <div className="lg:col-span-2 space-y-6">
             <Logo variant="light" size="md" />
             <p className="text-xs text-soft-stone leading-relaxed max-w-sm">
-              GLAMGAL is a modern luxury beauty brand delivering high-impact couture makeup, skin-first care, and everyday essentials crafted for confident self-expression.
+              {f.brandDescription}
             </p>
             <div className="flex items-center space-x-4 pt-2">
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="p-2 text-soft-stone hover:text-warm-white transition-colors" aria-label="Instagram">
-                <Instagram className="w-5 h-5" />
-              </a>
-              <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="p-2 text-soft-stone hover:text-warm-white transition-colors" aria-label="TikTok">
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.29 0 .58.04.86.12V9.37a6.33 6.33 0 0 0-1-.08 6.34 6.34 0 1 0 6.34 6.34V9.6a8.27 8.27 0 0 0 4.91 1.62V7.78a4.85 4.85 0 0 1-1-.09z"/></svg>
-              </a>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="p-2 text-soft-stone hover:text-warm-white transition-colors" aria-label="Facebook">
-                <Facebook className="w-5 h-5" />
-              </a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="p-2 text-soft-stone hover:text-warm-white transition-colors" aria-label="YouTube">
-                <Youtube className="w-5 h-5" />
-              </a>
+              {f.instagramUrl && (
+                <a
+                  href={f.instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 text-soft-stone hover:text-warm-white transition-colors"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="w-5 h-5" />
+                </a>
+              )}
+              {f.tiktokUrl && (
+                <a
+                  href={f.tiktokUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 text-soft-stone hover:text-warm-white transition-colors"
+                  aria-label="TikTok"
+                >
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.29 0 .58.04.86.12V9.37a6.33 6.33 0 0 0-1-.08 6.34 6.34 0 1 0 6.34 6.34V9.6a8.27 8.27 0 0 0 4.91 1.62V7.78a4.85 4.85 0 0 1-1-.09z" />
+                  </svg>
+                </a>
+              )}
+              {f.facebookUrl && (
+                <a
+                  href={f.facebookUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 text-soft-stone hover:text-warm-white transition-colors"
+                  aria-label="Facebook"
+                >
+                  <Facebook className="w-5 h-5" />
+                </a>
+              )}
+              {f.youtubeUrl && (
+                <a
+                  href={f.youtubeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 text-soft-stone hover:text-warm-white transition-colors"
+                  aria-label="YouTube"
+                >
+                  <Youtube className="w-5 h-5" />
+                </a>
+              )}
             </div>
           </div>
 
@@ -90,27 +130,30 @@ export const Footer: React.FC = () => {
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-1 text-soft-stone">
               <Globe className="w-4 h-4 text-warm-taupe" />
-              <span>United States (USD $)</span>
+              <span>{f.countryCurrency}</span>
             </div>
             <span>•</span>
             <span>Secure Shopify Checkout</span>
           </div>
 
           {/* Payment Badges */}
-          <div className="flex items-center space-x-3 text-soft-stone">
-            <span className="text-[10px] font-display uppercase">ACCEPTED PAYMENTS:</span>
-            <div className="flex items-center space-x-2">
-              <CreditCard className="w-4 h-4" />
-              <span className="text-[10px] font-bold">VISA</span>
-              <span className="text-[10px] font-bold">MC</span>
-              <span className="text-[10px] font-bold">AMEX</span>
-              <span className="text-[10px] font-bold">SHOP PAY</span>
+          {f.showPaymentBadges && (
+            <div className="flex items-center space-x-3 text-soft-stone">
+              <span className="text-[10px] font-display uppercase">ACCEPTED PAYMENTS:</span>
+              <div className="flex items-center space-x-2">
+                <CreditCard className="w-4 h-4" />
+                <span className="text-[10px] font-bold">VISA</span>
+                <span className="text-[10px] font-bold">MC</span>
+                <span className="text-[10px] font-bold">AMEX</span>
+                <span className="text-[10px] font-bold">SHOP PAY</span>
+              </div>
             </div>
-          </div>
+          )}
 
-          <p>© {new Date().getFullYear()} GLAMGAL Beauty Inc. All rights reserved.</p>
+          <p>{f.copyrightText}</p>
         </div>
       </div>
     </footer>
   );
 };
+

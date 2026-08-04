@@ -96,49 +96,53 @@ export const HomePage: React.FC = () => {
       </ScrollReveal>
 
       {/* 3. SHOP BY CATEGORY */}
-      <section className="bg-warm-white py-20 px-6 max-w-7xl mx-auto space-y-10">
-        <ScrollReveal variant="fade-up">
-          <div className="text-center max-w-xl mx-auto space-y-2">
-            <span className="font-display text-xs tracking-mega text-warm-taupe uppercase">EXPLORE COLLECTIONS</span>
-            <h2 className="font-display text-2xl sm:text-3xl tracking-widest text-obsidian uppercase font-bold">
-              SHOP BY CATEGORY
-            </h2>
-          </div>
-        </ScrollReveal>
+      <section className="py-20 px-4 sm:px-6 max-w-7xl mx-auto">
+        <div className="bg-gradient-to-b from-[#FAF6F0] via-[#F5ECE2] to-[#FAF6F0] rounded-3xl p-6 sm:p-12 border border-[#E8DCCF] shadow-xs space-y-10">
+          <ScrollReveal variant="fade-up">
+            <div className="text-center max-w-xl mx-auto space-y-2">
+              <span className="font-display text-xs tracking-mega text-[#A68064] uppercase font-bold">
+                EXPLORE COLLECTIONS
+              </span>
+              <h2 className="font-display text-2xl sm:text-3xl tracking-widest text-obsidian uppercase font-bold">
+                SHOP BY CATEGORY
+              </h2>
+            </div>
+          </ScrollReveal>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <ScrollReveal variant="scale-up" delay={0.1}>
-            <CategoryCard
-              title="SKINCARE"
-              subtitle="Triple Peptide & Hyaluronic Actives"
-              image="/calming_rosewater_toner_mockup.png"
-              link="/collections/skincare"
-            />
-          </ScrollReveal>
-          <ScrollReveal variant="scale-up" delay={0.2}>
-            <CategoryCard
-              title="MAKEUP"
-              subtitle="Velvet Matte & Weightless Pigments"
-              image="/liquid_velvet_lipstick_mockup.png"
-              link="/collections/makeup"
-            />
-          </ScrollReveal>
-          <ScrollReveal variant="scale-up" delay={0.3}>
-            <CategoryCard
-              title="BODY CARE"
-              subtitle="Sculpting Glow Nectars & Oils"
-              image="/polished_smoothing_body_scrub_mockup.png"
-              link="/collections/body-care"
-            />
-          </ScrollReveal>
-          <ScrollReveal variant="scale-up" delay={0.4}>
-            <CategoryCard
-              title="BEAUTY TOOLS"
-              subtitle="Obsidian Volcanic Sculpting Stones"
-              image="/ultimate_brow_eye_cream_liner_mockup.png"
-              link="/collections/beauty-tools"
-            />
-          </ScrollReveal>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <ScrollReveal variant="scale-up" delay={0.1}>
+              <CategoryCard
+                title="SKINCARE"
+                subtitle="Triple Peptide & Hyaluronic Actives"
+                image="/calming_rosewater_toner_mockup.png"
+                link="/collections/skincare"
+              />
+            </ScrollReveal>
+            <ScrollReveal variant="scale-up" delay={0.2}>
+              <CategoryCard
+                title="MAKEUP"
+                subtitle="Velvet Matte & Weightless Pigments"
+                image="/liquid_velvet_lipstick_mockup.png"
+                link="/collections/makeup"
+              />
+            </ScrollReveal>
+            <ScrollReveal variant="scale-up" delay={0.3}>
+              <CategoryCard
+                title="BODY CARE"
+                subtitle="Sculpting Glow Nectars & Oils"
+                image="/polished_smoothing_body_scrub_mockup.png"
+                link="/collections/body-care"
+              />
+            </ScrollReveal>
+            <ScrollReveal variant="scale-up" delay={0.4}>
+              <CategoryCard
+                title="BEAUTY TOOLS"
+                subtitle="Obsidian Volcanic Sculpting Stones"
+                image="/ultimate_brow_eye_cream_liner_mockup.png"
+                link="/collections/beauty-tools"
+              />
+            </ScrollReveal>
+          </div>
         </div>
       </section>
 
@@ -147,21 +151,25 @@ export const HomePage: React.FC = () => {
         <NewArrivalsSection products={newArrivals} />
       </ScrollReveal>
 
-      {/* 5. BRAND STATEMENT TYPOGRAPHY */}
+      {/* 5. BRAND STATEMENT TYPOGRAPHY (DEEP BERRY OBSIDIAN VELVET PALETTE) */}
       <ScrollReveal variant="fade-in">
-        <section className="bg-obsidian text-warm-white py-24 px-6 text-center border-y border-deep-charcoal">
-          <div className="max-w-4xl mx-auto space-y-6">
-            <span className="font-display text-xs tracking-mega text-warm-taupe uppercase">THE GLAMGAL CREED</span>
-            <h2 className="font-display text-3xl sm:text-5xl md:text-6xl tracking-widest text-warm-white uppercase font-black leading-tight">
+        <section className="bg-gradient-to-r from-[#200615] via-[#3E0E27] to-[#1C0512] text-warm-white py-24 px-6 text-center border-y border-[#5C163C]/50 relative overflow-hidden shadow-2xl">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-pink-900/20 via-transparent to-transparent pointer-events-none" />
+
+          <div className="max-w-4xl mx-auto space-y-6 relative z-10">
+            <span className="font-display text-xs tracking-mega text-rose-300 uppercase font-bold">
+              THE GLAMGAL CREED
+            </span>
+            <h2 className="font-display text-3xl sm:text-5xl md:text-6xl tracking-widest text-warm-white uppercase font-black leading-tight drop-shadow-md">
               GLAMOUR IS PERSONAL.<br />CONFIDENCE IS UNIVERSAL.
             </h2>
-            <p className="font-body text-sm sm:text-base text-soft-stone max-w-2xl mx-auto leading-relaxed font-light">
+            <p className="font-body text-sm sm:text-base text-rose-100/90 max-w-2xl mx-auto leading-relaxed font-light">
               GLAMGAL was founded to unite clinical barrier-repair science with high-payoff couture aesthetics. We believe beauty is an empowering medium of individual self-expression.
             </p>
             <div className="pt-4">
               <Link
                 to="/philosophy"
-                className="inline-flex items-center space-x-2 border border-warm-white text-warm-white font-display text-xs tracking-[0.2em] py-3.5 px-8 uppercase hover:bg-warm-white hover:text-obsidian transition-colors"
+                className="inline-flex items-center space-x-2 border-2 border-rose-200/80 bg-white/5 hover:bg-rose-200 hover:text-obsidian text-rose-100 font-display text-xs tracking-[0.2em] py-3.5 px-8 uppercase transition-all rounded-full font-bold shadow-lg"
               >
                 <span>OUR FORMULATION PHILOSOPHY</span>
                 <ArrowRight className="w-4 h-4" />
@@ -176,12 +184,14 @@ export const HomePage: React.FC = () => {
         <BestSellersSection products={bestSellers} />
       </ScrollReveal>
 
-      {/* 7. SHOP BY BEAUTY GOAL */}
-      <section className="bg-white py-20 border-t border-soft-stone">
+      {/* 7. SHOP BY BEAUTY GOAL (WARM TERRACOTTA NUDE PALETTE) */}
+      <section className="bg-gradient-to-b from-[#FAF4EF] via-[#F5ECE3] to-[#FAF4EF] py-20 border-t border-[#E8D9CC]">
         <div className="max-w-7xl mx-auto px-6 space-y-10">
           <ScrollReveal variant="fade-up">
             <div className="text-center max-w-xl mx-auto space-y-2">
-              <span className="font-display text-xs tracking-mega text-warm-taupe uppercase">TARGETED RESULTS</span>
+              <span className="font-display text-xs tracking-mega text-[#A85848] uppercase font-bold">
+                TARGETED RESULTS
+              </span>
               <h2 className="font-display text-2xl sm:text-3xl tracking-widest text-obsidian uppercase font-bold">
                 SHOP BY BEAUTY GOAL
               </h2>
@@ -193,12 +203,12 @@ export const HomePage: React.FC = () => {
               <ScrollReveal key={goal.goal} variant="fade-up" delay={idx * 0.05}>
                 <Link
                   to={goal.link}
-                  className="p-6 bg-warm-white border border-soft-stone hover:border-obsidian transition-all group rounded-sm block h-full"
+                  className="p-6 bg-white/90 backdrop-blur-xs border border-[#E7D6CB] hover:border-[#A85848] hover:shadow-lg transition-all group rounded-2xl block h-full"
                 >
-                  <h3 className="font-display text-xs tracking-widest text-obsidian uppercase font-bold group-hover:underline mb-1">
+                  <h3 className="font-display text-xs tracking-widest text-obsidian uppercase font-bold group-hover:text-[#A85848] transition-colors mb-1">
                     {goal.goal}
                   </h3>
-                  <p className="text-xs text-warm-taupe font-body">{goal.desc}</p>
+                  <p className="text-xs text-[#7C6659] font-body">{goal.desc}</p>
                 </Link>
               </ScrollReveal>
             ))}
@@ -211,13 +221,13 @@ export const HomePage: React.FC = () => {
         <EditorialSection />
       </ScrollReveal>
 
-      {/* 9. ROUTINE BUILDER */}
-      <section className="bg-[#FAF7F2] py-24 border-t border-[#E3D5C8]/80">
+      {/* 9. ROUTINE BUILDER (WARM BRONZE & CHAMPAGNE PALETTE) */}
+      <section className="bg-gradient-to-br from-[#FBF6F0] via-[#F4EBE0] to-[#EFE4D6] py-24 border-t border-[#E4D4C3]">
         <div className="max-w-7xl mx-auto px-6 space-y-12">
           <ScrollReveal variant="fade-up">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[#E3D5C8]/60">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[#E3D5C8]/80">
               <div className="space-y-2 max-w-2xl">
-                <span className="inline-block font-display text-[10px] sm:text-xs tracking-mega text-[#A68064] uppercase font-bold px-3 py-1 bg-[#B89275]/10 rounded-full border border-[#B89275]/20">
+                <span className="inline-block font-display text-[10px] sm:text-xs tracking-mega text-[#9E5739] uppercase font-bold px-3 py-1 bg-[#B87352]/10 rounded-full border border-[#B87352]/20">
                   CURATED RITUALS
                 </span>
                 <h2 className="font-display text-2xl sm:text-4xl tracking-widest text-obsidian uppercase font-black">
@@ -247,12 +257,12 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* 10. INGREDIENT SPOTLIGHT */}
-      <section className="bg-white py-24 border-t border-[#E3D5C8]/80">
+      {/* 10. INGREDIENT SPOTLIGHT (SILK POWDER ROSE & ALMOND PALETTE) */}
+      <section className="bg-gradient-to-b from-[#FDF8F5] via-[#FAF1EB] to-[#F7ECE4] py-24 border-t border-[#E8D7CC]">
         <div className="max-w-7xl mx-auto px-6 space-y-12">
           <ScrollReveal variant="fade-up">
             <div className="text-center max-w-2xl mx-auto space-y-3">
-              <span className="inline-block font-display text-[10px] sm:text-xs tracking-mega text-[#A68064] uppercase font-bold px-3 py-1 bg-[#B89275]/10 rounded-full border border-[#B89275]/20">
+              <span className="inline-block font-display text-[10px] sm:text-xs tracking-mega text-[#8C525D] uppercase font-bold px-3 py-1 bg-[#CFA7AE]/20 rounded-full border border-[#CFA7AE]/40">
                 INGREDIENT SCIENCE
               </span>
               <h2 className="font-display text-2xl sm:text-4xl tracking-widest text-obsidian uppercase font-black">
@@ -279,13 +289,13 @@ export const HomePage: React.FC = () => {
         <TestimonialsSection />
       </ScrollReveal>
 
-      {/* 12. BEAUTY JOURNAL */}
-      <section className="bg-[#FAF7F2] py-24 border-t border-[#E3D5C8]/80">
+      {/* 12. BEAUTY JOURNAL (WARM VELVET NUDE PALETTE) */}
+      <section className="bg-gradient-to-b from-[#FAF4EF] via-[#F4EBE3] to-[#F2E7DC] py-24 border-t border-[#E6D6C7]">
         <div className="max-w-7xl mx-auto px-6 space-y-12">
           <ScrollReveal variant="fade-up">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[#E3D5C8]/60">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[#E3D5C8]/80">
               <div className="space-y-2 max-w-2xl">
-                <span className="inline-block font-display text-[10px] sm:text-xs tracking-mega text-[#A68064] uppercase font-bold px-3 py-1 bg-[#B89275]/10 rounded-full border border-[#B89275]/20">
+                <span className="inline-block font-display text-[10px] sm:text-xs tracking-mega text-[#7D4F3E] uppercase font-bold px-3 py-1 bg-[#9E6D59]/10 rounded-full border border-[#9E6D59]/20">
                   EDITORIAL STORIES
                 </span>
                 <h2 className="font-display text-2xl sm:text-4xl tracking-widest text-obsidian uppercase font-black">
@@ -319,6 +329,7 @@ export const HomePage: React.FC = () => {
       <ScrollReveal variant="fade-in">
         <SocialGallery />
       </ScrollReveal>
+
     </div>
   );
 };
