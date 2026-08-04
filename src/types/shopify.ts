@@ -239,5 +239,21 @@ export interface SocialPost {
   };
 }
 
+export interface VideoShowcaseItem {
+  id: string;
+  title: string;
+  subtitle: string;
+  duration: string;
+  videoUrl: string;
+  posterImage: string;
+  authorName: string;
+  authorRole: string;
+  featuredProductHandle: string;
+  featuredProductName: string;
+  featuredProductPrice: string;
+  featuredProductImage: string;
+}
+
+
 
 

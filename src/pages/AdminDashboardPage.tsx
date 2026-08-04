@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useCMS } from '../context/CMSContext';
-import { Product, JournalArticle, PromoCode, TestimonialItem, SocialPost } from '../types/shopify';
+import { Product, JournalArticle, PromoCode, TestimonialItem, SocialPost, VideoShowcaseItem } from '../types/shopify';
 import { SEO } from '../components/common/SEO';
 import {
   LayoutDashboard,
@@ -34,11 +34,14 @@ import {
   Instagram,
   Heart,
   MessageCircle,
+  Video,
+  Play,
 } from 'lucide-react';
 
 export const AdminDashboardPage: React.FC = () => {
   const {
     state,
+    login,
     logout,
     updateHero,
     updateSection,
@@ -61,15 +64,33 @@ export const AdminDashboardPage: React.FC = () => {
     addSocialPost,
     updateSocialPost,
     deleteSocialPost,
+    addVideo,
+    updateVideo,
+    deleteVideo,
     updateFooterSettings,
     resetToDefaults,
   } = useCMS();
   const navigate = useNavigate();
 
-  const [activeTab, setActiveTab] = useState<'reviews' | 'promos' | 'products' | 'journal' | 'hero' | 'homepage' | 'social' | 'media' | 'pages' | 'footer' | 'shopify'>('reviews');
+  const [activeTab, setActiveTab] = useState<'reviews' | 'promos' | 'products' | 'journal' | 'hero' | 'homepage' | 'social' | 'videos' | 'media' | 'pages' | 'footer' | 'shopify'>('reviews');
   const [saveNotification, setSaveNotification] = useState('');
   const [newImageUrl, setNewImageUrl] = useState('');
   
+  // Video Modal State
+  const [showVideoModal, setShowVideoModal] = useState(false);
+  const [editingVideo, setEditingVideo] = useState<VideoShowcaseItem | null>(null);
+  const [vidTitle, setVidTitle] = useState('');
+  const [vidSubtitle, setVidSubtitle] = useState('');
+  const [vidDuration, setVidDuration] = useState('0:45');
+  const [vidUrl, setVidUrl] = useState('');
+  const [vidPosterImage, setVidPosterImage] = useState('');
+  const [vidAuthorName, setVidAuthorName] = useState('');
+  const [vidAuthorRole, setVidAuthorRole] = useState('');
+  const [vidProdHandle, setVidProdHandle] = useState('');
+  const [vidProdName, setVidProdName] = useState('');
+  const [vidProdPrice, setVidProdPrice] = useState('$38.00');
+  const [vidProdImage, setVidProdImage] = useState('');
+
   // Product Modal State
   const [showAddProductModal, setShowAddProductModal] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
@@ -531,6 +552,59 @@ export const AdminDashboardPage: React.FC = () => {
     setSpProductLink('/products/rosewater-hydration-mist');
   };
 
+  const resetVideoForm = () => {
+    setVidTitle('');
+    setVidSubtitle('');
+    setVidDuration('0:45');
+    setVidUrl('https://assets.mixkit.co/videos/preview/mixkit-fashion-model-putting-on-lipstick-42930-large.mp4');
+    setVidPosterImage('https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=800&q=80');
+    setVidAuthorName('Sora Kim');
+    setVidAuthorRole('Global Editorial Makeup Artist');
+    setVidProdHandle('velvet-matte-lipstick');
+    setVidProdName('VELVET MATTE COUTURE LIPSTICK');
+    setVidProdPrice('$38.00');
+    setVidProdImage('https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80');
+  };
+
+  const handleCreateOrUpdateVideo = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (editingVideo) {
+      updateVideo(editingVideo.id, {
+        title: vidTitle,
+        subtitle: vidSubtitle,
+        duration: vidDuration,
+        videoUrl: vidUrl,
+        posterImage: vidPosterImage,
+        authorName: vidAuthorName,
+        authorRole: vidAuthorRole,
+        featuredProductHandle: vidProdHandle,
+        featuredProductName: vidProdName,
+        featuredProductPrice: vidProdPrice,
+        featuredProductImage: vidProdImage,
+      });
+      triggerSaveNotification('Video Reel updated live!');
+    } else {
+      const newVid: VideoShowcaseItem = {
+        id: `vid-${Date.now()}`,
+        title: vidTitle,
+        subtitle: vidSubtitle,
+        duration: vidDuration,
+        videoUrl: vidUrl,
+        posterImage: vidPosterImage,
+        authorName: vidAuthorName,
+        authorRole: vidAuthorRole,
+        featuredProductHandle: vidProdHandle,
+        featuredProductName: vidProdName,
+        featuredProductPrice: vidProdPrice,
+        featuredProductImage: vidProdImage,
+      };
+      addVideo(newVid);
+      triggerSaveNotification('New Product Video Reel added to storefront!');
+    }
+    setShowVideoModal(false);
+    setEditingVideo(null);
+  };
+
   const handleStartEditSocialPost = (post: SocialPost) => {
     setEditingSocialPost(post);
     setSpTag(post.tag || '@glamgalbeauty');
@@ -732,6 +806,16 @@ export const AdminDashboardPage: React.FC = () => {
           >
             <Instagram className="w-4 h-4 text-pink-400" />
             <span>INSTAGRAM COMMUNITY</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('videos')}
+            className={`w-full text-left font-display text-xs tracking-wider uppercase px-4 py-3 rounded-xl flex items-center space-x-3 transition-colors ${
+              activeTab === 'videos' ? 'bg-[#B89275] text-white font-bold' : 'text-warm-white hover:bg-deep-charcoal'
+            }`}
+          >
+            <Video className="w-4 h-4 text-amber-400" />
+            <span>PRODUCT VIDEO REELS</span>
           </button>
 
           <button
@@ -1691,6 +1775,107 @@ export const AdminDashboardPage: React.FC = () => {
                     >
                       VIEW PAGE ↗
                     </Link>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* TAB: PRODUCT VIDEO REELS MANAGER */}
+          {activeTab === 'videos' && (
+            <div className="space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <h2 className="font-display text-xl tracking-widest text-warm-white uppercase font-bold">
+                    PRODUCT VIDEO REELS MANAGER
+                  </h2>
+                  <p className="text-xs text-soft-stone font-body">
+                    Upload product application reels, texture demonstrations, and shop-this-reel video cards.
+                  </p>
+                </div>
+
+                <button
+                  onClick={() => {
+                    setEditingVideo(null);
+                    resetVideoForm();
+                    setShowVideoModal(true);
+                  }}
+                  className="bg-[#B89275] hover:bg-[#A37E62] text-white font-display text-xs tracking-wider uppercase px-5 py-3 rounded-xl flex items-center space-x-2 transition-all font-bold shadow-lg"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>+ ADD NEW VIDEO REEL</span>
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {state.videos?.map((vid) => (
+                  <div
+                    key={vid.id}
+                    className="bg-[#141414] rounded-2xl p-5 border border-deep-charcoal space-y-4 group hover:border-[#B89275]/60 transition-all flex flex-col justify-between"
+                  >
+                    <div className="flex space-x-4 items-start">
+                      <div className="w-24 h-32 rounded-xl overflow-hidden bg-black flex-shrink-0 relative border border-white/10">
+                        <img src={vid.posterImage} alt={vid.title} className="w-full h-full object-cover" />
+                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                          <Play className="w-6 h-6 text-amber-400 fill-amber-400" />
+                        </div>
+                        <span className="absolute bottom-1 right-1 bg-black/80 text-amber-300 font-mono text-[9px] px-1.5 py-0.5 rounded">
+                          {vid.duration}
+                        </span>
+                      </div>
+
+                      <div className="space-y-2 flex-1 min-w-0">
+                        <span className="text-[9px] font-display text-amber-400 uppercase font-bold block">
+                          REEL • {vid.authorName}
+                        </span>
+                        <h4 className="font-display text-xs tracking-wider text-warm-white uppercase font-bold line-clamp-2">
+                          {vid.title}
+                        </h4>
+                        <p className="text-[11px] text-soft-stone line-clamp-2 font-body">
+                          {vid.subtitle}
+                        </p>
+                        <div className="text-[10px] text-warm-taupe font-mono pt-1">
+                          FEATURED: <strong className="text-white">{vid.featuredProductName}</strong> ({vid.featuredProductPrice})
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-end space-x-2 border-t border-deep-charcoal pt-3">
+                      <button
+                        onClick={() => {
+                          setEditingVideo(vid);
+                          setVidTitle(vid.title);
+                          setVidSubtitle(vid.subtitle);
+                          setVidDuration(vid.duration);
+                          setVidUrl(vid.videoUrl);
+                          setVidPosterImage(vid.posterImage);
+                          setVidAuthorName(vid.authorName);
+                          setVidAuthorRole(vid.authorRole);
+                          setVidProdHandle(vid.featuredProductHandle);
+                          setVidProdName(vid.featuredProductName);
+                          setVidProdPrice(vid.featuredProductPrice);
+                          setVidProdImage(vid.featuredProductImage);
+                          setShowVideoModal(true);
+                        }}
+                        className="bg-deep-charcoal hover:bg-deep-charcoal/80 text-warm-white text-xs px-3 py-1.5 rounded-lg transition-colors font-display uppercase font-bold flex items-center space-x-1"
+                      >
+                        <Edit3 className="w-3.5 h-3.5 text-[#B89275]" />
+                        <span>EDIT</span>
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          if (confirm('Delete this video reel from the homepage showcase?')) {
+                            deleteVideo(vid.id);
+                            triggerSaveNotification('Video Reel deleted!');
+                          }
+                        }}
+                        className="bg-red-950/40 hover:bg-red-900/60 text-red-300 text-xs px-3 py-1.5 rounded-lg transition-colors font-display uppercase font-bold flex items-center space-x-1"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                        <span>DELETE</span>
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -2714,6 +2899,168 @@ export const AdminDashboardPage: React.FC = () => {
                 >
                   <Save className="w-4 h-4" />
                   <span>{editingSocialPost ? 'UPDATE POST CARD' : 'PUBLISH POST CARD'}</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ADD / EDIT VIDEO REEL MODAL */}
+      {showVideoModal && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="bg-[#141414] rounded-[24px] border border-deep-charcoal p-6 sm:p-8 max-w-xl w-full space-y-6 relative max-h-[90vh] overflow-y-auto">
+            <button
+              onClick={() => setShowVideoModal(false)}
+              className="absolute top-6 right-6 text-warm-taupe hover:text-white"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div>
+              <h3 className="font-display text-lg tracking-wider text-warm-white uppercase font-bold flex items-center space-x-2">
+                <Video className="w-5 h-5 text-amber-400" />
+                <span>{editingVideo ? 'EDIT PRODUCT VIDEO REEL' : 'ADD NEW PRODUCT VIDEO REEL'}</span>
+              </h3>
+              <p className="text-xs text-soft-stone font-body">
+                Upload video reels showcasing texture, application, and featured store products.
+              </p>
+            </div>
+
+            <form onSubmit={handleCreateOrUpdateVideo} className="space-y-4">
+              <div className="space-y-1">
+                <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                  VIDEO REEL TITLE *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={vidTitle}
+                  onChange={(e) => setVidTitle(e.target.value)}
+                  placeholder="e.g. Velvet Matte Lipstick Swatch & One-Swipe Application"
+                  className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                  SUBTITLE / DESCRIPTION
+                </label>
+                <textarea
+                  rows={2}
+                  value={vidSubtitle}
+                  onChange={(e) => setVidSubtitle(e.target.value)}
+                  placeholder="Watch Sora Kim demonstrate non-drying matte application..."
+                  className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none font-body"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                    VIDEO DURATION (e.g. 0:45)
+                  </label>
+                  <input
+                    type="text"
+                    value={vidDuration}
+                    onChange={(e) => setVidDuration(e.target.value)}
+                    className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none font-mono"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                    AUTHOR NAME
+                  </label>
+                  <input
+                    type="text"
+                    value={vidAuthorName}
+                    onChange={(e) => setVidAuthorName(e.target.value)}
+                    placeholder="Sora Kim"
+                    className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                  VIDEO MP4 FILE / STREAM URL *
+                </label>
+                <input
+                  type="url"
+                  required
+                  value={vidUrl}
+                  onChange={(e) => setVidUrl(e.target.value)}
+                  placeholder="https://assets.mixkit.co/videos/preview/..."
+                  className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none font-mono"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                  POSTER / COVER THUMBNAIL URL *
+                </label>
+                <input
+                  type="url"
+                  required
+                  value={vidPosterImage}
+                  onChange={(e) => setVidPosterImage(e.target.value)}
+                  placeholder="Cover thumbnail image URL"
+                  className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none font-mono"
+                />
+              </div>
+
+              <div className="space-y-3 pt-3 border-t border-deep-charcoal">
+                <label className="block font-display text-[10px] tracking-widest text-amber-400 uppercase font-bold">
+                  FEATURED PRODUCT TO SHOP
+                </label>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <input
+                    type="text"
+                    value={vidProdName}
+                    onChange={(e) => setVidProdName(e.target.value)}
+                    placeholder="Product Title (e.g. VELVET MATTE LIPSTICK)"
+                    className="bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none"
+                  />
+                  <input
+                    type="text"
+                    value={vidProdPrice}
+                    onChange={(e) => setVidProdPrice(e.target.value)}
+                    placeholder="Price (e.g. $38.00)"
+                    className="bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none"
+                  />
+                  <input
+                    type="text"
+                    value={vidProdHandle}
+                    onChange={(e) => setVidProdHandle(e.target.value)}
+                    placeholder="Product Handle (e.g. velvet-matte-lipstick)"
+                    className="bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none font-mono"
+                  />
+                  <input
+                    type="url"
+                    value={vidProdImage}
+                    onChange={(e) => setVidProdImage(e.target.value)}
+                    placeholder="Product Thumbnail Image URL"
+                    className="bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none font-mono"
+                  />
+                </div>
+              </div>
+
+              <div className="pt-4 flex items-center justify-end space-x-3">
+                <button
+                  type="button"
+                  onClick={() => setShowVideoModal(false)}
+                  className="bg-deep-charcoal hover:bg-deep-charcoal/80 text-warm-white font-display text-xs tracking-wider px-5 py-3 rounded-xl uppercase font-bold"
+                >
+                  CANCEL
+                </button>
+                <button
+                  type="submit"
+                  className="bg-gradient-to-r from-amber-500 to-pink-600 hover:opacity-90 text-white font-display text-xs tracking-wider px-6 py-3 rounded-xl uppercase font-bold flex items-center space-x-2"
+                >
+                  <Save className="w-4 h-4" />
+                  <span>{editingVideo ? 'UPDATE VIDEO REEL' : 'PUBLISH VIDEO REEL'}</span>
                 </button>
               </div>
             </form>

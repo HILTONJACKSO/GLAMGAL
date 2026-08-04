@@ -10,6 +10,7 @@ import { IngredientCard } from '../components/sections/IngredientCard';
 import { TestimonialsSection } from '../components/sections/TestimonialsSection';
 import { JournalCard } from '../components/sections/JournalCard';
 import { SocialGallery } from '../components/sections/SocialGallery';
+import { VideoShowcaseSection } from '../components/sections/VideoShowcaseSection';
 import { MarqueeBanner } from '../components/sections/MarqueeBanner';
 import { TrustBar } from '../components/layout/TrustBar';
 import { SEO } from '../components/common/SEO';
@@ -219,6 +220,11 @@ export const HomePage: React.FC = () => {
       {/* 8. FEATURED CAMPAIGN */}
       <ScrollReveal variant="fade-up">
         <EditorialSection />
+      </ScrollReveal>
+
+      {/* VIDEO SHOWCASE REELS */}
+      <ScrollReveal variant="fade-up">
+        <VideoShowcaseSection />
       </ScrollReveal>
 
       {/* 9. ROUTINE BUILDER (WARM BRONZE & CHAMPAGNE PALETTE) */}

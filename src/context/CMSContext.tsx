@@ -1,5 +1,13 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { HeroCampaignMetaobject, Product, JournalArticle, PromoCode, TestimonialItem, SocialPost } from '../types/shopify';
+import {
+  HeroCampaignMetaobject,
+  Product,
+  JournalArticle,
+  PromoCode,
+  TestimonialItem,
+  SocialPost,
+  VideoShowcaseItem,
+} from '../types/shopify';
 import { MOCK_PRODUCTS, MOCK_ARTICLES } from '../lib/shopify/mock-adapter';
 
 export interface FooterSettings {
@@ -38,6 +46,7 @@ export interface CMSState {
   testimonials: TestimonialItem[];
   socialPosts: SocialPost[];
   footerSettings: FooterSettings;
+  videos: VideoShowcaseItem[];
 }
 
 interface CMSContextType {
@@ -65,6 +74,9 @@ interface CMSContextType {
   addSocialPost: (post: SocialPost) => void;
   updateSocialPost: (id: string, updated: Partial<SocialPost>) => void;
   deleteSocialPost: (id: string) => void;
+  addVideo: (video: VideoShowcaseItem) => void;
+  updateVideo: (id: string, updated: Partial<VideoShowcaseItem>) => void;
+  deleteVideo: (id: string) => void;
   updateFooterSettings: (updated: Partial<FooterSettings>) => void;
   resetToDefaults: () => void;
 }
@@ -271,7 +283,73 @@ const DEFAULT_HOMEPAGE_SECTIONS: Record<string, CMSSectionData> = {
     description: 'Real feedback and verified experiences from our GLAMGAL beauty community.',
     enabled: true,
   },
+  videoShowcase: {
+    id: 'videoShowcase',
+    title: 'SEE GLAMGAL IN ACTION',
+    subtitle: 'COUTURE IN MOTION',
+    description: 'Watch high-definition texture reels, application tutorials, and real results from our lab artists.',
+    enabled: true,
+  },
 };
+
+const DEFAULT_VIDEOS: VideoShowcaseItem[] = [
+  {
+    id: 'vid-1',
+    title: 'Velvet Matte Lipstick Swatch & One-Swipe Application',
+    subtitle: 'Watch Sora Kim demonstrate non-drying matte application with micro-hyaluronic spheres.',
+    duration: '0:45',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-fashion-model-putting-on-lipstick-42930-large.mp4',
+    posterImage: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=800&q=80',
+    authorName: 'Sora Kim',
+    authorRole: 'Global Editorial Makeup Artist',
+    featuredProductHandle: 'velvet-matte-lipstick',
+    featuredProductName: 'VELVET MATTE COUTURE LIPSTICK',
+    featuredProductPrice: '$38.00',
+    featuredProductImage: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80',
+  },
+  {
+    id: 'vid-2',
+    title: 'Luminous Barrier Serum 72-Hour Glass Skin Glow',
+    subtitle: 'Triple Peptide & Hyaluronic Acid dropper application for barrier recovery & glossy dew.',
+    duration: '1:12',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-woman-applying-facial-cream-42790-large.mp4',
+    posterImage: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80',
+    authorName: 'Dr. Elena Vance',
+    authorRole: 'Lead Chemist',
+    featuredProductHandle: 'luminous-barrier-serum',
+    featuredProductName: 'LUMINOUS BARRIER SERUM',
+    featuredProductPrice: '$68.00',
+    featuredProductImage: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80',
+  },
+  {
+    id: 'vid-3',
+    title: 'Obsidian Volcanic Stone Gua Sha Facial Sculpting Ritual',
+    subtitle: '5-minute lymphatic drainage tutorial for sculpted cheekbones & jawline tension release.',
+    duration: '1:30',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-woman-massaging-her-face-42791-large.mp4',
+    posterImage: '/ultimate_brow_eye_cream_liner_mockup.png',
+    authorName: 'Maya Lin',
+    authorRole: 'Facial Sculpting Specialist',
+    featuredProductHandle: 'precision-contour-gua-sha',
+    featuredProductName: 'OBSIDIAN PRECISION CONTOUR GUA SHA',
+    featuredProductPrice: '$45.00',
+    featuredProductImage: '/ultimate_brow_eye_cream_liner_mockup.png',
+  },
+  {
+    id: 'vid-4',
+    title: 'Sculpting Glow Body Nectar Shimmer Demonstration',
+    subtitle: 'Marula oil & gold shimmer micro-pearls for silky shoulder & collarbone radiance.',
+    duration: '0:50',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-woman-applying-body-oil-42931-large.mp4',
+    posterImage: '/polished_smoothing_body_scrub_mockup.png',
+    authorName: 'Chloe Bennett',
+    authorRole: 'Body Care Director',
+    featuredProductHandle: 'sculpting-body-nectar',
+    featuredProductName: 'SCULPTING GLOW BODY NECTAR',
+    featuredProductPrice: '$72.00',
+    featuredProductImage: '/polished_smoothing_body_scrub_mockup.png',
+  },
+];
 
 
 const DEFAULT_FOOTER_SETTINGS: FooterSettings = {
@@ -330,6 +408,7 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           testimonials: parsed.testimonials && parsed.testimonials.length > 0 ? parsed.testimonials : DEFAULT_TESTIMONIALS,
           socialPosts: parsed.socialPosts && parsed.socialPosts.length > 0 ? parsed.socialPosts : DEFAULT_SOCIAL_POSTS,
           footerSettings: parsed.footerSettings || DEFAULT_FOOTER_SETTINGS,
+          videos: parsed.videos && parsed.videos.length > 0 ? parsed.videos : DEFAULT_VIDEOS,
         };
       }
     } catch (e) {
@@ -347,6 +426,7 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       testimonials: DEFAULT_TESTIMONIALS,
       socialPosts: DEFAULT_SOCIAL_POSTS,
       footerSettings: DEFAULT_FOOTER_SETTINGS,
+      videos: DEFAULT_VIDEOS,
     };
   });
 
@@ -409,10 +489,9 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const addMedia = (url: string) => {
-    if (!url) return;
     setState((prev) => ({
       ...prev,
-      mediaLibrary: [url, ...prev.mediaLibrary.filter((m) => m !== url)],
+      mediaLibrary: [url, ...prev.mediaLibrary],
     }));
   };
 
@@ -535,6 +614,27 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }));
   };
 
+  const addVideo = (video: VideoShowcaseItem) => {
+    setState((prev) => ({
+      ...prev,
+      videos: [video, ...prev.videos],
+    }));
+  };
+
+  const updateVideo = (id: string, updated: Partial<VideoShowcaseItem>) => {
+    setState((prev) => ({
+      ...prev,
+      videos: prev.videos.map((v) => (v.id === id ? { ...v, ...updated } : v)),
+    }));
+  };
+
+  const deleteVideo = (id: string) => {
+    setState((prev) => ({
+      ...prev,
+      videos: prev.videos.filter((v) => v.id !== id),
+    }));
+  };
+
   const updateFooterSettings = (updated: Partial<FooterSettings>) => {
     setState((prev) => ({
       ...prev,
@@ -555,6 +655,7 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       testimonials: DEFAULT_TESTIMONIALS,
       socialPosts: DEFAULT_SOCIAL_POSTS,
       footerSettings: DEFAULT_FOOTER_SETTINGS,
+      videos: DEFAULT_VIDEOS,
     });
   };
 
@@ -585,6 +686,9 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         addSocialPost,
         updateSocialPost,
         deleteSocialPost,
+        addVideo,
+        updateVideo,
+        deleteVideo,
         updateFooterSettings,
         resetToDefaults,
       }}
