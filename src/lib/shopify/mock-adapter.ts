@@ -1031,6 +1031,95 @@ export const MOCK_PRODUCTS: Product[] = [
     usageInstructions: 'Massage 1 to 2 pumps onto damp face and neck in gentle circular motions. Rinse well with warm water. Use day and night.'
   },
   {
+    id: 'gid://shopify/Product/22',
+    handle: 'resveratrol-complex-c-day-night-cream',
+    title: 'RESVERATROL COMPLEX - C VEGAN & ORGANIC DAY & NIGHT CREAM',
+    subtitle: '2 x 50ml Duo • Organic Resveratrol, Vitamin C & Peptide Cellular Rejuvenation (Vegan)',
+    description: 'Experience around-the-clock cellular rejuvenation with RESVERATROL COMPLEX - C. This luxurious 24-hour skincare duo features a featherlight antioxidant Day Cream and a rich restorative Night Cream. Formulated with 98% organic Resveratrol grape seed polyphenols, stabilized Vitamin C, and plant peptides, this cruelty-free formula melts into skin leaving it plump, firm, and velvety smooth.',
+    descriptionHtml: '<p>Experience around-the-clock cellular rejuvenation with RESVERATROL COMPLEX - C.</p><p>This luxurious 24-hour skincare duo features a featherlight antioxidant Day Cream and a rich restorative Night Cream. Formulated with 98% organic Resveratrol grape seed polyphenols, stabilized Vitamin C, and plant peptides, this cruelty-free formula melts into skin leaving it plump, firm, and velvety smooth.</p>',
+    category: 'Skincare',
+    productType: 'Face Cream Duo',
+    vendor: 'GLAMGAL',
+    availableForSale: true,
+    tags: ['New', 'Best Seller', 'Skincare', 'Moisturizer', 'Resveratrol', 'Vitamin C', 'Vegan', 'Organic', 'Day & Night'],
+    priceRange: {
+      minVariantPrice: { amount: '68.00', currencyCode: 'USD' },
+      maxVariantPrice: { amount: '68.00', currencyCode: 'USD' }
+    },
+    compareAtPriceRange: {
+      minVariantPrice: { amount: '85.00', currencyCode: 'USD' },
+      maxVariantPrice: { amount: '85.00', currencyCode: 'USD' }
+    },
+    featuredImage: {
+      id: 'img-rcd-1',
+      url: '/resveratrol_complex_day_night_cream_mockup.png',
+      altText: 'RESVERATROL COMPLEX - C Day Cream & Night Cream Duo'
+    },
+    secondaryImage: {
+      id: 'img-rcd-2',
+      url: '/resveratrol_complex_day_night_cream_mockup.png',
+      altText: 'RESVERATROL COMPLEX - C Bottles'
+    },
+    images: [
+      { id: 'img-rcd-1', url: '/resveratrol_complex_day_night_cream_mockup.png', altText: 'RESVERATROL COMPLEX - C Day & Night Cream' },
+      { id: 'img-rcd-2', url: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1000&q=80', altText: 'Model Application Organic Cream' }
+    ],
+    options: [
+      { name: 'Set Option', values: ['Day & Night Cream Duo (2 x 50ml)', 'Day Cream Only (50ml)', 'Night Cream Only (50ml)'] }
+    ],
+    variants: [
+      {
+        id: 'gid://shopify/ProductVariant/2201',
+        title: 'Day & Night Cream Duo (2 x 50ml)',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Set Option', value: 'Day & Night Cream Duo (2 x 50ml)' }],
+        price: { amount: '68.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '85.00', currencyCode: 'USD' },
+        sku: 'GG-RCD-DUO'
+      },
+      {
+        id: 'gid://shopify/ProductVariant/2202',
+        title: 'Day Cream Only (50ml)',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Set Option', value: 'Day Cream Only (50ml)' }],
+        price: { amount: '38.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '48.00', currencyCode: 'USD' },
+        sku: 'GG-RCD-DAY'
+      },
+      {
+        id: 'gid://shopify/ProductVariant/2203',
+        title: 'Night Cream Only (50ml)',
+        availableForSale: true,
+        selectedOptions: [{ name: 'Set Option', value: 'Night Cream Only (50ml)' }],
+        price: { amount: '40.00', currencyCode: 'USD' },
+        compareAtPrice: { amount: '50.00', currencyCode: 'USD' },
+        sku: 'GG-RCD-NIGHT'
+      }
+    ],
+    rating: 4.99,
+    reviewCount: 236,
+    badges: [
+      { text: 'NEW ARRIVAL', type: 'new' },
+      { text: 'BEST SELLER', type: 'best-seller' },
+      { text: 'VEGAN & ORGANIC', type: 'vegan' }
+    ],
+    keyBenefits: [
+      '24-Hour Rejuvenation: Day Cream defends against daily pollution while Night Cream deeply repairs elasticity',
+      'RESVERATROL COMPLEX - C: Organic grape seed polyphenols & stabilized Vitamin C illuminate skin',
+      'Plumping Plant Peptides & Hyaluronic Spheres melt into skin leaving it velvety smooth & firm',
+      '100% Vegan, Organic & Cruelty-Free luxury formula for all skin types'
+    ],
+    ingredientsList: [
+      '98% Organic Grape Resveratrol Extract',
+      'Stabilized Vitamin C (Tetrahexyldecyl Ascorbate)',
+      'Copper Tripeptide-1 Matrix',
+      'Bio-Identical Hyaluronic Spheres',
+      'Organic Rosehip Seed Oil',
+      'Botanical Squalane'
+    ],
+    usageInstructions: 'In the morning, apply Day Cream onto clean face and neck after serum. In the evening, smooth Night Cream generously over face and neck to allow deep overnight cellular renewal.'
+  },
+  {
     id: 'gid://shopify/Product/1',
     handle: 'luminous-barrier-serum',
     title: 'LUMINOUS BARRIER SERUM',
