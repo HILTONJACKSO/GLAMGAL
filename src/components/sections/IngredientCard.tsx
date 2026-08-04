@@ -1,50 +1,85 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BeautyIngredient } from '../../types/shopify';
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, Sparkles, ArrowUpRight } from 'lucide-react';
 
 export const IngredientCard: React.FC<{ ingredient: BeautyIngredient }> = ({ ingredient }) => {
   return (
-    <div className="bg-white border border-soft-stone p-6 rounded-sm flex flex-col justify-between space-y-6 hover:shadow-lg transition-shadow">
-      <div className="space-y-4">
-        <div className="aspect-[16/9] overflow-hidden rounded-sm bg-warm-white">
+    <div className="h-full bg-white border border-[#E3D5C8]/70 hover:border-[#B89275] rounded-3xl overflow-hidden flex flex-col justify-between group shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500">
+      <div className="flex-1 flex flex-col justify-between">
+        {/* Card Header Media Container */}
+        <div className="relative aspect-[16/10] overflow-hidden bg-warm-white rounded-t-3xl">
           <img
-            src={ingredient.image}
+            src={ingredient.image || '/hero_model.png'}
             alt={ingredient.name}
-            className="w-full h-full object-cover object-center"
+            className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
             loading="lazy"
+            onError={(e) => {
+              (e.currentTarget as HTMLImageElement).src = '/hero_model.png';
+            }}
           />
-        </div>
-        <h3 className="font-display text-sm tracking-widest text-obsidian uppercase font-bold">
-          {ingredient.name}
-        </h3>
-        <p className="text-xs text-deep-charcoal leading-relaxed">
-          {ingredient.shortDescription}
-        </p>
+          <div className="absolute inset-0 bg-gradient-to-t from-obsidian/85 via-obsidian/30 to-transparent" />
 
-        {/* Benefits list */}
-        <div className="space-y-1.5 pt-2">
-          {ingredient.benefits.map((benefit, i) => (
-            <div key={i} className="flex items-center space-x-2 text-xs text-warm-taupe">
-              <CheckCircle2 className="w-3.5 h-3.5 text-obsidian flex-shrink-0" />
-              <span>{benefit}</span>
-            </div>
-          ))}
+          {/* Top Left Badge */}
+          <div className="absolute top-4 left-4 z-10">
+            <span className="bg-[#B89275] text-white font-display text-[10px] font-bold tracking-widest px-3.5 py-1.5 uppercase rounded-full shadow-md backdrop-blur-sm border border-white/20 inline-flex items-center space-x-1.5">
+              <Sparkles className="w-3 h-3 text-white" />
+              <span>ACTIVE CLINICAL INGREDIENT</span>
+            </span>
+          </div>
+
+          {/* Bottom Card Title Overlay inside Header */}
+          <div className="absolute bottom-4 left-4 right-4 z-10 text-warm-white">
+            <h3 className="font-display text-base sm:text-lg tracking-wider text-warm-white uppercase font-bold group-hover:text-[#F4EBE2] transition-colors drop-shadow-md line-clamp-1">
+              {ingredient.name}
+            </h3>
+          </div>
+        </div>
+
+        {/* Card Body Content */}
+        <div className="p-6 sm:p-7 space-y-5 bg-white flex-1 flex flex-col justify-between">
+          <p className="text-xs sm:text-sm text-[#5C5046] font-body leading-relaxed font-light min-h-[44px]">
+            {ingredient.shortDescription}
+          </p>
+
+          {/* Benefits List */}
+          <div className="space-y-2 pt-1 border-t border-[#F4EBE2]">
+            <span className="text-[10px] font-display font-bold tracking-mega text-[#A68064] uppercase block mb-2">
+              TARGETED BENEFITS
+            </span>
+            {ingredient.benefits.map((benefit, i) => (
+              <div
+                key={i}
+                className="flex items-center space-x-2.5 p-2.5 rounded-2xl bg-[#FDFBF7] hover:bg-[#F7EFF5]/60 border border-[#E3D5C8]/40 transition-colors"
+              >
+                <CheckCircle2 className="w-4 h-4 text-[#B89275] flex-shrink-0" />
+                <span className="text-xs font-display font-semibold text-obsidian tracking-wider uppercase truncate">
+                  {benefit}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      <div className="pt-4 border-t border-soft-stone/50">
-        <span className="text-[10px] font-display text-warm-taupe uppercase block mb-2">FOUND IN:</span>
-        <div className="flex flex-wrap gap-2">
-          {ingredient.featuredProductHandles.map((handle) => (
-            <Link
-              key={handle}
-              to={`/products/${handle}`}
-              className="text-[11px] font-display uppercase underline text-obsidian hover:text-warm-taupe"
-            >
-              {handle.replace(/-/g, ' ')}
-            </Link>
-          ))}
+      {/* Card Footer: Found In Products */}
+      <div className="p-6 sm:p-7 pt-0 bg-white">
+        <div className="pt-4 border-t border-[#F4EBE2] space-y-2.5">
+          <span className="text-[10px] font-display font-bold tracking-mega text-[#A68064] uppercase block">
+            FORMULATED IN:
+          </span>
+          <div className="flex flex-wrap gap-2">
+            {ingredient.featuredProductHandles.map((handle) => (
+              <Link
+                key={handle}
+                to={`/products/${handle}`}
+                className="inline-flex items-center space-x-1 px-3 py-1.5 rounded-full bg-[#FAF7F2] hover:bg-obsidian hover:text-white border border-[#E3D5C8] text-obsidian text-[10px] font-display font-bold uppercase tracking-wider transition-all duration-300 shadow-2xs group/btn"
+              >
+                <span>{handle.replace(/-/g, ' ')}</span>
+                <ArrowUpRight className="w-3 h-3 text-[#B89275] group-hover/btn:text-white transition-colors" />
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </div>

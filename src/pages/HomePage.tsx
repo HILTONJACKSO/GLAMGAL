@@ -248,18 +248,23 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* 10. INGREDIENT SPOTLIGHT */}
-      <section className="bg-white py-20 border-t border-soft-stone">
-        <div className="max-w-7xl mx-auto px-6 space-y-10">
+      <section className="bg-white py-24 border-t border-[#E3D5C8]/80">
+        <div className="max-w-7xl mx-auto px-6 space-y-12">
           <ScrollReveal variant="fade-up">
-            <div className="text-center max-w-xl mx-auto space-y-2">
-              <span className="font-display text-xs tracking-mega text-warm-taupe uppercase">INGREDIENT SCIENCE</span>
-              <h2 className="font-display text-2xl sm:text-3xl tracking-widest text-obsidian uppercase font-bold">
+            <div className="text-center max-w-2xl mx-auto space-y-3">
+              <span className="inline-block font-display text-[10px] sm:text-xs tracking-mega text-[#A68064] uppercase font-bold px-3 py-1 bg-[#B89275]/10 rounded-full border border-[#B89275]/20">
+                INGREDIENT SCIENCE
+              </span>
+              <h2 className="font-display text-2xl sm:text-4xl tracking-widest text-obsidian uppercase font-black">
                 ACTIVE INGREDIENT SPOTLIGHT
               </h2>
+              <p className="font-body text-xs sm:text-sm text-[#5C5046] font-light leading-relaxed">
+                Discover the bio-identical peptides, clinical actives, and cold-pressed botanical oils powering GLAMGAL high-performance formulations.
+              </p>
             </div>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
             {ingredients.map((ing, idx) => (
               <ScrollReveal key={ing.id} variant="fade-up" delay={idx * 0.1}>
                 <IngredientCard ingredient={ing} />

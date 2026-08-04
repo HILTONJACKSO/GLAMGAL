@@ -1685,7 +1685,7 @@ export const MOCK_INGREDIENTS: BeautyIngredient[] = [
     name: 'Multi-Molecular Hyaluronic Acid',
     shortDescription: 'Attracts and binds up to 1,000 times its weight in water to plump deep skin layers.',
     fullDetails: 'Engineered with 5 distinct molecular weights, this complex penetrates from epidermal surface down to dermal layers, preventing transepidermal water loss and restoring bounce.',
-    image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80',
+    image: '/calming_rosewater_toner_mockup.png',
     benefits: ['Deep Hydration', 'Immediate Plumping', 'Smoother Fine Lines'],
     featuredProductHandles: ['luminous-barrier-serum', 'velvet-matte-lipstick']
   },
@@ -1694,7 +1694,7 @@ export const MOCK_INGREDIENTS: BeautyIngredient[] = [
     name: 'Bio-Identical Ceramides NP, AP & EOP',
     shortDescription: 'Replenishes essential lipid intercellular matrix for resilient skin protection.',
     fullDetails: 'Ceramides make up 50% of the skin lipid barrier. Our bio-identical tri-ceramide complex fortifies skin resilience against environmental pollutants, harsh weather, and reactive sensitivity.',
-    image: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=800&q=80',
+    image: '/resveratrol_complex_day_night_cream_mockup.png',
     benefits: ['Barrier Repair', 'Calms Redness', 'Protects Elasticity'],
     featuredProductHandles: ['cellular-overnight-cream']
   },
@@ -1703,7 +1703,7 @@ export const MOCK_INGREDIENTS: BeautyIngredient[] = [
     name: 'Cold-Pressed Marula Oil',
     shortDescription: 'Rich in essential fatty acids and potent flavonoids for a silky radiant glow.',
     fullDetails: 'Sustainably harvested and cold-pressed to preserve active antioxidants. Absorbs rapidly into skin without clogging pores, leaving body skin velvety soft and deeply nourished.',
-    image: 'https://images.unsplash.com/photo-1608248597263-00079996576f?auto=format&fit=crop&w=800&q=80',
+    image: '/polished_smoothing_body_scrub_mockup.png',
     benefits: ['Radiant Shimmer', 'Lipid Replenishment', 'Silky Touch'],
     featuredProductHandles: ['sculpting-body-nectar']
   }
