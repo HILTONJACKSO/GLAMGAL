@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, Search, ShoppingBag, Heart, User, Globe, ShieldCheck } from 'lucide-react';
+import { Menu, Search, ShoppingBag, Heart, User, Globe } from 'lucide-react';
 import { Logo } from '../common/Logo';
 import { AnnouncementBar } from './AnnouncementBar';
 import { DesktopNavigation } from './DesktopNavigation';
@@ -54,16 +54,6 @@ export const Header: React.FC<HeaderProps> = ({ announcements = [], onOpenSearch
             <Globe className="w-3.5 h-3.5 text-warm-taupe" />
             <span>USD $</span>
           </button>
-
-          {/* Admin Dashboard Portal Link */}
-          <Link
-            to="/admin/login"
-            className="p-2 text-obsidian hover:text-[#B89275] transition-colors rounded-full hover:bg-warm-white"
-            title="GLAMGAL Admin Dashboard"
-            aria-label="Admin Dashboard"
-          >
-            <ShieldCheck className="w-5 h-5 stroke-[1.5]" />
-          </Link>
 
           {/* Search Trigger */}
           <button
