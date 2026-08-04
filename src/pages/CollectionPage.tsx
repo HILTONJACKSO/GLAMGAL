@@ -115,18 +115,22 @@ export const CollectionPage: React.FC<{ defaultHandle?: string }> = ({ defaultHa
       <Breadcrumbs items={[{ label: 'COLLECTIONS', href: '/collections/all' }, { label: title }]} />
 
       {/* Collection Hero Banner */}
-      <div className="relative overflow-hidden bg-obsidian text-warm-white p-8 md:p-12 rounded-sm border border-soft-stone">
-        {collection?.image && (
-          <img
-            src={collection.image.url}
-            alt={collection.title}
-            className="absolute inset-0 w-full h-full object-cover object-center opacity-40"
-          />
-        )}
+      <div className="relative overflow-hidden bg-obsidian text-warm-white p-8 md:p-12 rounded-2xl border border-soft-stone/40 shadow-2xl">
+        <img
+          src={collection?.image?.url || '/shop_all_glamgal_collection_banner.png'}
+          alt={collection?.title || 'Collection Banner'}
+          className="absolute inset-0 w-full h-full object-cover object-center opacity-45 mix-blend-luminosity scale-105 transition-transform duration-1000"
+          onError={(e) => {
+            (e.currentTarget as HTMLImageElement).src = '/shop_all_glamgal_collection_banner.png';
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-obsidian via-obsidian/85 to-transparent z-0" />
         <div className="relative z-10 max-w-2xl space-y-3">
-          <span className="font-display text-[10px] tracking-mega text-warm-taupe uppercase">GLAMGAL COLLECTION</span>
-          <h1 className="font-display text-2xl md:text-4xl tracking-widest uppercase font-black">{title}</h1>
-          <p className="text-xs md:text-sm text-soft-stone font-light leading-relaxed">{collection?.description}</p>
+          <span className="font-display text-[10px] tracking-mega text-[#B89275] uppercase font-bold px-3 py-1 bg-obsidian/60 backdrop-blur-md rounded-full border border-[#B89275]/30 inline-block mb-1">
+            GLAMGAL COLLECTION
+          </span>
+          <h1 className="font-display text-2xl md:text-4xl tracking-widest uppercase font-black text-warm-white drop-shadow-md">{title}</h1>
+          <p className="text-xs md:text-sm text-soft-stone/90 font-light leading-relaxed max-w-xl">{collection?.description}</p>
         </div>
       </div>
 

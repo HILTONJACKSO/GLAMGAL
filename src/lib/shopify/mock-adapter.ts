@@ -1597,9 +1597,9 @@ export const MOCK_COLLECTIONS: Collection[] = [
     id: 'gid://shopify/Collection/1',
     handle: 'all',
     title: 'SHOP ALL GLAMGAL',
-    description: 'Explore our complete suite of skin-first care, high-impact makeup, body care, and precision tools.',
+    description: 'Explore our complete suite of skin-first care, high-impact makeup, body care, and precision beauty tools.',
     image: {
-      url: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1200&q=80',
+      url: '/shop_all_glamgal_collection_banner.png',
       altText: 'GLAMGAL Complete Collection'
     },
     products: MOCK_PRODUCTS,
@@ -1611,11 +1611,11 @@ export const MOCK_COLLECTIONS: Collection[] = [
     title: 'SKINCARE ESSENTIALS',
     description: 'Advanced formulations engineered with potent botanical actives and clinical peptides for healthy skin barrier performance.',
     image: {
-      url: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1200&q=80',
+      url: '/calming_rosewater_toner_mockup.png',
       altText: 'GLAMGAL Skincare Collection'
     },
     products: MOCK_PRODUCTS.filter(p => p.category === 'Skincare'),
-    productCount: 2
+    productCount: MOCK_PRODUCTS.filter(p => p.category === 'Skincare').length
   },
   {
     id: 'gid://shopify/Collection/3',
@@ -1623,11 +1623,11 @@ export const MOCK_COLLECTIONS: Collection[] = [
     title: 'HIGH-IMPACT MAKEUP',
     description: 'Weightless textures, vivid pigments, and skin-loving formulas for effortless daily glam and evening drama.',
     image: {
-      url: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=1200&q=80',
+      url: '/liquid_velvet_lipstick_mockup.png',
       altText: 'GLAMGAL Makeup Collection'
     },
     products: MOCK_PRODUCTS.filter(p => p.category === 'Makeup'),
-    productCount: 2
+    productCount: MOCK_PRODUCTS.filter(p => p.category === 'Makeup').length
   },
   {
     id: 'gid://shopify/Collection/4',
@@ -1635,11 +1635,11 @@ export const MOCK_COLLECTIONS: Collection[] = [
     title: 'LUXURY BODY CARE',
     description: 'Nourishing body nectars, scrubs, and illuminators for smooth skin from collarbones to toes.',
     image: {
-      url: 'https://images.unsplash.com/photo-1608248597263-00079996576f?auto=format&fit=crop&w=1200&q=80',
+      url: '/luxe_decadent_body_cream_mockup.png',
       altText: 'GLAMGAL Body Care Collection'
     },
     products: MOCK_PRODUCTS.filter(p => p.category === 'Body Care'),
-    productCount: 1
+    productCount: MOCK_PRODUCTS.filter(p => p.category === 'Body Care').length
   },
   {
     id: 'gid://shopify/Collection/5',
@@ -1647,11 +1647,11 @@ export const MOCK_COLLECTIONS: Collection[] = [
     title: 'PRECISION BEAUTY TOOLS',
     description: 'Professional-grade obsidian stone sculptors and tools designed to enhance your daily beauty ritual.',
     image: {
-      url: 'https://images.unsplash.com/photo-1590156206657-b089c256037e?auto=format&fit=crop&w=1200&q=80',
+      url: '/ultimate_brow_eye_cream_liner_mockup.png',
       altText: 'GLAMGAL Beauty Tools Collection'
     },
     products: MOCK_PRODUCTS.filter(p => p.category === 'Beauty Tools'),
-    productCount: 1
+    productCount: MOCK_PRODUCTS.filter(p => p.category === 'Beauty Tools').length
   },
   {
     id: 'gid://shopify/Collection/6',
@@ -1659,11 +1659,11 @@ export const MOCK_COLLECTIONS: Collection[] = [
     title: 'NEW ARRIVALS',
     description: 'Discover the latest formulation breakthroughs and shade releases fresh from our laboratories.',
     image: {
-      url: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1200&q=80',
+      url: '/balance_rosewater_facial_wash_mockup.png',
       altText: 'GLAMGAL New Arrivals'
     },
     products: MOCK_PRODUCTS.filter(p => p.badges?.some(b => b.type === 'new')),
-    productCount: 2
+    productCount: MOCK_PRODUCTS.filter(p => p.badges?.some(b => b.type === 'new')).length
   },
   {
     id: 'gid://shopify/Collection/7',
@@ -1671,11 +1671,11 @@ export const MOCK_COLLECTIONS: Collection[] = [
     title: 'BEST SELLERS',
     description: 'Our most-coveted, award-winning skincare, makeup, and beauty ritual icons.',
     image: {
-      url: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=1200&q=80',
+      url: '/shop_all_glamgal_collection_banner.png',
       altText: 'GLAMGAL Best Sellers'
     },
     products: MOCK_PRODUCTS.filter(p => p.badges?.some(b => b.type === 'best-seller')),
-    productCount: 2
+    productCount: MOCK_PRODUCTS.filter(p => p.badges?.some(b => b.type === 'best-seller')).length
   }
 ];
 
