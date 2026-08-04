@@ -100,12 +100,29 @@ export const VideoShowcaseSection: React.FC = () => {
               {/* AUTOPLAYING VIDEO THUMBNAIL CONTAINER */}
               <div className="relative aspect-[4/5] overflow-hidden bg-black">
                 <video
+                  ref={(el) => {
+                    if (el) {
+                      el.muted = true;
+                      el.defaultMuted = true;
+                      const playPromise = el.play();
+                      if (playPromise !== undefined) {
+                        playPromise.catch(() => {
+                          // Autoplay was prevented; retry when loaded
+                        });
+                      }
+                    }
+                  }}
                   src={vid.videoUrl}
                   poster={vid.posterImage}
                   autoPlay
                   loop
                   muted
                   playsInline
+                  preload="auto"
+                  onCanPlay={(e) => {
+                    e.currentTarget.muted = true;
+                    e.currentTarget.play().catch(() => {});
+                  }}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
