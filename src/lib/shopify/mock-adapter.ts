@@ -290,13 +290,13 @@ export const MOCK_PRODUCTS: Product[] = [
     handle: '5-well-eyeshadow-palette',
     title: '5 WELL EYESHADOW COUTURE PALETTE',
     subtitle: 'Triple-Milled Pigment Eyeshadow Palette & Dual Applicator',
-    description: 'Unveil effortless couture eye looks with the 5 WELL EYESHADOW COUTURE PALETTE. Featuring 5 color-coordinated triple-milled powder pans in a sleek vertical compact, these silk-texture shadows offer intense color payoff, seamless blendability, and zero creasing for 16-hour longwear beauty.',
-    descriptionHtml: '<p>Unveil effortless couture eye looks with the 5 WELL EYESHADOW COUTURE PALETTE.</p><p>Featuring 5 color-coordinated triple-milled powder pans in a sleek vertical compact, these silk-texture shadows offer intense color payoff, seamless blendability, and zero creasing for 16-hour longwear beauty.</p>',
+    description: 'Unveil effortless couture eye looks with the 5 WELL EYESHADOW COUTURE PALETTE. Featuring pre-set color-coordinated shade combinations of our best-selling triple-milled powder shadows, this sleek vertical compact includes 5 velvet pans and a dual-ended applicator brush for seamless 16-hour longwear beauty.',
+    descriptionHtml: '<p>Unveil effortless couture eye looks with the 5 WELL EYESHADOW COUTURE PALETTE.</p><p>Featuring pre-set color-coordinated shade combinations of our best-selling triple-milled powder shadows, this sleek vertical compact includes 5 velvet pans and a dual-ended applicator brush for seamless 16-hour longwear beauty.</p>',
     category: 'Makeup',
     productType: 'Eyeshadow Palette',
     vendor: 'GLAMGAL',
     availableForSale: true,
-    tags: ['New', 'Best Seller', 'Makeup', 'Eyeshadow', 'Palette', 'Couture'],
+    tags: ['New', 'Best Seller', 'Makeup', 'Eyeshadow', 'Palette', 'Couture', 'Triple-Milled'],
     priceRange: {
       minVariantPrice: { amount: '48.00', currencyCode: 'USD' },
       maxVariantPrice: { amount: '48.00', currencyCode: 'USD' }
@@ -312,8 +312,8 @@ export const MOCK_PRODUCTS: Product[] = [
     },
     secondaryImage: {
       id: 'img-5w-2',
-      url: '/five_well_eyeshadow_palette_mockup.png',
-      altText: '5 WELL EYESHADOW Open Compact'
+      url: '/five_well_eyeshadow_palette_mockup_v2.png',
+      altText: '5 WELL EYESHADOW Open Compacts'
     },
     images: [
       { id: 'img-5w-1', url: '/five_well_eyeshadow_palette_mockup.png', altText: '5 WELL EYESHADOW Palettes' },
@@ -367,9 +367,9 @@ export const MOCK_PRODUCTS: Product[] = [
       { text: 'BEST SELLER', type: 'best-seller' }
     ],
     keyBenefits: [
-      '5 color-coordinated triple-milled shadow pans for effortless shading',
-      'Ultra-pigmented velvet powder formula with buttery blendability & zero fallout',
-      'Includes dual-ended applicator brush stored inside sleek obsidian compact',
+      'PRE-SET PALETTES: Best-selling color co-ordinated 5-pan sets ready for instant glamour',
+      'TRIPLE-MILLED SHADOWS: Ultra-fine powder formula with intense color payoff & buttery blendability',
+      'Dual-ended applicator brush stored inside sleek vertical obsidian compact',
       '16-hour crease-resistant & smudge-proof longwear finish'
     ],
     ingredientsList: [
