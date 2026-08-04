@@ -298,7 +298,7 @@ const DEFAULT_VIDEOS: VideoShowcaseItem[] = [
     title: 'Velvet Matte Lipstick Swatch & One-Swipe Application',
     subtitle: 'Watch Sora Kim demonstrate non-drying matte application with micro-hyaluronic spheres.',
     duration: '0:45',
-    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-fashion-model-putting-on-lipstick-42930-large.mp4',
+    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
     posterImage: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=800&q=80',
     authorName: 'Sora Kim',
     authorRole: 'Global Editorial Makeup Artist',
@@ -312,7 +312,7 @@ const DEFAULT_VIDEOS: VideoShowcaseItem[] = [
     title: 'Luminous Barrier Serum 72-Hour Glass Skin Glow',
     subtitle: 'Triple Peptide & Hyaluronic Acid dropper application for barrier recovery & glossy dew.',
     duration: '1:12',
-    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-woman-applying-facial-cream-42790-large.mp4',
+    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoypasses.mp4',
     posterImage: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80',
     authorName: 'Dr. Elena Vance',
     authorRole: 'Lead Chemist',
@@ -326,7 +326,7 @@ const DEFAULT_VIDEOS: VideoShowcaseItem[] = [
     title: 'Obsidian Volcanic Stone Gua Sha Facial Sculpting Ritual',
     subtitle: '5-minute lymphatic drainage tutorial for sculpted cheekbones & jawline tension release.',
     duration: '1:30',
-    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-woman-massaging-her-face-42791-large.mp4',
+    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
     posterImage: '/ultimate_brow_eye_cream_liner_mockup.png',
     authorName: 'Maya Lin',
     authorRole: 'Facial Sculpting Specialist',
@@ -340,7 +340,7 @@ const DEFAULT_VIDEOS: VideoShowcaseItem[] = [
     title: 'Sculpting Glow Body Nectar Shimmer Demonstration',
     subtitle: 'Marula oil & gold shimmer micro-pearls for silky shoulder & collarbone radiance.',
     duration: '0:50',
-    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-woman-applying-body-oil-42931-large.mp4',
+    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
     posterImage: '/polished_smoothing_body_scrub_mockup.png',
     authorName: 'Chloe Bennett',
     authorRole: 'Body Care Director',
@@ -398,6 +398,15 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           ? { ...parsed.hero, featuredImageUrl: '/hero_model.png' }
           : parsed.hero || DEFAULT_HERO;
 
+        const rawVideos: VideoShowcaseItem[] = parsed.videos && parsed.videos.length > 0 ? parsed.videos : DEFAULT_VIDEOS;
+        const sanitizedVideos = rawVideos.map((v) => {
+          if (!v.videoUrl || v.videoUrl.includes('mixkit.co')) {
+            const fresh = DEFAULT_VIDEOS.find((d) => d.id === v.id);
+            return fresh ? { ...v, videoUrl: fresh.videoUrl } : { ...v, videoUrl: DEFAULT_VIDEOS[0].videoUrl };
+          }
+          return v;
+        });
+
         return {
           ...parsed,
           hero: heroState,
@@ -408,7 +417,7 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           testimonials: parsed.testimonials && parsed.testimonials.length > 0 ? parsed.testimonials : DEFAULT_TESTIMONIALS,
           socialPosts: parsed.socialPosts && parsed.socialPosts.length > 0 ? parsed.socialPosts : DEFAULT_SOCIAL_POSTS,
           footerSettings: parsed.footerSettings || DEFAULT_FOOTER_SETTINGS,
-          videos: parsed.videos && parsed.videos.length > 0 ? parsed.videos : DEFAULT_VIDEOS,
+          videos: sanitizedVideos,
         };
       }
     } catch (e) {
