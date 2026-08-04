@@ -117,12 +117,6 @@ export const VideoShowcaseSection: React.FC = () => {
                   <span>{vid.duration}</span>
                 </div>
 
-                {/* PLAY BUTTON PULSE ICON */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300">
-                  <div className="w-12 h-12 rounded-full bg-amber-500/90 text-obsidian flex items-center justify-center shadow-lg group-hover:bg-amber-400">
-                    <Play className="w-5 h-5 fill-obsidian ml-0.5" />
-                  </div>
-                </div>
 
                 {/* Featured Product Tag at Bottom of Thumbnail */}
                 <div className="absolute bottom-3 left-3 right-3 bg-black/80 backdrop-blur-md rounded-xl p-2.5 border border-white/10 flex items-center space-x-3">
