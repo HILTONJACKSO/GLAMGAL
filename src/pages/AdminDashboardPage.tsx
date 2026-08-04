@@ -2982,32 +2982,87 @@ export const AdminDashboardPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="space-y-1">
-                <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
-                  VIDEO MP4 FILE / STREAM URL *
+              <div className="space-y-2 bg-[#1C1613] p-4 rounded-xl border border-white/10">
+                <label className="block font-display text-[10px] tracking-widest text-amber-400 uppercase font-bold">
+                  UPLOAD VIDEO FILE FROM YOUR DEVICE OR PASTE URL *
                 </label>
-                <input
-                  type="url"
-                  required
-                  value={vidUrl}
-                  onChange={(e) => setVidUrl(e.target.value)}
-                  placeholder="https://assets.mixkit.co/videos/preview/..."
-                  className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none font-mono"
-                />
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <label className="bg-[#B89275] hover:bg-[#A37E62] text-white font-display text-xs font-bold px-4 py-2.5 rounded-xl cursor-pointer transition-all flex items-center justify-center space-x-2 shrink-0">
+                    <Upload className="w-4 h-4" />
+                    <span>CHOOSE VIDEO FROM DEVICE</span>
+                    <input
+                      type="file"
+                      accept="video/*"
+                      className="hidden"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          const reader = new FileReader();
+                          reader.onload = (event) => {
+                            if (event.target?.result) {
+                              setVidUrl(event.target.result as string);
+                              triggerSaveNotification('Device video file loaded successfully!');
+                            }
+                          };
+                          reader.readAsDataURL(file);
+                        }
+                      }}
+                    />
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={vidUrl}
+                    onChange={(e) => setVidUrl(e.target.value)}
+                    placeholder="or paste video URL (https://...mp4)"
+                    className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-2.5 rounded-xl outline-none font-mono"
+                  />
+                </div>
+                {vidUrl && (
+                  <div className="pt-2">
+                    <span className="text-[10px] font-mono text-emerald-400 block truncate">
+                      ✓ VIDEO LOADED ({vidUrl.startsWith('data:') ? 'Local Device Video File' : vidUrl})
+                    </span>
+                  </div>
+                )}
               </div>
 
-              <div className="space-y-1">
-                <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
-                  POSTER / COVER THUMBNAIL URL *
+              <div className="space-y-2 bg-[#1C1613] p-4 rounded-xl border border-white/10">
+                <label className="block font-display text-[10px] tracking-widest text-amber-400 uppercase font-bold">
+                  UPLOAD POSTER / THUMBNAIL COVER FROM DEVICE OR PASTE URL *
                 </label>
-                <input
-                  type="url"
-                  required
-                  value={vidPosterImage}
-                  onChange={(e) => setVidPosterImage(e.target.value)}
-                  placeholder="Cover thumbnail image URL"
-                  className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-3 rounded-xl outline-none font-mono"
-                />
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <label className="bg-deep-charcoal hover:bg-deep-charcoal/80 text-warm-white border border-white/20 font-display text-xs font-bold px-4 py-2.5 rounded-xl cursor-pointer transition-all flex items-center justify-center space-x-2 shrink-0">
+                    <Upload className="w-4 h-4 text-amber-400" />
+                    <span>CHOOSE COVER IMAGE</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          const reader = new FileReader();
+                          reader.onload = (event) => {
+                            if (event.target?.result) {
+                              setVidPosterImage(event.target.result as string);
+                              triggerSaveNotification('Cover thumbnail image loaded!');
+                            }
+                          };
+                          reader.readAsDataURL(file);
+                        }
+                      }}
+                    />
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={vidPosterImage}
+                    onChange={(e) => setVidPosterImage(e.target.value)}
+                    placeholder="or paste cover thumbnail image URL"
+                    className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs p-2.5 rounded-xl outline-none font-mono"
+                  />
+                </div>
               </div>
 
               <div className="space-y-3 pt-3 border-t border-deep-charcoal">

@@ -97,25 +97,30 @@ export const VideoShowcaseSection: React.FC = () => {
               }}
               className="bg-[#1F1916] rounded-2xl border border-white/10 overflow-hidden group cursor-pointer hover:border-amber-400/50 hover:shadow-2xl transition-all duration-500 flex flex-col justify-between"
             >
-              {/* VIDEO THUMBNAIL CONTAINER */}
+              {/* AUTOPLAYING VIDEO THUMBNAIL CONTAINER */}
               <div className="relative aspect-[4/5] overflow-hidden bg-black">
-                <img
-                  src={vid.posterImage}
-                  alt={vid.title}
+                <video
+                  src={vid.videoUrl}
+                  poster={vid.posterImage}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
 
-                {/* Duration Badge */}
-                <div className="absolute top-3 left-3 flex items-center space-x-1 bg-black/70 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] font-mono text-amber-300 border border-white/10">
-                  <Clock className="w-3 h-3" />
+                {/* Duration & Live Reel Badge */}
+                <div className="absolute top-3 left-3 flex items-center space-x-1.5 bg-black/70 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] font-mono text-amber-300 border border-white/10">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
+                  <Clock className="w-3 h-3 ml-0.5" />
                   <span>{vid.duration}</span>
                 </div>
 
                 {/* PLAY BUTTON PULSE ICON */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-14 h-14 rounded-full bg-amber-500/90 text-obsidian flex items-center justify-center shadow-lg group-hover:scale-110 transition-all duration-300 group-hover:bg-amber-400">
-                    <Play className="w-6 h-6 fill-obsidian ml-0.5" />
+                <div className="absolute inset-0 flex items-center justify-center opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300">
+                  <div className="w-12 h-12 rounded-full bg-amber-500/90 text-obsidian flex items-center justify-center shadow-lg group-hover:bg-amber-400">
+                    <Play className="w-5 h-5 fill-obsidian ml-0.5" />
                   </div>
                 </div>
 
