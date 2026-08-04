@@ -1717,7 +1717,7 @@ export const MOCK_ROUTINES: BeautyRoutine[] = [
     subtitle: '3 Steps to Dewy, Hydrated & Radiant Skin',
     goal: 'Glow & Hydration',
     durationMinutes: 5,
-    coverImage: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1000&q=80',
+    coverImage: '/calming_rosewater_toner_mockup.png',
     description: 'Start your day with maximum radiance. This 3-step routine plumps moisture levels, sculpts cheekbones, and leaves skin smooth for seamless makeup application.',
     steps: [
       {
@@ -1748,7 +1748,7 @@ export const MOCK_ROUTINES: BeautyRoutine[] = [
     subtitle: 'Deep Cellular Repair While You Sleep',
     goal: 'Barrier Repair',
     durationMinutes: 4,
-    coverImage: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1000&q=80',
+    coverImage: '/resveratrol_complex_day_night_cream_mockup.png',
     description: 'Rebuild compromised skin overnight with our highest concentration of peptides and bio-ceramides.',
     steps: [
       {
