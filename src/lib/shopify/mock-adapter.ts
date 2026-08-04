@@ -1836,38 +1836,11 @@ export function createMockCart(): Cart {
   return {
     id: 'mock-cart-id-12345',
     checkoutUrl: 'https://checkout.shopify.com/mock-glamgal-checkout',
-    totalQuantity: 1,
-    lines: [
-      {
-        id: 'mock-line-1',
-        quantity: 1,
-        cost: { totalAmount: { amount: '68.00', currencyCode: 'USD' } },
-        merchandise: {
-          id: 'gid://shopify/ProductVariant/101',
-          title: '30ml / 1 fl. oz.',
-          price: { amount: '68.00', currencyCode: 'USD' },
-          compareAtPrice: { amount: '80.00', currencyCode: 'USD' },
-          selectedOptions: [{ name: 'Size', value: '30ml / 1 fl. oz.' }],
-          image: {
-            url: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80',
-            altText: 'Luminous Barrier Serum'
-          },
-          product: {
-            id: 'gid://shopify/Product/1',
-            handle: 'luminous-barrier-serum',
-            title: 'LUMINOUS BARRIER SERUM',
-            category: 'Skincare',
-            featuredImage: {
-              url: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80',
-              altText: 'Luminous Barrier Serum'
-            }
-          }
-        }
-      }
-    ],
+    totalQuantity: 0,
+    lines: [],
     cost: {
-      subtotalAmount: { amount: '68.00', currencyCode: 'USD' },
-      totalAmount: { amount: '68.00', currencyCode: 'USD' }
+      subtotalAmount: { amount: '0.00', currencyCode: 'USD' },
+      totalAmount: { amount: '0.00', currencyCode: 'USD' }
     }
   };
 }
