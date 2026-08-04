@@ -20,6 +20,12 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({ title, subtitle, ima
         alt={title}
         className="w-full h-full object-cover object-center opacity-85 group-hover:opacity-95 group-hover:scale-105 transition-all duration-700 ease-out"
         loading="lazy"
+        onError={(e) => {
+          const target = e.currentTarget as HTMLImageElement;
+          if (!target.src.includes('/hero_model.png')) {
+            target.src = '/hero_model.png';
+          }
+        }}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-obsidian/90 via-obsidian/20 to-transparent" />
 

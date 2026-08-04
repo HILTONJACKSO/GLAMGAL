@@ -111,7 +111,7 @@ export const HomePage: React.FC = () => {
             <CategoryCard
               title="SKINCARE"
               subtitle="Triple Peptide & Hyaluronic Actives"
-              image="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80"
+              image="/calming_rosewater_toner_mockup.png"
               link="/collections/skincare"
             />
           </ScrollReveal>
@@ -119,7 +119,7 @@ export const HomePage: React.FC = () => {
             <CategoryCard
               title="MAKEUP"
               subtitle="Velvet Matte & Weightless Pigments"
-              image="https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=800&q=80"
+              image="/liquid_velvet_lipstick_mockup.png"
               link="/collections/makeup"
             />
           </ScrollReveal>
@@ -127,7 +127,7 @@ export const HomePage: React.FC = () => {
             <CategoryCard
               title="BODY CARE"
               subtitle="Sculpting Glow Nectars & Oils"
-              image="https://images.unsplash.com/photo-1608248597263-00079996576f?auto=format&fit=crop&w=800&q=80"
+              image="/polished_smoothing_body_scrub_mockup.png"
               link="/collections/body-care"
             />
           </ScrollReveal>
@@ -135,7 +135,7 @@ export const HomePage: React.FC = () => {
             <CategoryCard
               title="BEAUTY TOOLS"
               subtitle="Obsidian Volcanic Sculpting Stones"
-              image="https://images.unsplash.com/photo-1590156206657-b089c256037e?auto=format&fit=crop&w=800&q=80"
+              image="/ultimate_brow_eye_cream_liner_mockup.png"
               link="/collections/beauty-tools"
             />
           </ScrollReveal>
