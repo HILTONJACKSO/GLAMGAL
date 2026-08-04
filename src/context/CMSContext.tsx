@@ -196,8 +196,13 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           }
           return p;
         });
+        const heroState = parsed.hero && (!parsed.hero.featuredImageUrl || parsed.hero.featuredImageUrl.includes('images.unsplash.com'))
+          ? { ...parsed.hero, featuredImageUrl: '/hero_model.png' }
+          : parsed.hero || DEFAULT_HERO;
+
         return {
           ...parsed,
+          hero: heroState,
           products: sanitizedProducts,
           articles: parsed.articles && parsed.articles.length > 0 ? parsed.articles : MOCK_ARTICLES,
           promos: parsed.promos && parsed.promos.length > 0 ? parsed.promos : DEFAULT_PROMOS,

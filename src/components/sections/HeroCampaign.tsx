@@ -67,9 +67,12 @@ export const HeroCampaign: React.FC<HeroCampaignProps> = ({ hero: initialHero })
               >
                 <div className="aspect-[4/3] rounded-xl overflow-hidden bg-warm-white mb-2.5">
                   <img
-                    src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80"
+                    src="/calming_rosewater_toner_mockup.png"
                     alt="Luminous Barrier Serum"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = '/hero_model.png';
+                    }}
                   />
                 </div>
                 <h4 className="font-display text-[11px] sm:text-xs tracking-wider text-obsidian uppercase font-semibold line-clamp-1 group-hover:underline">
@@ -85,9 +88,12 @@ export const HeroCampaign: React.FC<HeroCampaignProps> = ({ hero: initialHero })
               >
                 <div className="aspect-[4/3] rounded-xl overflow-hidden bg-warm-white mb-2.5">
                   <img
-                    src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80"
+                    src="/liquid_velvet_lipstick_mockup.png"
                     alt="Velvet Matte Couture Lipstick"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = '/hero_model.png';
+                    }}
                   />
                 </div>
                 <h4 className="font-display text-[11px] sm:text-xs tracking-wider text-obsidian uppercase font-semibold line-clamp-1 group-hover:underline">
@@ -102,9 +108,12 @@ export const HeroCampaign: React.FC<HeroCampaignProps> = ({ hero: initialHero })
           <div className="lg:col-span-6">
             <div className="relative w-full h-full min-h-[360px] sm:min-h-[460px] lg:min-h-[520px] rounded-[20px] sm:rounded-[28px] overflow-hidden shadow-md border border-[#E3D5C8]/40">
               <img
-                src={hero.featuredImageUrl || '/hero_model.png'}
+                src={hero.featuredImageUrl && !hero.featuredImageUrl.includes('images.unsplash.com') ? hero.featuredImageUrl : '/hero_model.png'}
                 alt="GLAMGAL Radiant Beauty Model Applying Serum"
                 className="w-full h-full object-cover object-center transform hover:scale-102 transition-transform duration-700"
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).src = '/hero_model.png';
+                }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-obsidian/20 via-transparent to-transparent" />
             </div>

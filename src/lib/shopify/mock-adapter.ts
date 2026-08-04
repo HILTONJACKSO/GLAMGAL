@@ -1814,8 +1814,9 @@ export const MOCK_HERO: HeroCampaignMetaobject = {
   primaryCtaLink: '/collections/all',
   secondaryCtaText: 'DISCOVER SKINCARE',
   secondaryCtaLink: '/collections/skincare',
-  desktopImage: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1600&q=80',
-  mobileImage: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=800&q=80',
+  featuredImageUrl: '/hero_model.png',
+  desktopImage: '/hero_model.png',
+  mobileImage: '/hero_model.png',
   theme: 'dark'
 };
 
