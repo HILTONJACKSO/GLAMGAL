@@ -8,8 +8,8 @@ export const RoutineCard: React.FC<{ routine: BeautyRoutine }> = ({ routine }) =
   const { addRoutineToCart, isLoading } = useCart();
 
   return (
-    <div className="bg-white border border-[#E3D5C8]/70 hover:border-[#B89275] rounded-3xl overflow-hidden flex flex-col justify-between group shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500">
-      <div>
+    <div className="h-full bg-white border border-[#E3D5C8]/70 hover:border-[#B89275] rounded-3xl overflow-hidden flex flex-col justify-between group shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500">
+      <div className="flex-1 flex flex-col justify-between">
         {/* Card Header Media Container */}
         <div className="relative aspect-[16/10] overflow-hidden bg-warm-white rounded-t-3xl">
           <img
@@ -53,8 +53,8 @@ export const RoutineCard: React.FC<{ routine: BeautyRoutine }> = ({ routine }) =
         </div>
 
         {/* Card Body Content */}
-        <div className="p-6 sm:p-7 space-y-5 bg-white">
-          <p className="text-xs sm:text-sm text-[#5C5046] font-body leading-relaxed font-light">
+        <div className="p-6 sm:p-7 space-y-5 bg-white flex-1 flex flex-col justify-between">
+          <p className="text-xs sm:text-sm text-[#5C5046] font-body leading-relaxed font-light min-h-[44px]">
             {routine.description}
           </p>
 

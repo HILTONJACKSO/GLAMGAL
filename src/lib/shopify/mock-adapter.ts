@@ -1747,7 +1747,7 @@ export const MOCK_ROUTINES: BeautyRoutine[] = [
     title: 'Overnight Barrier Recovery',
     subtitle: 'Deep Cellular Repair While You Sleep',
     goal: 'Barrier Repair',
-    durationMinutes: 4,
+    durationMinutes: 5,
     coverImage: '/resveratrol_complex_day_night_cream_mockup.png',
     description: 'Rebuild compromised skin overnight with our highest concentration of peptides and bio-ceramides.',
     steps: [
@@ -1762,6 +1762,12 @@ export const MOCK_ROUTINES: BeautyRoutine[] = [
         title: 'Deep Recovery Cream',
         instruction: 'Massage Cellular Overnight Repair Cream in upward strokes over face and neck.',
         productHandle: 'cellular-overnight-cream'
+      },
+      {
+        stepNumber: 3,
+        title: 'Barrier Protection & Lock',
+        instruction: 'Seal in moisture with SOOTHE Cuticle & Barrier Protection.',
+        productHandle: 'soothe-hand-foot-cuticle-protector'
       }
     ],
     recommendedSkinTypes: ['Dry', 'Sensitive', 'Dehydrated']
