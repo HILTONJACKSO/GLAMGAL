@@ -25,14 +25,14 @@
   body {
     background-color: var(--color-warm-white);
     color: var(--color-obsidian);
-    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Chivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     overflow-x: hidden;
     max-width: 100vw;
   }
 
   h1, h2, h3, h4, .font-display {
-    font-family: 'Michroma', 'Eurostile Extended', 'Microgramma', sans-serif;
-    letter-spacing: 0.08em;
+    font-family: 'Bebas Neue', Impact, sans-serif;
+    letter-spacing: 0.05em;
   }
 }
 

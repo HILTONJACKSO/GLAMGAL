@@ -18,12 +18,13 @@ export default {
         'deep-charcoal': '#222222',
       },
       fontFamily: {
-        display: ['Michroma', 'Eurostile Extended', 'Microgramma', 'Arial Wide', 'sans-serif'],
-        body: ['Manrope', 'Inter', 'Arial', 'sans-serif'],
+        display: ['"Bebas Neue"', 'Impact', 'sans-serif'],
+        body: ['Chivo', 'sans-serif'],
       },
       letterSpacing: {
-        widest: '0.25em',
-        mega: '0.35em',
+        wider: '0.06em',
+        widest: '0.12em',
+        mega: '0.2em',
       },
       borderRadius: {
         'sm': '4px',
