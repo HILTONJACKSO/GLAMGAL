@@ -24,9 +24,26 @@ export function isMockMode(): boolean {
 // Memory cache for mock cart during session
 let inMemoryMockCart: Cart | null = null;
 
+function getCMSProducts(): Product[] {
+  try {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('glamgal_cms_state');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.products && parsed.products.length > 0) {
+          return parsed.products;
+        }
+      }
+    }
+  } catch (e) {
+    console.warn('Error reading CMS products from storage:', e);
+  }
+  return MOCK_PRODUCTS;
+}
+
 export async function getProducts(options?: { first?: number; query?: string }): Promise<Product[]> {
   if (isMockMode()) {
-    let list = [...MOCK_PRODUCTS];
+    let list = [...getCMSProducts()];
     if (options?.query) {
       const q = options.query.toLowerCase();
       list = list.filter(p => 
@@ -50,7 +67,8 @@ export async function getProducts(options?: { first?: number; query?: string }):
 
 export async function getProductByHandle(handle: string): Promise<Product | null> {
   if (isMockMode()) {
-    return MOCK_PRODUCTS.find(p => p.handle === handle) || null;
+    const products = getCMSProducts();
+    return products.find(p => p.handle === handle) || null;
   }
 
   const response = await shopifyFetch<{ product: any }>({
@@ -255,18 +273,32 @@ export async function getRoutineByHandle(handle: string): Promise<BeautyRoutine 
   return MOCK_ROUTINES.find(r => r.handle === handle) || null;
 }
 
+function getCMSArticles(): JournalArticle[] {
+  try {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('glamgal_cms_state');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.articles && parsed.articles.length > 0) {
+          return parsed.articles;
+        }
+      }
+    }
+  } catch (e) {}
+  return MOCK_ARTICLES;
+}
+
 export async function getArticles(): Promise<JournalArticle[]> {
   if (isMockMode()) {
-    const { getLiveArticles } = await import('./mock-adapter');
-    return getLiveArticles();
+    return getCMSArticles();
   }
   return MOCK_ARTICLES;
 }
 
 export async function getArticleByHandle(handle: string): Promise<JournalArticle | null> {
   if (isMockMode()) {
-    const { getLiveArticleByHandle } = await import('./mock-adapter');
-    return getLiveArticleByHandle(handle);
+    const articles = getCMSArticles();
+    return articles.find(a => a.handle === handle) || null;
   }
   return MOCK_ARTICLES.find(a => a.handle === handle) || null;
 }
