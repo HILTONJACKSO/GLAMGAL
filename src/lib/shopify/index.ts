@@ -303,7 +303,25 @@ export async function getArticleByHandle(handle: string): Promise<JournalArticle
   return MOCK_ARTICLES.find(a => a.handle === handle) || null;
 }
 
+function getCMSHero(): HeroCampaignMetaobject {
+  try {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('glamgal_cms_state');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.hero) {
+          return parsed.hero;
+        }
+      }
+    }
+  } catch (e) {}
+  return MOCK_HERO;
+}
+
 export async function getHeroCampaign(): Promise<HeroCampaignMetaobject> {
+  if (isMockMode()) {
+    return getCMSHero();
+  }
   return MOCK_HERO;
 }
 

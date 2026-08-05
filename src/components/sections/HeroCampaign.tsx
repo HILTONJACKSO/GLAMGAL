@@ -11,8 +11,7 @@ interface HeroCampaignProps {
 
 export const HeroCampaign: React.FC<HeroCampaignProps> = ({ hero: initialHero }) => {
   const { state } = useCMS();
-  // Live CMS state takes precedence over static hero prop
-  const hero = state.hero || initialHero || {};
+  const hero = (state.hero && state.hero.featuredImageUrl) ? state.hero : (initialHero || state.hero || {});
 
   return (
     /* Full Width Hero Background Connected Directly to Header Navbar */
