@@ -12,6 +12,7 @@ import { JournalCard } from '../components/sections/JournalCard';
 import { SocialGallery } from '../components/sections/SocialGallery';
 import { VideoShowcaseSection } from '../components/sections/VideoShowcaseSection';
 import { MarqueeBanner } from '../components/sections/MarqueeBanner';
+import { ProductShowcaseSlider } from '../components/sections/ProductShowcaseSlider';
 import { TrustBar } from '../components/layout/TrustBar';
 import { SEO } from '../components/common/SEO';
 import { LoadingState } from '../components/common/LoadingState';
@@ -183,6 +184,11 @@ export const HomePage: React.FC = () => {
       {/* 6. BEST SELLERS */}
       <ScrollReveal variant="fade-up">
         <BestSellersSection products={bestSellers} />
+      </ScrollReveal>
+
+      {/* 6B. ALL PRODUCTS SLIDE SHOWCAROUSEL */}
+      <ScrollReveal variant="fade-up">
+        <ProductShowcaseSlider />
       </ScrollReveal>
 
       {/* 7. SHOP BY BEAUTY GOAL (WARM TERRACOTTA NUDE PALETTE) */}
