@@ -108,7 +108,7 @@ export const HeroCampaign: React.FC<HeroCampaignProps> = ({ hero: initialHero })
           <div className="lg:col-span-6">
             <div className="relative w-full h-full min-h-[360px] sm:min-h-[460px] lg:min-h-[520px] rounded-[20px] sm:rounded-[28px] overflow-hidden shadow-md border border-[#E3D5C8]/40">
               <img
-                src={hero.featuredImageUrl && !hero.featuredImageUrl.includes('images.unsplash.com') ? hero.featuredImageUrl : '/hero_model.png'}
+                src={hero.featuredImageUrl || '/hero_model.png'}
                 alt="GLAMGAL Radiant Beauty Model Applying Serum"
                 className="w-full h-full object-cover object-center transform hover:scale-102 transition-transform duration-700"
                 onError={(e) => {

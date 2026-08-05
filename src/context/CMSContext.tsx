@@ -400,9 +400,7 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           }
           return p;
         });
-        const heroState = parsed.hero && (!parsed.hero.featuredImageUrl || parsed.hero.featuredImageUrl.includes('images.unsplash.com'))
-          ? { ...parsed.hero, featuredImageUrl: '/hero_model.png' }
-          : parsed.hero || DEFAULT_HERO;
+        const heroState = parsed.hero || DEFAULT_HERO;
 
         const rawVideos: VideoShowcaseItem[] = parsed.videos && parsed.videos.length > 0 ? parsed.videos : DEFAULT_VIDEOS;
         const sanitizedVideos = rawVideos.map((v) => {
