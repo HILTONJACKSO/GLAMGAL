@@ -21,38 +21,38 @@ export const HeroCampaign: React.FC<HeroCampaignProps> = ({ hero: initialHero })
           {/* Left Column: Headline, Description, Pill Buttons & Product Sub-Cards */}
           <div className="lg:col-span-6 flex flex-col justify-between space-y-8">
             {/* Top Text Group */}
-            <div className="space-y-4">
-              <span className="inline-block font-display text-[10px] sm:text-xs tracking-mega text-[#A68064] uppercase font-semibold">
+            <div className="space-y-5">
+              <span className="inline-block font-display text-xs sm:text-sm md:text-base tracking-wider text-[#A68064] uppercase font-bold">
                 LUXURY SKIN-FIRST CARE & BEAUTY
               </span>
 
-              <h1 className="font-display text-2xl sm:text-4xl md:text-5xl font-black text-obsidian tracking-wider uppercase leading-tight sm:leading-none">
+              <h1 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-[5.25rem] font-bold text-obsidian uppercase leading-[0.95] tracking-tight">
                 {hero.heading || 'BEAUTY, DEFINED YOUR WAY.'}
               </h1>
 
-              <p className="font-body text-xs sm:text-sm text-[#5C5046] leading-relaxed max-w-lg font-light">
+              <p className="font-body text-sm sm:text-base md:text-lg text-[#4A3E36] leading-relaxed max-w-xl font-normal">
                 {hero.subheading ||
                   'High-impact makeup, skin-first care and everyday essentials created for confident self-expression.'}
               </p>
 
               {/* Action Buttons Row */}
-              <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-2">
+              <div className="flex flex-wrap items-center gap-4 pt-3">
                 {/* Primary Pill Button */}
                 <Link
                   to={hero.primaryCtaLink || '/collections/all'}
-                  className="inline-flex items-center space-x-2 bg-[#B89275] hover:bg-[#A37E62] hover:scale-105 active:scale-95 text-white font-display text-[11px] sm:text-xs tracking-wider uppercase px-6 sm:px-7 py-3.5 rounded-full transition-all shadow-sm hover:shadow-md"
+                  className="inline-flex items-center space-x-2.5 bg-[#B89275] hover:bg-[#A37E62] hover:scale-105 active:scale-95 text-white font-display text-sm sm:text-base tracking-wider uppercase px-7 sm:px-9 py-4 sm:py-4.5 rounded-full transition-all shadow-md hover:shadow-lg font-bold"
                 >
                   <span>{hero.primaryCtaText || 'SHOP THE COLLECTION'}</span>
-                  <ChevronRight className="w-4 h-4 stroke-[2.5]" />
+                  <ChevronRight className="w-5 h-5 stroke-[2.5]" />
                 </Link>
 
                 {/* Secondary Video/Action Pill Button */}
                 <Link
                   to={hero.secondaryCtaLink || '/collections/skincare'}
-                  className="inline-flex items-center space-x-2 bg-white hover:bg-warm-white hover:scale-105 active:scale-95 border border-[#B89275]/50 text-obsidian font-display text-[11px] sm:text-xs tracking-wider uppercase px-6 sm:px-7 py-3.5 rounded-full transition-all"
+                  className="inline-flex items-center space-x-2.5 bg-white hover:bg-warm-white hover:scale-105 active:scale-95 border-2 border-[#B89275]/60 text-obsidian font-display text-sm sm:text-base tracking-wider uppercase px-7 sm:px-9 py-4 sm:py-4.5 rounded-full transition-all font-bold shadow-xs"
                 >
                   <span>{hero.secondaryCtaText || 'DISCOVER SKINCARE'}</span>
-                  <PlayCircle className="w-4 h-4 text-[#B89275] stroke-[1.8]" />
+                  <PlayCircle className="w-5 h-5 text-[#B89275] stroke-[2]" />
                 </Link>
               </div>
             </div>
