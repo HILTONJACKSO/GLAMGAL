@@ -36,6 +36,7 @@ import {
   MessageCircle,
   Video,
   Play,
+  Search,
 } from 'lucide-react';
 
 export const AdminDashboardPage: React.FC = () => {
@@ -75,6 +76,8 @@ export const AdminDashboardPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'reviews' | 'promos' | 'products' | 'journal' | 'hero' | 'homepage' | 'social' | 'videos' | 'media' | 'pages' | 'footer' | 'shopify'>('reviews');
   const [saveNotification, setSaveNotification] = useState('');
   const [newImageUrl, setNewImageUrl] = useState('');
+  const [adminProdSearch, setAdminProdSearch] = useState('');
+  const [adminProdCategory, setAdminProdCategory] = useState('ALL');
   
   // Video Modal State
   const [showVideoModal, setShowVideoModal] = useState(false);
@@ -1635,6 +1638,136 @@ export const AdminDashboardPage: React.FC = () => {
                     </div>
                   ))}
                 </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 3: PRODUCTS MANAGER */}
+          {activeTab === 'products' && (
+            <div className="space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <div className="flex items-center space-x-3">
+                    <h2 className="font-display text-xl tracking-widest text-warm-white uppercase font-bold">
+                      STORE PRODUCTS MANAGEMENT
+                    </h2>
+                    <span className="bg-[#B89275]/20 text-[#B89275] border border-[#B89275]/40 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full uppercase">
+                      {state.products.length} PRODUCTS TOTAL
+                    </span>
+                  </div>
+                  <p className="text-xs text-soft-stone font-body mt-1">
+                    Manage prices, upload product photos, edit shade options, and publish items across your live storefront.
+                  </p>
+                </div>
+
+                <button
+                  onClick={() => {
+                    setEditingProduct(null);
+                    resetProductForm();
+                    setShowAddProductModal(true);
+                  }}
+                  className="bg-[#B89275] hover:bg-[#A37E62] text-white font-display text-xs tracking-wider uppercase px-5 py-3 rounded-xl flex items-center space-x-2 transition-all font-bold shadow-lg shrink-0"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>+ ADD NEW PRODUCT</span>
+                </button>
+              </div>
+
+              {/* SEARCH & CATEGORY FILTER BAR */}
+              <div className="bg-[#141414] p-4 rounded-2xl border border-deep-charcoal flex flex-col md:flex-row gap-4 items-center justify-between">
+                <div className="relative w-full md:w-80">
+                  <Search className="w-4 h-4 text-warm-taupe absolute left-3.5 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="text"
+                    value={adminProdSearch}
+                    onChange={(e) => setAdminProdSearch(e.target.value)}
+                    placeholder="Search product title, category, or handle..."
+                    className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs pl-10 pr-4 py-2.5 rounded-xl outline-none"
+                  />
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
+                  {['ALL', 'MAKEUP', 'SKINCARE', 'BODY CARE', 'BEAUTY TOOLS'].map((cat) => (
+                    <button
+                      key={cat}
+                      onClick={() => setAdminProdCategory(cat)}
+                      className={`text-[10px] font-display tracking-wider uppercase px-3 py-1.5 rounded-xl font-bold transition-all ${
+                        adminProdCategory === cat
+                          ? 'bg-[#B89275] text-white shadow-md'
+                          : 'bg-deep-charcoal text-warm-taupe hover:text-white hover:bg-deep-charcoal/80'
+                      }`}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* PRODUCTS LIST GRID */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {state.products
+                  .filter((p) => {
+                    const matchesSearch =
+                      p.title.toLowerCase().includes(adminProdSearch.toLowerCase()) ||
+                      p.category.toLowerCase().includes(adminProdSearch.toLowerCase()) ||
+                      p.handle.toLowerCase().includes(adminProdSearch.toLowerCase());
+                    const matchesCategory =
+                      adminProdCategory === 'ALL' ||
+                      p.category.toUpperCase().includes(adminProdCategory.toUpperCase()) ||
+                      (adminProdCategory === 'BEAUTY TOOLS' && (p.category.toUpperCase().includes('TOOL') || p.category.toUpperCase().includes('GADGET')));
+                    return matchesSearch && matchesCategory;
+                  })
+                  .map((product) => (
+                    <div
+                      key={product.id}
+                      className="bg-[#141414] rounded-2xl p-4 border border-deep-charcoal flex space-x-4 items-center justify-between group hover:border-[#B89275]/60 transition-all"
+                    >
+                      <div className="flex items-center space-x-3.5 min-w-0">
+                        <div className="w-14 h-14 rounded-xl overflow-hidden bg-deep-charcoal flex-shrink-0 border border-white/10">
+                          <img
+                            src={product.featuredImage?.url || '/hero_model.png'}
+                            alt={product.title}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+
+                        <div className="space-y-0.5 min-w-0">
+                          <span className="text-[9px] font-display text-[#B89275] uppercase block font-semibold truncate">
+                            {product.category}
+                          </span>
+                          <h4 className="font-display text-xs tracking-wider text-warm-white uppercase font-bold truncate">
+                            {product.title}
+                          </h4>
+                          <span className="text-xs font-display text-warm-white font-semibold block">
+                            ${parseFloat(product.variants[0]?.price.amount || product.priceRange?.minVariantPrice.amount || '38.00').toFixed(2)} USD
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center space-x-2 shrink-0">
+                        <button
+                          onClick={() => handleStartEdit(product)}
+                          className="bg-deep-charcoal hover:bg-[#B89275] text-warm-white p-2 rounded-lg transition-colors"
+                          title="Edit Product"
+                        >
+                          <Edit3 className="w-4 h-4" />
+                        </button>
+
+                        <button
+                          onClick={() => {
+                            if (confirm(`Are you sure you want to delete "${product.title}"?`)) {
+                              deleteProduct(product.id);
+                              triggerSaveNotification(`Deleted "${product.title}"`);
+                            }
+                          }}
+                          className="bg-red-950/80 hover:bg-red-900 text-red-200 p-2 rounded-lg transition-colors"
+                          title="Delete Product"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
               </div>
             </div>
           )}

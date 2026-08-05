@@ -382,7 +382,13 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const saved = localStorage.getItem('glamgal_cms_state');
       if (saved) {
         const parsed = JSON.parse(saved);
-        const rawProducts: Product[] = parsed.products && parsed.products.length > 0 ? parsed.products : MOCK_PRODUCTS;
+        // Ensure all catalog products from MOCK_PRODUCTS are loaded alongside saved products
+        const savedProducts: Product[] = parsed.products && parsed.products.length > 0 ? parsed.products : MOCK_PRODUCTS;
+        const missingProducts = MOCK_PRODUCTS.filter(
+          (m) => !savedProducts.some((p) => p.id === m.id || p.handle === m.handle)
+        );
+        const rawProducts: Product[] = [...savedProducts, ...missingProducts];
+
         // Sanitize broken Unsplash URLs from localStorage using latest MOCK_PRODUCTS definitions
         const sanitizedProducts = rawProducts.map((p) => {
           const fresh = MOCK_PRODUCTS.find((m) => m.id === p.id || m.handle === p.handle);
