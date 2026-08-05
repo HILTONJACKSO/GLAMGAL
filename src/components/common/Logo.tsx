@@ -16,27 +16,22 @@ export const Logo: React.FC<LogoProps> = ({
 }) => {
   const isLight = variant === 'light';
 
-  return (
-    <Link to="/" className={`inline-flex items-center space-x-2.5 ${className}`} aria-label="GLAMGAL Home">
-      {/* Official GG Monogram Emblem */}
-      {showSymbol && (
-        <img
-          src="/glamgal_emblem_transparent.png"
-          alt="GLAMGAL Monogram Emblem"
-          className={`${
-            size === 'sm' ? 'w-6 h-6' : size === 'lg' ? 'w-10 h-10' : 'w-8 h-8'
-          } object-contain ${isLight ? 'brightness-0 invert' : ''}`}
-        />
-      )}
+  const sizeClasses =
+    size === 'sm'
+      ? 'h-6 sm:h-7'
+      : size === 'lg'
+      ? 'h-10 sm:h-12'
+      : 'h-8 sm:h-9';
 
-      {/* Official GLAMGAL Wordmark */}
-      <span
-        className={`font-display font-black uppercase tracking-[0.2em] ${
-          size === 'sm' ? 'text-sm' : size === 'lg' ? 'text-2xl' : 'text-lg'
-        } ${isLight ? 'text-warm-white' : 'text-obsidian'}`}
-      >
-        GLAMGAL
-      </span>
+  return (
+    <Link to="/" className={`inline-flex items-center ${className}`} aria-label="GLAMGAL Home">
+      <img
+        src="/glamgal_official_logo.jpg"
+        alt="GLAMGAL Official Logo"
+        className={`${sizeClasses} object-contain transition-opacity duration-300 hover:opacity-90 ${
+          isLight ? 'invert brightness-200 contrast-200 mix-blend-screen' : 'mix-blend-multiply'
+        }`}
+      />
     </Link>
   );
 };
