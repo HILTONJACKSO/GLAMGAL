@@ -390,8 +390,8 @@ export const VideoShowcaseSection: React.FC = () => {
             </div>
 
             {/* FEATURED PRODUCT & TUTORIAL DETAILS SIDEBAR */}
-            <div className="lg:col-span-5 p-6 sm:p-8 space-y-6 flex flex-col justify-between bg-[#1A120F]">
-              <div className="space-y-4">
+            <div className="lg:col-span-5 p-5 sm:p-6 space-y-5 flex flex-col justify-between bg-[#1A120F] overflow-y-auto max-h-[85vh]">
+              <div className="space-y-3.5">
                 <div className="flex items-center space-x-2 text-pink-400">
                   <Sparkles className="w-4 h-4" />
                   <span className="font-display text-[10px] font-bold tracking-mega uppercase">
@@ -399,7 +399,7 @@ export const VideoShowcaseSection: React.FC = () => {
                   </span>
                 </div>
 
-                <h3 className="font-display text-xl tracking-wider text-white uppercase font-bold">
+                <h3 className="font-display text-lg sm:text-xl tracking-wider text-white uppercase font-bold leading-tight">
                   {activeVideo.title}
                 </h3>
 
@@ -408,8 +408,8 @@ export const VideoShowcaseSection: React.FC = () => {
                 </p>
 
                 {/* Author Info */}
-                <div className="flex items-center space-x-3 text-xs border-t border-white/10 pt-4">
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-pink-500 to-amber-400 text-white flex items-center justify-center font-bold font-display text-xs">
+                <div className="flex items-center space-x-3 text-xs border-t border-white/10 pt-3">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-pink-500 to-amber-400 text-white flex items-center justify-center font-bold font-display text-xs shrink-0">
                     {activeVideo.authorName.charAt(0)}
                   </div>
                   <div>
@@ -422,20 +422,20 @@ export const VideoShowcaseSection: React.FC = () => {
               </div>
 
               {/* SHOP THIS REEL PRODUCT CARD */}
-              <div className="bg-[#241A16] rounded-2xl p-4 border border-pink-500/30 space-y-4 shadow-xl">
+              <div className="bg-[#241A16] rounded-2xl p-4 border border-pink-500/30 space-y-3.5 shadow-xl">
                 <span className="font-display text-[10px] font-bold tracking-widest text-amber-400 uppercase block">
                   FEATURED PRODUCT IN THIS REEL
                 </span>
 
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-3">
                   <img
                     src={activeVideo.featuredProductImage}
                     alt={activeVideo.featuredProductName}
-                    className="w-16 h-16 rounded-xl object-cover border border-amber-400/40 shrink-0"
+                    className="w-14 h-14 rounded-xl object-cover border border-amber-400/40 shrink-0"
                   />
 
-                  <div className="flex-1 space-y-1">
-                    <h4 className="font-display text-xs tracking-wider text-white uppercase font-bold">
+                  <div className="flex-1 space-y-0.5 min-w-0">
+                    <h4 className="font-display text-xs tracking-wider text-white uppercase font-bold truncate">
                       {activeVideo.featuredProductName}
                     </h4>
                     <span className="font-display text-sm font-bold text-pink-300 block">
@@ -445,10 +445,10 @@ export const VideoShowcaseSection: React.FC = () => {
                 </div>
 
                 {/* ACTION BUTTONS */}
-                <div className="space-y-2 pt-2">
+                <div className="space-y-2.5 pt-1">
                   <button
                     onClick={(e) => handleAddToCart(e, activeVideo.featuredProductHandle)}
-                    className="w-full bg-gradient-to-r from-pink-500 to-amber-500 hover:from-pink-600 hover:to-amber-600 text-white font-display text-xs font-bold tracking-widest py-3.5 rounded-xl transition-all flex items-center justify-center space-x-2 uppercase shadow-lg"
+                    className="w-full bg-gradient-to-r from-pink-500 to-amber-500 hover:from-pink-600 hover:to-amber-600 text-white font-display text-xs font-bold tracking-widest py-3 rounded-xl transition-all flex items-center justify-center space-x-2 uppercase shadow-lg"
                   >
                     {addedToCartId === activeVideo.featuredProductHandle ? (
                       <>
@@ -458,14 +458,15 @@ export const VideoShowcaseSection: React.FC = () => {
                     ) : (
                       <>
                         <ShoppingBag className="w-4 h-4" />
-                        <span>BUY ON TIKTOK SHOP • {activeVideo.featuredProductPrice}</span>
+                        <span>BUY NOW • {activeVideo.featuredProductPrice}</span>
                       </>
                     )}
                   </button>
 
                   <Link
                     to={`/products/${activeVideo.featuredProductHandle}`}
-                    className="w-full bg-white/5 hover:bg-white/10 text-white font-display text-[11px] font-bold tracking-widest py-2.5 rounded-xl transition-all flex items-center justify-center space-x-1.5 uppercase border border-white/10"
+                    onClick={() => setActiveVideo(null)}
+                    className="w-full bg-white/10 hover:bg-pink-600 text-white font-display text-[11px] font-bold tracking-wider py-3 rounded-xl transition-all flex items-center justify-center space-x-2 uppercase border border-white/20 hover:border-pink-500 shadow-md"
                   >
                     <span>VIEW FULL PRODUCT DETAILS</span>
                     <ExternalLink className="w-3.5 h-3.5" />
