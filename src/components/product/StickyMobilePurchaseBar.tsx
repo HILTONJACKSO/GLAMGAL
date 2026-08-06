@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ProductVariant } from '../../types/shopify';
-import { useCart } from '../../context/CartContext';
-import { ShoppingBag, Loader2 } from 'lucide-react';
+import { createCart } from '../../lib/shopify';
+import { ArrowRight, Loader2 } from 'lucide-react';
 
 interface StickyMobilePurchaseBarProps {
   productTitle: string;
@@ -12,8 +12,23 @@ export const StickyMobilePurchaseBar: React.FC<StickyMobilePurchaseBarProps> = (
   productTitle,
   variant,
 }) => {
-  const { addItem, isLoading } = useCart();
+  const [loading, setLoading] = useState(false);
   const isSoldOut = !variant.availableForSale;
+
+  const handleBuyNow = async () => {
+    if (isSoldOut) return;
+    setLoading(true);
+    try {
+      const cart = await createCart(variant.id, 1);
+      if (cart.checkoutUrl) {
+        window.location.href = cart.checkoutUrl;
+      }
+    } catch (e) {
+      console.error('Mobile checkout redirect failed:', e);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 bg-warm-white/95 backdrop-blur-md border-t border-soft-stone p-4 md:hidden shadow-2xl flex items-center justify-between space-x-4">
@@ -27,22 +42,22 @@ export const StickyMobilePurchaseBar: React.FC<StickyMobilePurchaseBarProps> = (
       </div>
 
       <button
-        onClick={() => addItem(variant.id, 1)}
-        disabled={isSoldOut || isLoading}
-        className={`flex-1 font-display text-xs tracking-widest py-3 px-4 uppercase flex items-center justify-center space-x-2 ${
+        onClick={handleBuyNow}
+        disabled={isSoldOut || loading}
+        className={`flex-1 font-display text-xs font-bold tracking-widest py-3.5 px-4 uppercase rounded-full flex items-center justify-center space-x-2 ${
           isSoldOut
             ? 'bg-soft-stone text-warm-taupe cursor-not-allowed'
-            : 'bg-obsidian text-warm-white active:scale-95'
+            : 'bg-obsidian text-warm-white active:scale-95 shadow-md'
         }`}
       >
-        {isLoading ? (
+        {loading ? (
           <Loader2 className="w-4 h-4 animate-spin text-warm-white" />
         ) : isSoldOut ? (
           <span>SOLD OUT</span>
         ) : (
           <>
-            <ShoppingBag className="w-4 h-4" />
-            <span>ADD TO BAG</span>
+            <span>BUY NOW WITH SHOPIFY</span>
+            <ArrowRight className="w-4 h-4 text-amber-300" />
           </>
         )}
       </button>

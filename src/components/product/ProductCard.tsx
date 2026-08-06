@@ -84,17 +84,16 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </div>
         )}
 
-        {/* Desktop Quick Add Button Overlay */}
+        {/* Desktop View Details Overlay Button */}
         {!isSoldOut && (
-          <button
-            onClick={handleQuickAdd}
-            disabled={isLoading}
-            className="absolute bottom-3 right-3 bg-obsidian text-warm-white p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-115 active:scale-95 shadow-xl focus-visible:opacity-100"
-            title="Quick Add to Bag"
-            aria-label={`Quick Add ${product.title} to Bag`}
+          <Link
+            to={`/products/${product.handle}`}
+            className="absolute bottom-3 right-3 bg-obsidian hover:bg-[#B89275] text-warm-white p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110 active:scale-95 shadow-xl focus-visible:opacity-100 flex items-center justify-center"
+            title="View Shades & Buy"
+            aria-label={`View ${product.title} Shades & Options`}
           >
             <ShoppingBag className="w-4 h-4" />
-          </button>
+          </Link>
         )}
       </Link>
 

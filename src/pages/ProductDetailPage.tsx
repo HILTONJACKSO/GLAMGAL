@@ -157,13 +157,8 @@ export const ProductDetailPage: React.FC = () => {
               <QuantitySelector quantity={quantity} onChange={setQuantity} disabled={!selectedVariant.availableForSale} />
             </div>
 
-            {/* Add to Bag & Buy Now Actions */}
-            <div className="space-y-3 pt-2">
-              <AddToCartButton
-                variant={selectedVariant}
-                productTitle={product.title}
-                quantity={quantity}
-              />
+            {/* Direct Shopify Checkout Action */}
+            <div className="pt-2">
               <BuyNowButton variant={selectedVariant} quantity={quantity} />
             </div>
           </div>

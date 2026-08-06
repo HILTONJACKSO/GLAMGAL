@@ -185,7 +185,6 @@ export const AppContent: React.FC = () => {
       </main>
 
       <Footer />
-      <CartDrawer />
       <SearchDialog isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
       <CookieConsent />
     </div>
