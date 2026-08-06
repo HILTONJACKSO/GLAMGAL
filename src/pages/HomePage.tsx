@@ -13,6 +13,10 @@ import { SocialGallery } from '../components/sections/SocialGallery';
 import { VideoShowcaseSection } from '../components/sections/VideoShowcaseSection';
 import { MarqueeBanner } from '../components/sections/MarqueeBanner';
 import { ProductShowcaseSlider } from '../components/sections/ProductShowcaseSlider';
+import { IngredientGlossarySection } from '../components/sections/IngredientGlossarySection';
+import { BehindTheStudioSection } from '../components/sections/BehindTheStudioSection';
+import { GlamgalJournalSection } from '../components/sections/GlamgalJournalSection';
+import { VirtualVanitySection } from '../components/sections/VirtualVanitySection';
 import { TrustBar } from '../components/layout/TrustBar';
 import { SEO } from '../components/common/SEO';
 import { LoadingState } from '../components/common/LoadingState';
@@ -269,77 +273,34 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* 10. INGREDIENT SPOTLIGHT (SILK POWDER ROSE & ALMOND PALETTE) */}
-      <section className="bg-gradient-to-b from-[#FDF8F5] via-[#FAF1EB] to-[#F7ECE4] py-24 border-t border-[#E8D7CC]">
-        <div className="max-w-7xl mx-auto px-6 space-y-12">
-          <ScrollReveal variant="fade-up">
-            <div className="text-center max-w-2xl mx-auto space-y-3">
-              <span className="inline-block font-display text-[10px] sm:text-xs tracking-mega text-[#8C525D] uppercase font-bold px-3 py-1 bg-[#CFA7AE]/20 rounded-full border border-[#CFA7AE]/40">
-                INGREDIENT SCIENCE
-              </span>
-              <h2 className="font-display text-2xl sm:text-4xl tracking-widest text-obsidian uppercase font-black">
-                ACTIVE INGREDIENT SPOTLIGHT
-              </h2>
-              <p className="font-body text-xs sm:text-sm text-[#5C5046] font-light leading-relaxed">
-                Discover the bio-identical peptides, clinical actives, and cold-pressed botanical oils powering GLAMGAL high-performance formulations.
-              </p>
-            </div>
-          </ScrollReveal>
+      {/* 9. VIDEO REELS */}
+      <ScrollReveal variant="fade-up">
+        <VideoShowcaseSection />
+      </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
-            {ingredients.map((ing, idx) => (
-              <ScrollReveal key={ing.id} variant="fade-up" delay={idx * 0.1}>
-                <IngredientCard ingredient={ing} />
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* 9B. BEHIND THE STUDIO & BACKSTAGE */}
+      <ScrollReveal variant="fade-up">
+        <BehindTheStudioSection />
+      </ScrollReveal>
+
+      {/* 10. INGREDIENT GLOSSARY & ACTIVE SCIENCE */}
+      <ScrollReveal variant="fade-up">
+        <IngredientGlossarySection />
+      </ScrollReveal>
 
       {/* 11. TESTIMONIALS */}
       <ScrollReveal variant="fade-up">
         <TestimonialsSection />
       </ScrollReveal>
 
-      {/* 12. BEAUTY JOURNAL (WARM VELVET NUDE PALETTE) */}
-      <section className="bg-gradient-to-b from-[#FAF4EF] via-[#F4EBE3] to-[#F2E7DC] py-24 border-t border-[#E6D6C7]">
-        <div className="max-w-7xl mx-auto px-6 space-y-12">
-          <ScrollReveal variant="fade-up">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[#E3D5C8]/80">
-              <div className="space-y-2 max-w-2xl">
-                <span className="inline-block font-display text-[10px] sm:text-xs tracking-mega text-[#7D4F3E] uppercase font-bold px-3 py-1 bg-[#9E6D59]/10 rounded-full border border-[#9E6D59]/20">
-                  EDITORIAL STORIES
-                </span>
-                <h2 className="font-display text-2xl sm:text-4xl tracking-widest text-obsidian uppercase font-black">
-                  BEAUTY JOURNAL
-                </h2>
-                <p className="font-body text-xs sm:text-sm text-[#5C5046] font-light leading-relaxed">
-                  Pro editorial tutorials, formulation deep dives, and backstage beauty insights curated by our lab chemists and artists.
-                </p>
-              </div>
-              <Link
-                to="/journal"
-                className="inline-flex items-center space-x-2 font-display text-xs font-bold tracking-widest text-obsidian uppercase px-6 py-3 bg-white border border-[#E3D5C8] rounded-full hover:bg-obsidian hover:text-white hover:border-obsidian transition-all shadow-xs"
-              >
-                <span>READ ALL JOURNAL ARTICLES</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-          </ScrollReveal>
+      {/* 12. GLAMGAL JOURNAL & STEP-BY-STEP LAYERING GUIDE */}
+      <ScrollReveal variant="fade-up">
+        <GlamgalJournalSection />
+      </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 items-stretch">
-            {articles.map((art, idx) => (
-              <ScrollReveal key={art.id} variant="fade-up" delay={idx * 0.15}>
-                <JournalCard article={art} />
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 13. SOCIAL PROOF */}
+      {/* 13. VIRTUAL VANITY COMMUNITY GALLERY */}
       <ScrollReveal variant="fade-in">
-        <SocialGallery />
+        <VirtualVanitySection />
       </ScrollReveal>
 
     </div>

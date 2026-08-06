@@ -27,6 +27,8 @@ import { PhilosophyPage } from './pages/PhilosophyPage';
 import { IngredientsPage } from './pages/IngredientsPage';
 import { JournalPage } from './pages/JournalPage';
 import { JournalArticlePage } from './pages/JournalArticlePage';
+import { BehindTheStudioPage } from './pages/BehindTheStudioPage';
+import { VirtualVanityPage } from './pages/VirtualVanityPage';
 import { FaqPage } from './pages/FaqPage';
 import { ContactPage } from './pages/ContactPage';
 import { LegalPage } from './pages/LegalPage';
@@ -97,6 +99,8 @@ export const AppContent: React.FC = () => {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/philosophy" element={<PhilosophyPage />} />
           <Route path="/ingredients" element={<IngredientsPage />} />
+          <Route path="/behind-the-scenes" element={<BehindTheStudioPage />} />
+          <Route path="/virtual-vanity" element={<VirtualVanityPage />} />
 
           {/* 18-19. Journal */}
           <Route path="/journal" element={<JournalPage />} />
