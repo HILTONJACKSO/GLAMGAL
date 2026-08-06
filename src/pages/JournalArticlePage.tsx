@@ -423,7 +423,7 @@ export const JournalArticlePage: React.FC = () => {
                           className="w-full bg-obsidian hover:bg-pink-700 text-white font-display text-xs font-bold tracking-widest py-3 rounded-xl transition-all flex items-center justify-center space-x-2 uppercase shadow-md"
                         >
                           <ShoppingBag className="w-4 h-4" />
-                          <span>ADD TO BAG • ${priceStr}</span>
+                          <span>SHOP NOW • ${priceStr}</span>
                         </button>
 
                         <Link

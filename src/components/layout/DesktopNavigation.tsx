@@ -7,15 +7,13 @@ interface DesktopNavigationProps {
 
 export const DesktopNavigation: React.FC<DesktopNavigationProps> = ({ onHoverCategory }) => {
   const navLinks = [
-    { label: 'NEW', href: '/collections/new-arrivals', hasMega: true },
+    { label: 'JOURNAL', href: '/journal', hasMega: false },
+    { label: 'GLOSSARY', href: '/ingredients', hasMega: false },
+    { label: 'STUDIO', href: '/behind-the-scenes', hasMega: false },
+    { label: 'UGC HUB', href: '/virtual-vanity', hasMega: false },
     { label: 'SKINCARE', href: '/collections/skincare', hasMega: true },
     { label: 'MAKEUP', href: '/collections/makeup', hasMega: true },
-    { label: 'BODY', href: '/collections/body-care', hasMega: true },
-    { label: 'TOOLS', href: '/collections/beauty-tools', hasMega: true },
-    { label: 'STUDIO', href: '/behind-the-scenes', hasMega: false },
-    { label: 'VANITY', href: '/virtual-vanity', hasMega: false },
-    { label: 'JOURNAL', href: '/journal', hasMega: false },
-    { label: 'ABOUT', href: '/about', hasMega: false },
+    { label: 'SHOP ALL', href: '/collections/all', hasMega: true },
   ];
 
   return (

@@ -8,10 +8,10 @@ export const SocialGallery: React.FC = () => {
   const sectionData = state.homepageSections.socialGallery || {
     id: 'socialGallery',
     title: 'JOIN THE GLAMGAL BEAUTY COMMUNITY',
-    subtitle: '@GLAMGALBEAUTY',
-    description: 'Tag @glamgalbeauty on Instagram & TikTok to be featured on our official global gallery.',
+    subtitle: '@GLAMGALBEAUTY_',
+    description: 'Tag @glamgalbeauty_ on Instagram & TikTok to be featured on our official global gallery.',
     ctaText: 'FOLLOW ON INSTAGRAM',
-    ctaLink: 'https://instagram.com',
+    ctaLink: 'https://instagram.com/glamgalbeauty_',
     enabled: true,
   };
 
@@ -52,7 +52,7 @@ export const SocialGallery: React.FC = () => {
     ? posts
     : posts.filter(p => p.tag?.toLowerCase() === selectedTag.toLowerCase());
 
-  const tagsList = ['ALL', '@glamgalbeauty', '#GLAMGALGlow', '#GLAMGALRoutine'];
+  const tagsList = ['ALL', '@glamgalbeauty_', '#GLAMGALGlow', '#GLAMGALRoutine'];
 
   return (
     <section className="bg-[#FAF7F5] py-20 border-t border-[#E8DFD8]" aria-label="Social Proof Community">
@@ -247,7 +247,7 @@ export const SocialGallery: React.FC = () => {
               WANT TO BE FEATURED ON GLAMGAL?
             </h3>
             <p className="text-xs text-soft-stone font-light">
-              Post your look using <span className="text-amber-300 font-semibold">#GLAMGALGlow</span> & tag <span className="text-amber-300 font-semibold">@glamgalbeauty</span>
+              Post your look using <span className="text-amber-300 font-semibold">#GLAMGALGlow</span> & tag <span className="text-amber-300 font-semibold">@glamgalbeauty_</span>
             </p>
           </div>
 

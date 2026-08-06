@@ -109,18 +109,18 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* About & Philosophy Column */}
+          {/* Editorial Hub Column */}
           <div className="space-y-4">
             <h4 className="font-display text-xs tracking-widest text-warm-white uppercase border-b border-deep-charcoal pb-2">
-              ABOUT GLAMGAL
+              EDITORIAL HUB
             </h4>
             <ul className="space-y-2 text-xs text-soft-stone">
+              <li><Link to="/journal" className="hover:text-warm-white transition-colors">GLAMGAL Journal</Link></li>
+              <li><Link to="/ingredients" className="hover:text-warm-white transition-colors">Ingredient Glossary</Link></li>
+              <li><Link to="/behind-the-scenes" className="hover:text-warm-white transition-colors">Behind-The-Scenes Studio</Link></li>
+              <li><Link to="/virtual-vanity" className="hover:text-warm-white transition-colors">Virtual Vanity UGC Hub</Link></li>
               <li><Link to="/about" className="hover:text-warm-white transition-colors">Our Brand Story</Link></li>
               <li><Link to="/philosophy" className="hover:text-warm-white transition-colors">Our Philosophy</Link></li>
-              <li><Link to="/ingredients" className="hover:text-warm-white transition-colors">Ingredient Glossary</Link></li>
-              <li><Link to="/journal" className="hover:text-warm-white transition-colors">Beauty Journal</Link></li>
-              <li><Link to="/routines" className="hover:text-warm-white transition-colors">Beauty Routines</Link></li>
-              <li><Link to="/concerns" className="hover:text-warm-white transition-colors">Skin Concerns</Link></li>
             </ul>
           </div>
         </div>
@@ -132,25 +132,9 @@ export const Footer: React.FC = () => {
               <Globe className="w-4 h-4 text-warm-taupe" />
               <span>{f.countryCurrency}</span>
             </div>
-            <span>•</span>
-            <span>Secure Shopify Checkout</span>
           </div>
 
-          {/* Payment Badges */}
-          {f.showPaymentBadges && (
-            <div className="flex items-center space-x-3 text-soft-stone">
-              <span className="text-[10px] font-display uppercase">ACCEPTED PAYMENTS:</span>
-              <div className="flex items-center space-x-2">
-                <CreditCard className="w-4 h-4" />
-                <span className="text-[10px] font-bold">VISA</span>
-                <span className="text-[10px] font-bold">MC</span>
-                <span className="text-[10px] font-bold">AMEX</span>
-                <span className="text-[10px] font-bold">SHOP PAY</span>
-              </div>
-            </div>
-          )}
-
-          <p>{f.copyrightText}</p>
+          <p>© 2026, GLAMGAL, LLC.</p>
         </div>
       </div>
     </footer>

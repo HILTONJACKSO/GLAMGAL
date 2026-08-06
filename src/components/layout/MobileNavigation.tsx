@@ -12,17 +12,15 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onCl
   if (!isOpen) return null;
 
   const links = [
-    { label: 'SHOP ALL', href: '/collections/all' },
-    { label: 'NEW ARRIVALS', href: '/collections/new-arrivals' },
+    { label: 'JOURNAL', href: '/journal' },
+    { label: 'GLOSSARY', href: '/ingredients' },
+    { label: 'STUDIO', href: '/behind-the-scenes' },
+    { label: 'UGC HUB', href: '/virtual-vanity' },
     { label: 'SKINCARE', href: '/collections/skincare' },
     { label: 'MAKEUP', href: '/collections/makeup' },
+    { label: 'SHOP ALL', href: '/collections/all' },
     { label: 'BODY CARE', href: '/collections/body-care' },
     { label: 'BEAUTY TOOLS', href: '/collections/beauty-tools' },
-    { label: 'BEST SELLERS', href: '/collections/best-sellers' },
-    { label: 'BEAUTY ROUTINES', href: '/routines' },
-    { label: 'SKIN CONCERNS', href: '/concerns' },
-    { label: 'INGREDIENTS', href: '/ingredients' },
-    { label: 'BEAUTY JOURNAL', href: '/journal' },
     { label: 'ABOUT GLAMGAL', href: '/about' },
     { label: 'OUR PHILOSOPHY', href: '/philosophy' },
     { label: 'FAQS', href: '/faq' },

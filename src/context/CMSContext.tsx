@@ -270,10 +270,10 @@ const DEFAULT_HOMEPAGE_SECTIONS: Record<string, CMSSectionData> = {
   socialGallery: {
     id: 'socialGallery',
     title: 'JOIN THE GLAMGAL BEAUTY COMMUNITY',
-    subtitle: '@GLAMGALBEAUTY',
-    description: 'Tag @glamgalbeauty on Instagram & TikTok to be featured on our official global gallery.',
+    subtitle: '@GLAMGALBEAUTY_',
+    description: 'Tag @glamgalbeauty_ on Instagram & TikTok to be featured on our official global gallery.',
     ctaText: 'FOLLOW ON INSTAGRAM',
-    ctaLink: 'https://instagram.com',
+    ctaLink: 'https://instagram.com/glamgalbeauty_',
     enabled: true,
   },
   testimonials: {
@@ -355,13 +355,13 @@ const DEFAULT_VIDEOS: VideoShowcaseItem[] = [
 const DEFAULT_FOOTER_SETTINGS: FooterSettings = {
   brandDescription:
     'GLAMGAL is a modern luxury beauty brand delivering high-impact couture makeup, skincare, and everyday essentials crafted for confident self-expression.',
-  instagramUrl: 'https://instagram.com',
+  instagramUrl: 'https://instagram.com/glamgalbeauty_',
   tiktokUrl: 'https://tiktok.com',
   facebookUrl: 'https://facebook.com',
   youtubeUrl: 'https://youtube.com',
-  copyrightText: '© 2026 GLAMGAL Beauty Inc. All rights reserved.',
+  copyrightText: '© 2026, GLAMGAL, LLC.',
   showNewsletter: true,
-  showPaymentBadges: true,
+  showPaymentBadges: false,
   countryCurrency: 'United States (USD $)',
 };
 
