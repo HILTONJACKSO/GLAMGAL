@@ -1777,39 +1777,75 @@ export const MOCK_ROUTINES: BeautyRoutine[] = [
 export const MOCK_ARTICLES: JournalArticle[] = [
   {
     id: 'art-1',
-    handle: 'the-art-of-skin-barrier-repair',
-    title: 'The Art of Skin Barrier Repair: Why Hydration Isn’t Enough',
-    summary: 'Discover how peptides, niacinamide, and bio-identical ceramides work synergistically to restore compromised skin barriers.',
+    handle: '72-hour-barrier-repair-guide',
+    title: 'THE 72-HOUR BARRIER REPAIR PROTOCOL',
+    summary: 'Discover how micro-hyaluronic spheres and botanical peptides work synergistically to restore compromised skin barriers.',
     contentHtml: `
       <p class="lead">Understanding the architecture of your skin barrier is the first step toward achieving lasting radiance. While basic moisturizers sit on the epidermal surface, true skin health requires lipid-identical replenishment.</p>
       <h2>What Breaks the Skin Barrier?</h2>
       <p>Over-exfoliation, harsh weather changes, and aggressive alkaline cleansers strip essential fatty acids, leading to redness, dehydration, and increased reactivity.</p>
       <h2>The GLAMGAL Multi-Layer Philosophy</h2>
-      <p>Our formulation team combines 5 molecular weights of Hyaluronic Acid with clinically proven Ceramides to seal moisture from within.</p>
+      <p>Our formulation team combines 5 molecular weights of Hyaluronic Acid with clinically proven Ceramides and Botanical Peptides to seal moisture from within and maintain a 72-hour hydration reservoir.</p>
+      <h2>Step-by-Step Clinical Application</h2>
+      <p>Apply 3-4 pumps of Calming Rosewater Toner over clean skin, followed immediately by 1 full dropper of Luminous Barrier Serum. Seal with Cellular Overnight Repair Cream.</p>
+    `,
+    author: 'Dr. Elena Vance, Lead Chemist',
+    publishedAt: '2026-08-01',
+    readTime: '4 min read',
+    category: 'Skincare Education',
+    coverImage: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=1000&q=80',
+    relatedProductHandles: ['luminous-barrier-serum', 'cellular-overnight-repair-cream']
+  },
+  {
+    id: 'art-2',
+    handle: 'velvet-vs-satin-lipstick-guide',
+    title: 'AUTUMN VELVET: COUTURE LIPSTICK STYLING',
+    summary: 'Pro editorial makeup secrets to achieve seamless matte lips that feel weightless and cushion-soft all day.',
+    contentHtml: `
+      <p class="lead">Matte lipstick has evolved far beyond dry, cracking textures. Modern high-impact formulas pair dense mineral pigments with micro-encapsulated oil spheres.</p>
+      <h2>Step 1: Gentle Lip Prep</h2>
+      <p>Gently press a warm damp cloth over lips for 30 seconds before applying your lipstick bullet directly to lip centers.</p>
+      <h2>Step 2: Micro-Spheres Color Payoff</h2>
+      <p>Glide Velvet Matte Couture Lipstick from Cupid's bow outward. The non-drying formula stays vibrant for up to 16 hours without feathering.</p>
+    `,
+    author: 'Sora Kim, Global Editorial Makeup Artist',
+    publishedAt: '2026-08-03',
+    readTime: '3 min read',
+    category: 'Makeup Tutorials',
+    coverImage: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=1000&q=80',
+    relatedProductHandles: ['velvet-matte-lipstick']
+  },
+  {
+    id: 'art-3',
+    handle: 'gua-sha-lymphatic-drainage-routine',
+    title: '5-MINUTE OBSIDIAN GUA SHA SCULPTING RITUAL',
+    summary: 'Release cheekbone tension, drain stagnant fluid, and define jawline contours with volcanic stone energy.',
+    contentHtml: `
+      <p class="lead">Natural Volcanic Obsidian holds natural thermal energy that relaxes tight micro-muscles while encouraging lymphatic circulation.</p>
+      <h2>How to Sculpt Your Contour</h2>
+      <p>Apply 3 drops of Sculpting Glow Nectar. Sweep the curved edge of your Obsidian Gua Sha from chin to earlobe in smooth upward strokes.</p>
+    `,
+    author: 'Maya Lin, Master Esthetician',
+    publishedAt: '2026-08-05',
+    readTime: '5 min read',
+    category: 'Sculpting & Wellness',
+    coverImage: 'https://images.unsplash.com/photo-1608248597261-833258057467?auto=format&fit=crop&w=1000&q=80',
+    relatedProductHandles: ['obsidian-precision-contour-gua-sha', 'sculpting-glow-body-nectar']
+  },
+  {
+    id: 'art-4',
+    handle: 'the-art-of-skin-barrier-repair',
+    title: 'The Art of Skin Barrier Repair: Why Hydration Isn’t Enough',
+    summary: 'Discover how peptides, niacinamide, and bio-identical ceramides work synergistically to restore compromised skin barriers.',
+    contentHtml: `
+      <p class="lead">Understanding the architecture of your skin barrier is the first step toward achieving lasting radiance.</p>
     `,
     author: 'Dr. Elena Vance, Lead Chemist',
     publishedAt: '2026-07-15',
     readTime: '4 min read',
     category: 'Skincare Education',
     coverImage: '/calming_rosewater_toner_mockup.png',
-    relatedProductHandles: ['luminous-barrier-serum', 'cellular-overnight-cream']
-  },
-  {
-    id: 'art-2',
-    handle: 'how-to-master-velvet-matte-lips',
-    title: 'How to Master the Velvet Matte Lip Without Any Drying',
-    summary: 'Pro editorial makeup secrets to achieve seamless matte lips that feel weightless and cushion-soft all day.',
-    contentHtml: `
-      <p class="lead">Matte lipstick has evolved far beyond dry, cracking textures. Modern high-impact formulas pair dense mineral pigments with micro-encapsulated oil spheres.</p>
-      <h2>Step 1: Gentle Lip Prep</h2>
-      <p>Gently press a warm damp cloth over lips for 30 seconds before applying your lipstick bullet directly to lip centers.</p>
-    `,
-    author: 'Sora Kim, Global Editorial Makeup Artist',
-    publishedAt: '2026-07-20',
-    readTime: '3 min read',
-    category: 'Makeup Tutorials',
-    coverImage: '/liquid_velvet_lipstick_mockup.png',
-    relatedProductHandles: ['velvet-matte-lipstick']
+    relatedProductHandles: ['luminous-barrier-serum']
   }
 ];
 

@@ -165,7 +165,7 @@ export const GlamgalJournalSection: React.FC = () => {
             >
               <div className="aspect-[16/10] overflow-hidden bg-[#FAF5F0]">
                 <img
-                  src="https://images.unsplash.com/photo-1608248597261-833258057467?auto=format&fit=crop&w=800&q=80"
+                  src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80"
                   alt="Gua Sha Lymphatic Drainage"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />

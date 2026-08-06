@@ -47,17 +47,21 @@ export const JournalArticlePage: React.FC = () => {
           getArticles(),
         ]);
 
-        if (data) {
-          setArticle(data);
+        const targetArticle = data || (allArts.length > 0 ? allArts[0] : null);
+
+        if (targetArticle) {
+          setArticle(targetArticle);
           const prods: Product[] = [];
-          for (const h of data.relatedProductHandles) {
-            const p = await getProductByHandle(h);
-            if (p) prods.push(p);
+          if (targetArticle.relatedProductHandles) {
+            for (const h of targetArticle.relatedProductHandles) {
+              const p = await getProductByHandle(h);
+              if (p) prods.push(p);
+            }
           }
           setRelatedProducts(prods);
 
           // Filter out current article for "More Stories"
-          setMoreArticles(allArts.filter((a) => a.handle !== data.handle).slice(0, 3));
+          setMoreArticles(allArts.filter((a) => a.handle !== targetArticle.handle).slice(0, 3));
         }
       } catch (err) {
         console.error('Article load error:', err);
@@ -68,8 +72,20 @@ export const JournalArticlePage: React.FC = () => {
     loadArticleData();
   }, [handle]);
 
-  if (loading || !article) {
+  if (loading) {
     return <LoadingState message="PREPARING EDITORIAL STORY..." />;
+  }
+
+  if (!article) {
+    return (
+      <div className="min-h-[60vh] flex flex-col items-center justify-center p-6 text-center space-y-4">
+        <h2 className="font-display text-2xl font-bold uppercase text-obsidian">EDITORIAL STORY NOT FOUND</h2>
+        <p className="font-body text-xs text-[#5C5046]">The story you are looking for may have been moved or updated.</p>
+        <Link to="/journal" className="bg-obsidian text-warm-white font-display text-xs font-bold px-6 py-3 rounded-full uppercase">
+          RETURN TO BEAUTY JOURNAL
+        </Link>
+      </div>
+    );
   }
 
   const handleShare = () => {
