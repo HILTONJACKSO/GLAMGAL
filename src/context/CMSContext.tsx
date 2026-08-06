@@ -400,7 +400,12 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           }
           return p;
         });
-        const heroState = parsed.hero || DEFAULT_HERO;
+        const heroRaw = parsed.hero || DEFAULT_HERO;
+        const heroState: HeroCampaignMetaobject = {
+          ...heroRaw,
+          heading: heroRaw.heading ? heroRaw.heading.replace(/skin-first care/gi, 'skincare') : heroRaw.heading,
+          subheading: heroRaw.subheading ? heroRaw.subheading.replace(/skin-first care/gi, 'skincare') : heroRaw.subheading,
+        };
 
         const rawVideos: VideoShowcaseItem[] = parsed.videos && parsed.videos.length > 0 ? parsed.videos : DEFAULT_VIDEOS;
         const sanitizedVideos = rawVideos.map((v) => {

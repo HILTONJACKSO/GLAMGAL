@@ -310,7 +310,11 @@ function getCMSHero(): HeroCampaignMetaobject {
       if (saved) {
         const parsed = JSON.parse(saved);
         if (parsed.hero) {
-          return parsed.hero;
+          return {
+            ...parsed.hero,
+            heading: parsed.hero.heading ? parsed.hero.heading.replace(/skin-first care/gi, 'skincare') : parsed.hero.heading,
+            subheading: parsed.hero.subheading ? parsed.hero.subheading.replace(/skin-first care/gi, 'skincare') : parsed.hero.subheading,
+          };
         }
       }
     }
