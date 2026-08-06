@@ -7,11 +7,11 @@ import { ArrowRight, CheckCircle2 } from 'lucide-react';
 export const PhilosophyPage: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto px-6 py-8 space-y-12">
-      <SEO title="Our Formulation Philosophy" description="Learn about GLAMGAL's strict skin-first formulation standards and clean ingredients." />
+      <SEO title="Our Formulation Philosophy" description="Learn about GLAMGAL's strict skincare formulation standards and clean ingredients." />
       <Breadcrumbs items={[{ label: 'OUR PHILOSOPHY' }]} />
 
       <div className="text-center space-y-4">
-        <span className="font-display text-xs tracking-mega text-warm-taupe uppercase">SKIN-FIRST STANDARDS</span>
+        <span className="font-display text-xs tracking-mega text-warm-taupe uppercase">SKINCARE STANDARDS</span>
         <h1 className="font-display text-3xl sm:text-4xl tracking-widest text-obsidian uppercase font-bold">
           OUR FORMULATION PHILOSOPHY
         </h1>

@@ -31,7 +31,7 @@ export const CollectionPage: React.FC<{ defaultHandle?: string }> = ({ defaultHa
             id: 'col-all',
             handle: 'all',
             title: 'SHOP ALL GLAMGAL',
-            description: 'Explore our complete suite of skin-first care, high-impact makeup, body care, and precision beauty tools.',
+            description: 'Explore our complete suite of skincare, high-impact makeup, body care, and precision beauty tools.',
             image: { url: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1200&q=80', altText: 'All Products' },
             products: allProds,
             productCount: allProds.length

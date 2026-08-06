@@ -15,7 +15,7 @@ export const TrustBar: React.FC = () => {
     },
     {
       icon: Sparkles,
-      title: 'SKIN-FIRST FORMULATION',
+      title: 'SKINCARE FORMULATION',
       description: 'Clean, cruelty-free & dermatologist validated',
     },
     {

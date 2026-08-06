@@ -106,7 +106,7 @@ export const CartDrawer: React.FC = () => {
                   YOUR BAG IS CURRENTLY EMPTY
                 </h3>
                 <p className="text-xs text-warm-taupe max-w-xs mb-6">
-                  Discover skin-first care, couture makeup, and glowing beauty rituals.
+                  Discover skincare, couture makeup, and glowing beauty rituals.
                 </p>
                 <Link
                   to="/collections/all"

@@ -1597,7 +1597,7 @@ export const MOCK_COLLECTIONS: Collection[] = [
     id: 'gid://shopify/Collection/1',
     handle: 'all',
     title: 'SHOP ALL GLAMGAL',
-    description: 'Explore our complete suite of skin-first care, high-impact makeup, body care, and precision beauty tools.',
+    description: 'Explore our complete suite of skincare, high-impact makeup, body care, and precision beauty tools.',
     image: {
       url: '/shop_all_glamgal_collection_banner.png',
       altText: 'GLAMGAL Complete Collection'
@@ -1851,7 +1851,7 @@ export const MOCK_ARTICLES: JournalArticle[] = [
 
 export const MOCK_HERO: HeroCampaignMetaobject = {
   heading: 'BEAUTY, DEFINED YOUR WAY.',
-  subheading: 'High-impact makeup, skin-first care and everyday essentials created for confident self-expression.',
+  subheading: 'High-impact makeup, skincare and everyday essentials created for confident self-expression.',
   primaryCtaText: 'SHOP THE COLLECTION',
   primaryCtaLink: '/collections/all',
   secondaryCtaText: 'DISCOVER SKINCARE',

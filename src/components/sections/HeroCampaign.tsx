@@ -23,7 +23,7 @@ export const HeroCampaign: React.FC<HeroCampaignProps> = ({ hero: initialHero })
             {/* Top Text Group */}
             <div className="space-y-5">
               <span className="inline-block font-display text-xs sm:text-sm md:text-base tracking-wider text-[#A68064] uppercase font-bold">
-                LUXURY SKIN-FIRST CARE & BEAUTY
+                LUXURY SKINCARE & BEAUTY
               </span>
 
               <h1 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-[5.25rem] font-bold text-obsidian uppercase leading-[0.95] tracking-tight">
@@ -32,7 +32,7 @@ export const HeroCampaign: React.FC<HeroCampaignProps> = ({ hero: initialHero })
 
               <p className="font-body text-sm sm:text-base md:text-lg text-[#4A3E36] leading-relaxed max-w-xl font-normal">
                 {hero.subheading ||
-                  'High-impact makeup, skin-first care and everyday essentials created for confident self-expression.'}
+                  'High-impact makeup, skincare and everyday essentials created for confident self-expression.'}
               </p>
 
               {/* Action Buttons Row */}

@@ -61,7 +61,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onCl
       {/* Footer Banner in Menu */}
       <div className="p-6 bg-obsidian text-warm-white text-center border-t border-white/10">
         <p className="font-display text-xs tracking-widest uppercase mb-2">GLAMGAL BEAUTY COMMUNITY</p>
-        <p className="text-xs text-soft-stone">High-impact makeup & skin-first care</p>
+        <p className="text-xs text-soft-stone">High-impact makeup & skincare</p>
       </div>
     </div>
   );

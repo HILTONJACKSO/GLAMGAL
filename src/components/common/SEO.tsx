@@ -10,7 +10,7 @@ interface SEOProps {
 
 export const SEO: React.FC<SEOProps> = ({
   title,
-  description = 'High-impact makeup, skin-first care and everyday essentials created for confident self-expression.',
+  description = 'High-impact makeup, skincare and everyday essentials created for confident self-expression.',
   image = 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1200&q=80',
   canonicalUrl,
   jsonLd,

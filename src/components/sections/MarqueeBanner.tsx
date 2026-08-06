@@ -10,7 +10,7 @@ export const MarqueeBanner: React.FC = () => {
 
   const defaultItems = [
     'GLAMGAL BEAUTY',
-    'SKIN-FIRST CARE',
+    'SKINCARE',
     'COUTURE VELVET MAKEUP',
     'OBSIDIAN FACIAL SCULPTING',
     'CRUELTY-FREE & VEGAN',

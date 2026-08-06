@@ -231,7 +231,7 @@ const DEFAULT_PROMOS: PromoCode[] = [
 
 const DEFAULT_HERO: HeroCampaignMetaobject = {
   heading: 'BEAUTY, DEFINED YOUR WAY.',
-  subheading: 'High-impact makeup, skin-first care and everyday essentials created for confident self-expression.',
+  subheading: 'High-impact makeup, skincare and everyday essentials created for confident self-expression.',
   primaryCtaText: 'SHOP THE COLLECTION',
   primaryCtaLink: '/collections/all',
   secondaryCtaText: 'DISCOVER SKINCARE',
@@ -242,7 +242,7 @@ const DEFAULT_HERO: HeroCampaignMetaobject = {
 const DEFAULT_HOMEPAGE_SECTIONS: Record<string, CMSSectionData> = {
   marquee: {
     id: 'marquee',
-    title: 'GLAMGAL BEAUTY • SKIN-FIRST CARE • COUTURE VELVET MAKEUP • OBSIDIAN SCULPTING',
+    title: 'GLAMGAL BEAUTY • SKINCARE • COUTURE VELVET MAKEUP • OBSIDIAN SCULPTING',
     enabled: true,
   },
   creed: {
@@ -354,7 +354,7 @@ const DEFAULT_VIDEOS: VideoShowcaseItem[] = [
 
 const DEFAULT_FOOTER_SETTINGS: FooterSettings = {
   brandDescription:
-    'GLAMGAL is a modern luxury beauty brand delivering high-impact couture makeup, skin-first care, and everyday essentials crafted for confident self-expression.',
+    'GLAMGAL is a modern luxury beauty brand delivering high-impact couture makeup, skincare, and everyday essentials crafted for confident self-expression.',
   instagramUrl: 'https://instagram.com',
   tiktokUrl: 'https://tiktok.com',
   facebookUrl: 'https://facebook.com',

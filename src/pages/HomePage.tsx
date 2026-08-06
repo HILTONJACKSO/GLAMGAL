@@ -84,8 +84,8 @@ export const HomePage: React.FC = () => {
   return (
     <div className="space-y-0">
       <SEO
-        title="GLAMGAL — High-Impact Makeup & Skin-First Care"
-        description="Discover luxury skin-first care, couture velvet makeup, and obsidian sculpting tools."
+        title="GLAMGAL — High-Impact Makeup & Skincare"
+        description="Discover luxury skincare, couture velvet makeup, and obsidian sculpting tools."
       />
 
       {/* 2. HERO CAMPAIGN WITH SCROLL ANIMATION */}
