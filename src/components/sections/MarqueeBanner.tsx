@@ -11,22 +11,28 @@ export const MarqueeBanner: React.FC = () => {
   const defaultItems = [
     'GLAMGAL BEAUTY',
     'SKINCARE',
-    'COUTURE VELVET MAKEUP',
-    'OBSIDIAN FACIAL SCULPTING',
+    'DESIGNED TO MAKE EVERY SKIN TYPE SHINE',
+    'TAG @GLAMGALBEAUTY_ TO BE FEATURED ON OUR PAGE!',
     'CRUELTY-FREE & VEGAN',
-    'DERMATOLOGIST TESTED',
     '72-HOUR HYDRATION SCIENCE',
-    'COMPLIMENTARY SHIPPING OVER $75',
   ];
 
-  // Clean any legacy text from CMS state
+  // Clean any legacy text from CMS state and remove unwanted items
   const rawText = (marqueeSec?.title || '')
     .replace(/SKIN-FIRST CARE/gi, 'SKINCARE')
-    .replace(/SKIN-FIRST/gi, 'SKINCARE');
+    .replace(/SKIN-FIRST/gi, 'SKINCARE')
+    .replace(/OBSIDIAN SCULPTING/gi, '')
+    .replace(/OBSIDIAN FACIAL SCULPTING/gi, '')
+    .replace(/COUTURE VELVET MAKEUP/gi, '');
 
-  const items = rawText.includes('•')
-    ? rawText.split('•').map((s) => s.trim()).filter(Boolean)
-    : defaultItems;
+  const items = [
+    'GLAMGAL BEAUTY',
+    'SKINCARE',
+    'DESIGNED TO MAKE EVERY SKIN TYPE SHINE',
+    'TAG @GLAMGALBEAUTY_ TO BE FEATURED ON OUR PAGE!',
+    'CRUELTY-FREE & VEGAN',
+    '72-HOUR HYDRATION SCIENCE',
+  ];
 
   const renderTrack = () => (
     <div className="flex items-center space-x-8 pr-8 flex-shrink-0">

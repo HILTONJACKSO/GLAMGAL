@@ -62,46 +62,64 @@ export const HeroCampaign: React.FC<HeroCampaignProps> = ({ hero: initialHero })
             {/* Bottom Product Sub-Cards */}
             <div className="grid grid-cols-2 gap-3 sm:gap-4 pt-6 border-t border-[#E3D5C8]/80">
               {/* Product Sub-Card 1 */}
-              <Link
-                to="/products/luminous-barrier-serum"
-                className="group bg-white rounded-2xl p-3 border border-[#E3D5C8]/60 hover:border-[#B89275] hover:-translate-y-1 transition-all duration-300 shadow-xs hover:shadow-md block"
-              >
-                <div className="aspect-[4/3] rounded-xl overflow-hidden bg-warm-white mb-2.5">
-                  <img
-                    src="/calming_rosewater_toner_mockup.png"
-                    alt="Luminous Barrier Serum"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    onError={(e) => {
-                      (e.currentTarget as HTMLImageElement).src = '/hero_model.png';
-                    }}
-                  />
+              <div className="group bg-white rounded-2xl p-3.5 border border-[#E3D5C8]/60 hover:border-[#B89275] hover:-translate-y-1 transition-all duration-300 shadow-xs hover:shadow-md flex flex-col justify-between">
+                <div>
+                  <div className="aspect-[4/3] rounded-xl overflow-hidden bg-warm-white mb-2.5">
+                    <img
+                      src="/calming_rosewater_toner_mockup.png"
+                      alt="Luminous Barrier Serum"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).src = '/hero_model.png';
+                      }}
+                    />
+                  </div>
+                  <h4 className="font-display text-[11px] sm:text-xs tracking-wider text-obsidian uppercase font-bold line-clamp-1">
+                    LUMINOUS BARRIER SERUM
+                  </h4>
+                  <span className="text-[10px] font-display text-[#A68064] uppercase font-bold block mt-0.5">$68.00 USD</span>
                 </div>
-                <h4 className="font-display text-[11px] sm:text-xs tracking-wider text-obsidian uppercase font-semibold line-clamp-1 group-hover:underline">
-                  LUMINOUS BARRIER SERUM
-                </h4>
-                <span className="text-[10px] font-display text-[#A68064] uppercase block mt-0.5">$68.00 USD</span>
-              </Link>
+
+                <a
+                  href="https://glamgalbeauty.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-3 w-full inline-flex items-center justify-center space-x-1.5 bg-obsidian hover:bg-[#B89275] text-white font-display text-[10px] font-bold tracking-wider uppercase py-2 rounded-xl transition-colors shadow-2xs"
+                >
+                  <span>SHOP NOW</span>
+                  <span className="text-xs">→</span>
+                </a>
+              </div>
 
               {/* Product Sub-Card 2 */}
-              <Link
-                to="/products/velvet-matte-lipstick"
-                className="group bg-white rounded-2xl p-3 border border-[#E3D5C8]/60 hover:border-[#B89275] hover:-translate-y-1 transition-all duration-300 shadow-xs hover:shadow-md block"
-              >
-                <div className="aspect-[4/3] rounded-xl overflow-hidden bg-warm-white mb-2.5">
-                  <img
-                    src="/liquid_velvet_lipstick_mockup.png"
-                    alt="Velvet Matte Couture Lipstick"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    onError={(e) => {
-                      (e.currentTarget as HTMLImageElement).src = '/hero_model.png';
-                    }}
-                  />
+              <div className="group bg-white rounded-2xl p-3.5 border border-[#E3D5C8]/60 hover:border-[#B89275] hover:-translate-y-1 transition-all duration-300 shadow-xs hover:shadow-md flex flex-col justify-between">
+                <div>
+                  <div className="aspect-[4/3] rounded-xl overflow-hidden bg-warm-white mb-2.5">
+                    <img
+                      src="/liquid_velvet_lipstick_mockup.png"
+                      alt="Velvet Matte Couture Lipstick"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).src = '/hero_model.png';
+                      }}
+                    />
+                  </div>
+                  <h4 className="font-display text-[11px] sm:text-xs tracking-wider text-obsidian uppercase font-bold line-clamp-1">
+                    VELVET MATTE LIPSTICK
+                  </h4>
+                  <span className="text-[10px] font-display text-[#A68064] uppercase font-bold block mt-0.5">$38.00 USD</span>
                 </div>
-                <h4 className="font-display text-[11px] sm:text-xs tracking-wider text-obsidian uppercase font-semibold line-clamp-1 group-hover:underline">
-                  VELVET MATTE LIPSTICK
-                </h4>
-                <span className="text-[10px] font-display text-[#A68064] uppercase block mt-0.5">$38.00 USD</span>
-              </Link>
+
+                <a
+                  href="https://glamgalbeauty.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-3 w-full inline-flex items-center justify-center space-x-1.5 bg-obsidian hover:bg-[#B89275] text-white font-display text-[10px] font-bold tracking-wider uppercase py-2 rounded-xl transition-colors shadow-2xs"
+                >
+                  <span>SHOP NOW</span>
+                  <span className="text-xs">→</span>
+                </a>
+              </div>
             </div>
           </div>
 
