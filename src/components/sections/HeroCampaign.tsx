@@ -37,22 +37,24 @@ export const HeroCampaign: React.FC<HeroCampaignProps> = ({ hero: initialHero })
 
               {/* Action Buttons Row */}
               <div className="flex flex-wrap items-center gap-4 pt-3">
-                {/* Primary Pill Button */}
-                <Link
-                  to={hero.primaryCtaLink || '/collections/all'}
+                {/* Primary Pill Button -> Direct to Shopify */}
+                <a
+                  href="https://glamgalbeauty.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center space-x-2.5 bg-[#B89275] hover:bg-[#A37E62] hover:scale-105 active:scale-95 text-white font-display text-sm sm:text-base tracking-wider uppercase px-7 sm:px-9 py-4 sm:py-4.5 rounded-full transition-all shadow-md hover:shadow-lg font-bold"
                 >
-                  <span>{hero.primaryCtaText || 'SHOP THE COLLECTION'}</span>
+                  <span>SHOP THE COLLECTION</span>
                   <ChevronRight className="w-5 h-5 stroke-[2.5]" />
-                </Link>
+                </a>
 
-                {/* Secondary Video/Action Pill Button */}
+                {/* Secondary Editorial Journal Button */}
                 <Link
-                  to={hero.secondaryCtaLink || '/collections/skincare'}
+                  to="/journal"
                   className="inline-flex items-center space-x-2.5 bg-white hover:bg-warm-white hover:scale-105 active:scale-95 border-2 border-[#B89275]/60 text-obsidian font-display text-sm sm:text-base tracking-wider uppercase px-7 sm:px-9 py-4 sm:py-4.5 rounded-full transition-all font-bold shadow-xs"
                 >
-                  <span>{hero.secondaryCtaText || 'DISCOVER SKINCARE'}</span>
-                  <PlayCircle className="w-5 h-5 text-[#B89275] stroke-[2]" />
+                  <span>BEAUTY JOURNAL</span>
+                  <ChevronRight className="w-5 h-5 text-[#B89275] stroke-[2.5]" />
                 </Link>
               </div>
             </div>
