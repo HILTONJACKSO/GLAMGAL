@@ -16,8 +16,24 @@ import { Product, Collection, Cart, BeautyIngredient, BeautyRoutine, JournalArti
 
 export function isMockMode(): boolean {
   const forceMock = import.meta.env.VITE_USE_MOCK_SHOPIFY === 'true';
-  const domain = import.meta.env.PUBLIC_STORE_DOMAIN;
-  const token = import.meta.env.PUBLIC_STOREFRONT_API_TOKEN;
+  let domain = import.meta.env.VITE_PUBLIC_STORE_DOMAIN || import.meta.env.PUBLIC_STORE_DOMAIN;
+  let token = import.meta.env.VITE_PUBLIC_STOREFRONT_API_TOKEN || import.meta.env.PUBLIC_STOREFRONT_API_TOKEN;
+
+  if (typeof window !== 'undefined' && (!domain || !token)) {
+    try {
+      const saved = localStorage.getItem('glamgal_shopify_credentials');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.domain && parsed.token) {
+          domain = parsed.domain;
+          token = parsed.token;
+        }
+      }
+    } catch (e) {
+      // ignore
+    }
+  }
+
   return forceMock || !domain || !token;
 }
 

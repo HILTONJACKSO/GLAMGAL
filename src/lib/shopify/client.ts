@@ -4,9 +4,24 @@ interface ShopifyFetchOptions {
 }
 
 export async function shopifyFetch<T>({ query, variables }: ShopifyFetchOptions): Promise<T> {
-  const domain = import.meta.env.PUBLIC_STORE_DOMAIN || '';
-  const storefrontToken = import.meta.env.PUBLIC_STOREFRONT_API_TOKEN || '';
-  const apiVersion = import.meta.env.PUBLIC_STORE_VERSION || '2024-07';
+  let domain = import.meta.env.VITE_PUBLIC_STORE_DOMAIN || import.meta.env.PUBLIC_STORE_DOMAIN || '';
+  let storefrontToken = import.meta.env.VITE_PUBLIC_STOREFRONT_API_TOKEN || import.meta.env.PUBLIC_STOREFRONT_API_TOKEN || '';
+  const apiVersion = import.meta.env.VITE_PUBLIC_STORE_VERSION || import.meta.env.PUBLIC_STORE_VERSION || '2024-07';
+
+  if (typeof window !== 'undefined' && (!domain || !storefrontToken)) {
+    try {
+      const saved = localStorage.getItem('glamgal_shopify_credentials');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.domain && parsed.token) {
+          domain = parsed.domain;
+          storefrontToken = parsed.token;
+        }
+      }
+    } catch (e) {
+      // ignore
+    }
+  }
 
   if (!domain || !storefrontToken) {
     throw new Error('Shopify credentials missing in environment.');

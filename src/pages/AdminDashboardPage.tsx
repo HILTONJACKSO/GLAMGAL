@@ -239,7 +239,15 @@ export const AdminDashboardPage: React.FC = () => {
 
   const handleShopifyCredentialsSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    triggerSaveNotification(`Saved Shopify domain "${shopifyDomain}" & Access Token!`);
+    try {
+      localStorage.setItem(
+        'glamgal_shopify_credentials',
+        JSON.stringify({ domain: shopifyDomain.trim(), token: shopifyToken.trim() })
+      );
+      triggerSaveNotification(`Saved & Activated live Shopify domain "${shopifyDomain}" & Access Token!`);
+    } catch (err) {
+      console.error('Failed to save Shopify credentials:', err);
+    }
   };
 
   const handleCreateOrUpdatePromo = (e: React.FormEvent) => {
