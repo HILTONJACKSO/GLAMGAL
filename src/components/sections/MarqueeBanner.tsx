@@ -19,8 +19,11 @@ export const MarqueeBanner: React.FC = () => {
     'COMPLIMENTARY SHIPPING OVER $75',
   ];
 
-  // If user edited title in CMS, split by bullet or use default items
-  const rawText = marqueeSec?.title || '';
+  // Clean any legacy text from CMS state
+  const rawText = (marqueeSec?.title || '')
+    .replace(/SKIN-FIRST CARE/gi, 'SKINCARE')
+    .replace(/SKIN-FIRST/gi, 'SKINCARE');
+
   const items = rawText.includes('•')
     ? rawText.split('•').map((s) => s.trim()).filter(Boolean)
     : defaultItems;

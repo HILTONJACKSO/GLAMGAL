@@ -23,7 +23,7 @@ export const HeroCampaign: React.FC<HeroCampaignProps> = ({ hero: initialHero })
             {/* Top Text Group */}
             <div className="space-y-5">
               <span className="inline-block font-display text-xs sm:text-sm md:text-base tracking-wider text-[#A68064] uppercase font-bold">
-                LUXURY SKINCARE & BEAUTY
+                PREMIUM SKINCARE & MAKEUP
               </span>
 
               <h1 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-[5.25rem] font-bold text-obsidian uppercase leading-[0.95] tracking-tight">

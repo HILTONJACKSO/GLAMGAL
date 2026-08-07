@@ -419,7 +419,16 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         return {
           ...parsed,
           hero: heroState,
-          homepageSections: { ...DEFAULT_HOMEPAGE_SECTIONS, ...parsed.homepageSections },
+          homepageSections: {
+            ...DEFAULT_HOMEPAGE_SECTIONS,
+            ...parsed.homepageSections,
+            marquee: {
+              ...(parsed.homepageSections?.marquee || DEFAULT_HOMEPAGE_SECTIONS.marquee),
+              title: (parsed.homepageSections?.marquee?.title || DEFAULT_HOMEPAGE_SECTIONS.marquee.title)
+                .replace(/skin-first care/gi, 'SKINCARE')
+                .replace(/skin-first/gi, 'SKINCARE'),
+            },
+          },
           products: sanitizedProducts,
           articles: parsed.articles && parsed.articles.length > 0 ? parsed.articles : MOCK_ARTICLES,
           promos: parsed.promos && parsed.promos.length > 0 ? parsed.promos : DEFAULT_PROMOS,

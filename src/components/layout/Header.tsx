@@ -46,14 +46,6 @@ export const Header: React.FC<HeaderProps> = ({ announcements = [], onOpenSearch
 
         {/* Right: Action Controls */}
         <div className="flex items-center space-x-2 sm:space-x-4 text-obsidian flex-shrink-0">
-          {/* Currency Selector */}
-          <button
-            className="hidden 2xl:flex items-center space-x-1.5 text-xs font-display tracking-widest text-deep-charcoal hover:text-obsidian transition-colors px-2 py-1"
-            title="Select Country & Currency"
-          >
-            <Globe className="w-3.5 h-3.5 text-warm-taupe" />
-            <span>USD $</span>
-          </button>
 
           {/* Search Trigger */}
           <button
