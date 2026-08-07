@@ -51,8 +51,20 @@ export const ProductDetailPage: React.FC = () => {
     loadProduct();
   }, [handle]);
 
-  if (loading || !product || !selectedVariant) {
+  if (loading) {
     return <LoadingState message="LOADING PRODUCT SPECIFICATIONS..." />;
+  }
+
+  if (!product || !selectedVariant) {
+    return (
+      <div className="max-w-4xl mx-auto px-6 py-20 text-center space-y-6">
+        <h2 className="font-display text-2xl font-bold uppercase text-obsidian">PRODUCT SPECIFICATION NOT FOUND</h2>
+        <p className="text-xs text-warm-taupe">The requested beauty formulation could not be located on the store.</p>
+        <Link to="/collections/all" className="inline-block bg-obsidian text-warm-white font-display text-xs font-bold px-8 py-3 rounded-full uppercase">
+          EXPLORE BEAUTY COLLECTION
+        </Link>
+      </div>
+    );
   }
 
   const isMakeup = product.category === 'Makeup';

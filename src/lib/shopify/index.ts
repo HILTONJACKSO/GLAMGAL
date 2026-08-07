@@ -73,26 +73,50 @@ export async function getProducts(options?: { first?: number; query?: string }):
     return list;
   }
 
-  const response = await shopifyFetch<{ products: { edges: Array<{ node: any }> } }>({
-    query: GET_PRODUCTS_QUERY,
-    variables: { first: options?.first || 20, query: options?.query }
-  });
+  try {
+    const response = await shopifyFetch<{ products: { edges: Array<{ node: any }> } }>({
+      query: GET_PRODUCTS_QUERY,
+      variables: { first: options?.first || 20, query: options?.query }
+    });
 
-  return response.products.edges.map(e => formatShopifyProduct(e.node));
+    if (response?.products?.edges?.length > 0) {
+      return response.products.edges.map(e => formatShopifyProduct(e.node));
+    }
+  } catch (err) {
+    console.warn('Shopify getProducts failed, falling back to CMS catalog:', err);
+  }
+
+  let list = [...getCMSProducts()];
+  if (options?.query) {
+    const q = options.query.toLowerCase();
+    list = list.filter(p => 
+      p.title.toLowerCase().includes(q) || 
+      p.description.toLowerCase().includes(q) || 
+      p.category.toLowerCase().includes(q)
+    );
+  }
+  if (options?.first) list = list.slice(0, options.first);
+  return list;
 }
 
 export async function getProductByHandle(handle: string): Promise<Product | null> {
-  if (isMockMode()) {
-    const products = getCMSProducts();
-    return products.find(p => p.handle === handle) || null;
+  if (!isMockMode()) {
+    try {
+      const response = await shopifyFetch<{ product: any }>({
+        query: GET_PRODUCT_BY_HANDLE_QUERY,
+        variables: { handle }
+      });
+
+      if (response && response.product) {
+        return formatShopifyProduct(response.product);
+      }
+    } catch (err) {
+      console.warn(`Shopify getProductByHandle for "${handle}" failed, using fallback:`, err);
+    }
   }
 
-  const response = await shopifyFetch<{ product: any }>({
-    query: GET_PRODUCT_BY_HANDLE_QUERY,
-    variables: { handle }
-  });
-
-  return response.product ? formatShopifyProduct(response.product) : null;
+  const products = getCMSProducts();
+  return products.find(p => p.handle === handle) || products[0] || null;
 }
 
 export async function getCollectionByHandle(handle: string): Promise<Collection | null> {
