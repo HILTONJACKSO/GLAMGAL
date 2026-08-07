@@ -125,12 +125,16 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             </div>
           )}
 
-          <div className="flex items-center justify-between pt-2 border-t border-soft-stone/40">
-            <ProductPrice
-              price={defaultVariant?.price || product.priceRange.minVariantPrice}
-              compareAtPrice={defaultVariant?.compareAtPrice}
-              size="sm"
-            />
+          <div className="pt-2 border-t border-soft-stone/40">
+            <a
+              href="https://glamgalbeauty.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full inline-flex items-center justify-center space-x-1.5 bg-obsidian hover:bg-[#B89275] text-white font-display text-[10px] font-bold tracking-wider uppercase py-2 rounded-xl transition-colors shadow-2xs"
+            >
+              <span>SHOP STORE</span>
+              <span className="text-xs">→</span>
+            </a>
           </div>
         </div>
       </div>

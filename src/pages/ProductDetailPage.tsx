@@ -141,13 +141,8 @@ export const ProductDetailPage: React.FC = () => {
             </div>
           )}
 
-          {/* Price Area */}
-          <div className="py-2">
-            <ProductPrice price={selectedVariant.price} compareAtPrice={selectedVariant.compareAtPrice} size="lg" />
-          </div>
-
           {/* Variant Selection (Shade or Size) */}
-          <div className="space-y-6 pt-2 border-t border-soft-stone">
+          <div className="space-y-6 pt-4 border-t border-soft-stone">
             {isMakeup ? (
               <ShadeSelector
                 variants={product.variants}
@@ -163,15 +158,17 @@ export const ProductDetailPage: React.FC = () => {
               />
             )}
 
-            {/* Quantity Selector */}
-            <div className="space-y-2">
-              <label className="block font-display text-xs tracking-widest text-obsidian uppercase">QUANTITY</label>
-              <QuantitySelector quantity={quantity} onChange={setQuantity} disabled={!selectedVariant.availableForSale} />
-            </div>
-
-            {/* Direct Shopify Checkout Action */}
-            <div className="pt-2">
-              <BuyNowButton variant={selectedVariant} quantity={quantity} />
+            {/* Direct Official Store Action Link */}
+            <div className="pt-4">
+              <a
+                href="https://glamgalbeauty.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full inline-flex items-center justify-center space-x-2 bg-obsidian hover:bg-[#B89275] text-white font-display text-xs sm:text-sm font-bold tracking-widest uppercase py-4 rounded-full transition-all shadow-md hover:scale-101"
+              >
+                <span>SHOP ON OFFICIAL STORE</span>
+                <span className="text-sm">→</span>
+              </a>
             </div>
           </div>
 
@@ -183,11 +180,11 @@ export const ProductDetailPage: React.FC = () => {
             </div>
             <div className="flex flex-col items-center space-y-1">
               <ShieldCheck className="w-4 h-4 text-obsidian" />
-              <span>Shopify Checkout</span>
+              <span>Zero Hidden Ingredients</span>
             </div>
             <div className="flex flex-col items-center space-y-1">
               <RotateCcw className="w-4 h-4 text-obsidian" />
-              <span>30-Day Returns</span>
+              <span>30-Day Guarantee</span>
             </div>
           </div>
 

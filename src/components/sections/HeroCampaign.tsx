@@ -77,7 +77,6 @@ export const HeroCampaign: React.FC<HeroCampaignProps> = ({ hero: initialHero })
                   <h4 className="font-display text-[11px] sm:text-xs tracking-wider text-obsidian uppercase font-bold line-clamp-1">
                     LUMINOUS BARRIER SERUM
                   </h4>
-                  <span className="text-[10px] font-display text-[#A68064] uppercase font-bold block mt-0.5">$68.00 USD</span>
                 </div>
 
                 <a
@@ -107,7 +106,6 @@ export const HeroCampaign: React.FC<HeroCampaignProps> = ({ hero: initialHero })
                   <h4 className="font-display text-[11px] sm:text-xs tracking-wider text-obsidian uppercase font-bold line-clamp-1">
                     VELVET MATTE LIPSTICK
                   </h4>
-                  <span className="text-[10px] font-display text-[#A68064] uppercase font-bold block mt-0.5">$38.00 USD</span>
                 </div>
 
                 <a
