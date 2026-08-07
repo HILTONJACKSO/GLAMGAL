@@ -48,7 +48,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onCl
             key={link.label}
             to={link.href}
             onClick={onClose}
-            className="flex items-center justify-between py-3.5 border-b border-soft-stone/40 font-display text-sm tracking-widest text-obsidian uppercase hover:pl-2 transition-all"
+            className="flex items-center justify-between py-4 border-b border-soft-stone/60 font-display text-base sm:text-lg font-bold tracking-widest text-obsidian uppercase hover:pl-2 transition-all"
           >
             <span>{link.label}</span>
             <ChevronRight className="w-4 h-4 text-warm-taupe" />
