@@ -10,8 +10,8 @@ export const TrustBar: React.FC = () => {
     },
     {
       icon: ShieldCheck,
-      title: 'SHOPIFY SECURE CHECKOUT',
-      description: '256-bit encrypted secure payment processing',
+      title: 'ZERO HIDDEN INGREDIENTS',
+      description: '100% Transparent active component breakdowns',
     },
     {
       icon: Sparkles,

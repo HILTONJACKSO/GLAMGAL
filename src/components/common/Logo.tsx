@@ -18,13 +18,13 @@ export const Logo: React.FC<LogoProps> = ({
 
   const sizeClasses =
     size === 'sm'
-      ? 'h-6 sm:h-7'
+      ? 'h-8 sm:h-9'
       : size === 'lg'
-      ? 'h-10 sm:h-12'
-      : 'h-8 sm:h-9';
+      ? 'h-14 sm:h-16 md:h-20'
+      : 'h-10 sm:h-12 md:h-14';
 
   return (
-    <Link to="/" className={`inline-flex items-center space-x-2.5 ${className}`} aria-label="GLAMGAL Home">
+    <Link to="/" className={`inline-flex items-center ${className}`} aria-label="GLAMGAL Home">
       <img
         src="/glamgal_official_logo.jpg"
         alt="GLAMGAL Official Logo"
@@ -32,9 +32,6 @@ export const Logo: React.FC<LogoProps> = ({
           isLight ? 'invert brightness-200 contrast-200 mix-blend-screen' : 'mix-blend-multiply'
         }`}
       />
-      <span className="hidden sm:inline-block font-display text-[9px] font-bold tracking-widest uppercase bg-obsidian text-warm-white px-2 py-0.5 rounded-full border border-[#B89275]/40 shadow-xs">
-        EDITORIAL
-      </span>
     </Link>
   );
 };

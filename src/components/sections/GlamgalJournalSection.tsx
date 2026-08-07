@@ -71,7 +71,7 @@ export const GlamgalJournalSection: React.FC = () => {
           </h2>
 
           <p className="font-body text-sm sm:text-base text-[#5C5046] leading-relaxed max-w-2xl mx-auto font-light">
-            Master the art of barrier-first skincare and seasonal couture makeup with step-by-step layering tutorials and editorial beauty guides.
+            Master the art of barrier skincare and seasonal couture makeup with step-by-step layering tutorials and editorial beauty guides.
           </p>
 
           {/* TAB SWITCHER */}

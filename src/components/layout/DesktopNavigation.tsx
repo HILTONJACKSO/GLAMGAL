@@ -11,9 +11,6 @@ export const DesktopNavigation: React.FC<DesktopNavigationProps> = ({ onHoverCat
     { label: 'GLOSSARY', href: '/ingredients', hasMega: false },
     { label: 'STUDIO', href: '/behind-the-scenes', hasMega: false },
     { label: 'UGC HUB', href: '/virtual-vanity', hasMega: false },
-    { label: 'SKINCARE', href: '/collections/skincare', hasMega: true },
-    { label: 'MAKEUP', href: '/collections/makeup', hasMega: true },
-    { label: 'SHOP ALL', href: '/collections/all', hasMega: true },
   ];
 
   return (

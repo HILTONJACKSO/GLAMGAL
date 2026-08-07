@@ -425,7 +425,12 @@ export const CMSProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           promos: parsed.promos && parsed.promos.length > 0 ? parsed.promos : DEFAULT_PROMOS,
           testimonials: parsed.testimonials && parsed.testimonials.length > 0 ? parsed.testimonials : DEFAULT_TESTIMONIALS,
           socialPosts: parsed.socialPosts && parsed.socialPosts.length > 0 ? parsed.socialPosts : DEFAULT_SOCIAL_POSTS,
-          footerSettings: parsed.footerSettings || DEFAULT_FOOTER_SETTINGS,
+          footerSettings: {
+            ...(parsed.footerSettings || DEFAULT_FOOTER_SETTINGS),
+            brandDescription: (parsed.footerSettings?.brandDescription || DEFAULT_FOOTER_SETTINGS.brandDescription)
+              .replace(/skin-first care/gi, 'skincare')
+              .replace(/skin-first/gi, 'skincare'),
+          },
           videos: sanitizedVideos,
         };
       }

@@ -109,10 +109,10 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Editorial Hub Column */}
+          {/* Explore GLAMGAL Column */}
           <div className="space-y-4">
             <h4 className="font-display text-xs tracking-widest text-warm-white uppercase border-b border-deep-charcoal pb-2">
-              EDITORIAL HUB
+              EXPLORE GLAMGAL
             </h4>
             <ul className="space-y-2 text-xs text-soft-stone">
               <li><Link to="/journal" className="hover:text-warm-white transition-colors">GLAMGAL Journal</Link></li>

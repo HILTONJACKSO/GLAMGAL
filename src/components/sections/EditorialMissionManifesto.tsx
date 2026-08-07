@@ -13,7 +13,7 @@ export const EditorialMissionManifesto: React.FC = () => {
         <div className="inline-flex items-center space-x-2 px-5 py-2 rounded-full bg-white/5 border border-amber-400/30 backdrop-blur-md">
           <Sparkles className="w-4 h-4 text-amber-400" />
           <span className="font-display text-xs font-bold tracking-widest text-amber-300 uppercase">
-            GLAMGAL EDITORIAL HUB • OUR TRANSPARENCY PROMISE
+            WELCOME TO THE GLAMGAL EDITORIAL HUB • OUR TRANSPARENCY PROMISE
           </span>
         </div>
 
