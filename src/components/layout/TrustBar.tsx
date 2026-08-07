@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldCheck, Truck, Sparkles, RefreshCw } from 'lucide-react';
+import { ShieldCheck, Truck, Globe } from 'lucide-react';
 
 export const TrustBar: React.FC = () => {
   const trustPoints = [
@@ -14,29 +14,24 @@ export const TrustBar: React.FC = () => {
       description: '100% Transparent active component breakdowns',
     },
     {
-      icon: Sparkles,
-      title: 'SKINCARE FORMULATION',
-      description: 'Clean, cruelty-free & dermatologist validated',
-    },
-    {
-      icon: RefreshCw,
-      title: 'HASSLE-FREE RETURNS',
-      description: '30-day return policy on unopened items',
+      icon: Globe,
+      title: 'WORLDWIDE SHIPPING AVAILABLE',
+      description: 'From our shop to your doorstep—worldwide shipping available!',
     },
   ];
 
   return (
-    <section className="bg-white border-y border-soft-stone py-10" aria-label="Brand Commitments">
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+    <section className="bg-white border-y border-soft-stone py-12 select-none" aria-label="Brand Commitments">
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
         {trustPoints.map((point) => {
           const Icon = point.icon;
           return (
             <div key={point.title} className="flex flex-col items-center p-4">
               <Icon className="w-6 h-6 text-obsidian mb-3 stroke-[1.5]" />
-              <h4 className="font-display text-xs tracking-widest text-obsidian uppercase mb-1">
+              <h4 className="font-display text-xs tracking-widest text-obsidian uppercase font-bold mb-1.5">
                 {point.title}
               </h4>
-              <p className="text-xs text-warm-taupe">{point.description}</p>
+              <p className="text-xs text-warm-taupe font-body max-w-xs">{point.description}</p>
             </div>
           );
         })}
