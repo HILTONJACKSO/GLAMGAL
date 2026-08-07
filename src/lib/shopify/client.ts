@@ -4,7 +4,7 @@ interface ShopifyFetchOptions {
 }
 
 export async function shopifyFetch<T>({ query, variables }: ShopifyFetchOptions): Promise<T> {
-  let domain = import.meta.env.VITE_PUBLIC_STORE_DOMAIN || import.meta.env.PUBLIC_STORE_DOMAIN || '';
+  let domain = import.meta.env.VITE_PUBLIC_STORE_DOMAIN || import.meta.env.PUBLIC_STORE_DOMAIN || 'glamgal-5.myshopify.com';
   let storefrontToken = import.meta.env.VITE_PUBLIC_STOREFRONT_API_TOKEN || import.meta.env.PUBLIC_STOREFRONT_API_TOKEN || '';
   const apiVersion = import.meta.env.VITE_PUBLIC_STORE_VERSION || import.meta.env.PUBLIC_STORE_VERSION || '2024-07';
 
@@ -21,6 +21,11 @@ export async function shopifyFetch<T>({ query, variables }: ShopifyFetchOptions)
     } catch (e) {
       // ignore
     }
+  }
+
+  // Clean domain string if passed as full URL
+  if (domain.startsWith('http://') || domain.startsWith('https://')) {
+    domain = domain.replace(/^https?:\/\//, '').replace(/\/$/, '');
   }
 
   if (!domain || !storefrontToken) {
