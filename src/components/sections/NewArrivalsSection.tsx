@@ -132,22 +132,18 @@ export const NewArrivalsSection: React.FC<NewArrivalsSectionProps> = ({ products
                 </div>
               </div>
 
-              {/* Price & Action */}
-              <div className="pt-4 mt-4 border-t border-[#E3D6C5]/60 flex items-center justify-between">
-                <ProductPrice
-                  price={featuredProduct.variants[0]?.price || featuredProduct.priceRange.minVariantPrice}
-                  compareAtPrice={featuredProduct.variants[0]?.compareAtPrice}
-                  size="md"
-                />
-
-                <button
-                  onClick={(e) => handleQuickAdd(featuredProduct, e)}
-                  disabled={isLoading}
-                  className="bg-obsidian text-warm-white hover:bg-black font-display text-[11px] tracking-wider uppercase px-5 py-3 rounded-full flex items-center space-x-2 transition-all active:scale-95 shadow-sm"
+              {/* Action */}
+              <div className="pt-4 mt-4 border-t border-[#E3D6C5]/60 flex items-center justify-end">
+                <a
+                  href="https://glamgalbeauty.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-obsidian text-warm-white hover:bg-[#B89275] font-display text-[11px] font-bold tracking-wider uppercase px-5 py-3 rounded-full flex items-center space-x-2 transition-all shadow-sm"
                 >
                   <ShoppingBag className="w-3.5 h-3.5" />
-                  <span>QUICK ADD</span>
-                </button>
+                  <span>SHOP STORE</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </a>
               </div>
             </div>
           )}
@@ -155,9 +151,6 @@ export const NewArrivalsSection: React.FC<NewArrivalsSectionProps> = ({ products
           {/* Right Column: Complete 2x2 Grid (4 Secondary Cards) */}
           <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5">
             {(gridProducts.length > 0 ? gridProducts : products.slice(0, 4)).map((product) => {
-              const defaultVariant = product.variants.find(v => v.availableForSale) || product.variants[0];
-              const isSoldOut = !product.availableForSale;
-
               return (
                 <div
                   key={product.id}
@@ -206,24 +199,17 @@ export const NewArrivalsSection: React.FC<NewArrivalsSectionProps> = ({ products
                     </div>
                   </div>
 
-                  {/* Price & Quick Add */}
-                  <div className="pt-3 mt-3 border-t border-[#E3D6C5]/50 flex items-center justify-between">
-                    <ProductPrice
-                      price={defaultVariant?.price || product.priceRange.minVariantPrice}
-                      compareAtPrice={defaultVariant?.compareAtPrice}
-                      size="sm"
-                    />
-
-                    {!isSoldOut && (
-                      <button
-                        onClick={(e) => handleQuickAdd(product, e)}
-                        disabled={isLoading}
-                        className="bg-[#F8F4EF] hover:bg-obsidian text-obsidian hover:text-warm-white px-3 py-1.5 rounded-full border border-[#E3D6C5] font-display text-[10px] tracking-wider uppercase transition-all flex items-center space-x-1"
-                      >
-                        <ShoppingBag className="w-3 h-3" />
-                        <span>ADD</span>
-                      </button>
-                    )}
+                  {/* Shop Store Link */}
+                  <div className="pt-3 mt-3 border-t border-[#E3D6C5]/50 flex items-center justify-end">
+                    <a
+                      href="https://glamgalbeauty.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-[#F8F4EF] hover:bg-obsidian text-obsidian hover:text-warm-white px-3 py-1.5 rounded-full border border-[#E3D6C5] font-display text-[10px] font-bold tracking-wider uppercase transition-all flex items-center space-x-1"
+                    >
+                      <ShoppingBag className="w-3 h-3" />
+                      <span>SHOP STORE</span>
+                    </a>
                   </div>
                 </div>
               );

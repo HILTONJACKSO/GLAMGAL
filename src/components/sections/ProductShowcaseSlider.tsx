@@ -204,22 +204,16 @@ export const ProductShowcaseSlider: React.FC = () => {
                     </div>
                   )}
 
-                  {/* Quick Add Button Floating Overlay */}
-                  <button
-                    onClick={(e) => handleQuickAdd(e, product)}
-                    className={`absolute bottom-3 right-3 p-3 rounded-full shadow-lg transition-all duration-300 ${
-                      isAdded
-                        ? 'bg-emerald-600 text-white scale-110'
-                        : 'bg-obsidian text-warm-white hover:bg-[#B89275] hover:scale-110'
-                    }`}
-                    title="Quick Add to Bag"
+                  {/* Direct Shop Store Overlay Button */}
+                  <a
+                    href="https://glamgalbeauty.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute bottom-3 right-3 p-3 rounded-full shadow-lg bg-obsidian text-warm-white hover:bg-[#B89275] hover:scale-110 transition-all duration-300"
+                    title="Shop Store"
                   >
-                    {isAdded ? (
-                      <Check className="w-4 h-4" />
-                    ) : (
-                      <ShoppingBag className="w-4 h-4" />
-                    )}
-                  </button>
+                    <ShoppingBag className="w-4 h-4" />
+                  </a>
                 </Link>
 
                 {/* PRODUCT DETAILS */}
@@ -248,18 +242,16 @@ export const ProductShowcaseSlider: React.FC = () => {
                     )}
                   </div>
 
-                  <div className="pt-3 border-t border-[#F0E4D8] flex items-center justify-between">
-                    <span className="font-display text-sm font-bold text-obsidian">
-                      ${price} USD
-                    </span>
-
-                    <button
-                      onClick={(e) => handleQuickAdd(e, product)}
-                      className="font-display text-[10px] font-bold tracking-widest text-obsidian uppercase hover:text-[#B89275] transition-colors flex items-center space-x-1"
+                  <div className="pt-3 border-t border-[#F0E4D8]">
+                    <a
+                      href="https://glamgalbeauty.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full inline-flex items-center justify-center space-x-1.5 bg-obsidian hover:bg-[#B89275] text-white font-display text-[10px] font-bold tracking-wider uppercase py-2 rounded-xl transition-colors shadow-2xs"
                     >
-                      <span>{isAdded ? 'ADDED!' : 'ADD TO BAG'}</span>
+                      <span>SHOP STORE</span>
                       <ArrowRight className="w-3 h-3" />
-                    </button>
+                    </a>
                   </div>
                 </div>
               </div>
