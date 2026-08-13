@@ -119,12 +119,9 @@ export const AdminDashboardPage: React.FC = () => {
   const [revSkinType, setRevSkinType] = useState('Sensitive & Dry Skin');
   const [revVerified, setRevVerified] = useState(true);
 
-  // Shopify Credentials State
+  // Shopify Domain State
   const [shopifyDomain, setShopifyDomain] = useState(
-    import.meta.env.VITE_PUBLIC_STORE_DOMAIN || 'glamgal-beauty.myshopify.com'
-  );
-  const [shopifyToken, setShopifyToken] = useState(
-    import.meta.env.VITE_PUBLIC_STOREFRONT_API_TOKEN || 'c781d4e08a01f901a88b'
+    import.meta.env.VITE_PUBLIC_STORE_DOMAIN || 'glamgalbeauty.com'
   );
 
   // Hero Image Picker State
@@ -242,11 +239,11 @@ export const AdminDashboardPage: React.FC = () => {
     try {
       localStorage.setItem(
         'glamgal_shopify_credentials',
-        JSON.stringify({ domain: shopifyDomain.trim(), token: shopifyToken.trim() })
+        JSON.stringify({ domain: shopifyDomain.trim() })
       );
-      triggerSaveNotification(`Saved & Activated live Shopify domain "${shopifyDomain}" & Access Token!`);
+      triggerSaveNotification(`Saved direct target Shopify domain "${shopifyDomain}"!`);
     } catch (err) {
-      console.error('Failed to save Shopify credentials:', err);
+      console.error('Failed to save Shopify domain:', err);
     }
   };
 
@@ -2191,40 +2188,22 @@ export const AdminDashboardPage: React.FC = () => {
 
               <form onSubmit={handleShopifyCredentialsSubmit} className="bg-[#141414] rounded-2xl p-6 border border-deep-charcoal space-y-6">
                 <h3 className="font-display text-xs tracking-wider text-warm-white uppercase font-bold">
-                  SHOPIFY STOREFRONT API CREDENTIALS (.ENV)
+                  DIRECT SHOPIFY STORE DESTINATION DOMAIN
                 </h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
-                      SHOPIFY STORE DOMAIN *
-                    </label>
-                    <div className="relative">
-                      <Globe className="w-4 h-4 text-warm-taupe absolute left-3.5 top-1/2 -translate-y-1/2" />
-                      <input
-                        type="text"
-                        value={shopifyDomain}
-                        onChange={(e) => setShopifyDomain(e.target.value)}
-                        placeholder="your-store-name.myshopify.com"
-                        className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs pl-10 pr-4 py-3 rounded-xl outline-none font-mono"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
-                      STOREFRONT API ACCESS TOKEN *
-                    </label>
-                    <div className="relative">
-                      <Key className="w-4 h-4 text-warm-taupe absolute left-3.5 top-1/2 -translate-y-1/2" />
-                      <input
-                        type="text"
-                        value={shopifyToken}
-                        onChange={(e) => setShopifyToken(e.target.value)}
-                        placeholder="c781d4e08a01f901a88b..."
-                        className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs pl-10 pr-4 py-3 rounded-xl outline-none font-mono"
-                      />
-                    </div>
+                <div className="space-y-1.5">
+                  <label className="block font-display text-[10px] tracking-widest text-warm-taupe uppercase">
+                    DIRECT SHOPIFY STORE DOMAIN *
+                  </label>
+                  <div className="relative">
+                    <Globe className="w-4 h-4 text-warm-taupe absolute left-3.5 top-1/2 -translate-y-1/2" />
+                    <input
+                      type="text"
+                      value={shopifyDomain}
+                      onChange={(e) => setShopifyDomain(e.target.value)}
+                      placeholder="glamgalbeauty.com"
+                      className="w-full bg-deep-charcoal border border-deep-charcoal focus:border-[#B89275] text-warm-white text-xs pl-10 pr-4 py-3 rounded-xl outline-none font-mono"
+                    />
                   </div>
                 </div>
 

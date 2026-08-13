@@ -1,4 +1,3 @@
-import { shopifyFetch } from './client';
 import {
   MOCK_PRODUCTS,
   MOCK_COLLECTIONS,
@@ -9,33 +8,16 @@ import {
   MOCK_ANNOUNCEMENTS,
   createMockCart
 } from './mock-adapter';
-import { GET_PRODUCTS_QUERY, GET_PRODUCT_BY_HANDLE_QUERY } from './queries/product';
-import { GET_COLLECTION_BY_HANDLE_QUERY, GET_ALL_COLLECTIONS_QUERY } from './queries/collection';
-import { CREATE_CART_MUTATION, ADD_CART_LINES_MUTATION, UPDATE_CART_LINES_MUTATION, REMOVE_CART_LINES_MUTATION, GET_CART_QUERY } from './queries/cart';
-import { Product, Collection, Cart, BeautyIngredient, BeautyRoutine, JournalArticle, HeroCampaignMetaobject, AnnouncementMetaobject } from '../../types/shopify';
-
-export function isMockMode(): boolean {
-  const forceMock = import.meta.env.VITE_USE_MOCK_SHOPIFY === 'true';
-  let domain = import.meta.env.VITE_PUBLIC_STORE_DOMAIN || import.meta.env.PUBLIC_STORE_DOMAIN || 'glamgal-5.myshopify.com';
-  let token = import.meta.env.VITE_PUBLIC_STOREFRONT_API_TOKEN || import.meta.env.PUBLIC_STOREFRONT_API_TOKEN || '';
-
-  if (typeof window !== 'undefined' && (!domain || !token)) {
-    try {
-      const saved = localStorage.getItem('glamgal_shopify_credentials');
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (parsed.domain && parsed.token) {
-          domain = parsed.domain;
-          token = parsed.token;
-        }
-      }
-    } catch (e) {
-      // ignore
-    }
-  }
-
-  return forceMock || !domain || !token;
-}
+import {
+  Product,
+  Collection,
+  Cart,
+  BeautyIngredient,
+  BeautyRoutine,
+  JournalArticle,
+  HeroCampaignMetaobject,
+  AnnouncementMetaobject
+} from '../../types/shopify';
 
 // Memory cache for mock cart during session
 let inMemoryMockCart: Cart | null = null;
@@ -47,52 +29,32 @@ function getCMSProducts(): Product[] {
       if (saved) {
         const parsed = JSON.parse(saved);
         if (parsed.products && parsed.products.length > 0) {
-          return parsed.products;
+          return parsed.products.map((p: Product) => ({
+            ...p,
+            shopifyUrl: p.shopifyUrl || `https://glamgalbeauty.com/products/${p.handle}`
+          }));
         }
       }
     }
   } catch (e) {
     console.warn('Error reading CMS products from storage:', e);
   }
-  return MOCK_PRODUCTS;
+  return MOCK_PRODUCTS.map((p) => ({
+    ...p,
+    shopifyUrl: p.shopifyUrl || `https://glamgalbeauty.com/products/${p.handle}`
+  }));
 }
 
 export async function getProducts(options?: { first?: number; query?: string }): Promise<Product[]> {
-  if (isMockMode()) {
-    let list = [...getCMSProducts()];
-    if (options?.query) {
-      const q = options.query.toLowerCase();
-      list = list.filter(p => 
-        p.title.toLowerCase().includes(q) || 
-        p.description.toLowerCase().includes(q) || 
-        p.category.toLowerCase().includes(q) ||
-        p.tags.some(t => t.toLowerCase().includes(q))
-      );
-    }
-    if (options?.first) list = list.slice(0, options.first);
-    return list;
-  }
-
-  try {
-    const response = await shopifyFetch<{ products: { edges: Array<{ node: any }> } }>({
-      query: GET_PRODUCTS_QUERY,
-      variables: { first: options?.first || 20, query: options?.query }
-    });
-
-    if (response?.products?.edges?.length > 0) {
-      return response.products.edges.map(e => formatShopifyProduct(e.node));
-    }
-  } catch (err) {
-    console.warn('Shopify getProducts failed, falling back to CMS catalog:', err);
-  }
-
   let list = [...getCMSProducts()];
   if (options?.query) {
     const q = options.query.toLowerCase();
-    list = list.filter(p => 
-      p.title.toLowerCase().includes(q) || 
-      p.description.toLowerCase().includes(q) || 
-      p.category.toLowerCase().includes(q)
+    list = list.filter(
+      (p) =>
+        p.title.toLowerCase().includes(q) ||
+        p.description.toLowerCase().includes(q) ||
+        p.category.toLowerCase().includes(q) ||
+        (p.tags && p.tags.some((t) => t.toLowerCase().includes(q)))
     );
   }
   if (options?.first) list = list.slice(0, options.first);
@@ -100,93 +62,57 @@ export async function getProducts(options?: { first?: number; query?: string }):
 }
 
 export async function getProductByHandle(handle: string): Promise<Product | null> {
-  if (!isMockMode()) {
-    try {
-      const response = await shopifyFetch<{ product: any }>({
-        query: GET_PRODUCT_BY_HANDLE_QUERY,
-        variables: { handle }
-      });
-
-      if (response && response.product) {
-        return formatShopifyProduct(response.product);
-      }
-    } catch (err) {
-      console.warn(`Shopify getProductByHandle for "${handle}" failed, using fallback:`, err);
-    }
-  }
-
   const products = getCMSProducts();
-  return products.find(p => p.handle === handle) || products[0] || null;
+  const found = products.find((p) => p.handle === handle) || products[0] || null;
+  if (found) {
+    return {
+      ...found,
+      shopifyUrl: found.shopifyUrl || `https://glamgalbeauty.com/products/${found.handle}`
+    };
+  }
+  return null;
 }
 
 export async function getCollectionByHandle(handle: string): Promise<Collection | null> {
-  if (isMockMode()) {
-    return MOCK_COLLECTIONS.find(c => c.handle === handle) || MOCK_COLLECTIONS[0];
+  const collection = MOCK_COLLECTIONS.find((c) => c.handle === handle) || MOCK_COLLECTIONS[0];
+  if (collection) {
+    return {
+      ...collection,
+      shopifyUrl: collection.shopifyUrl || `https://glamgalbeauty.com/collections/${collection.handle}`
+    };
   }
-
-  const response = await shopifyFetch<{ collection: any }>({
-    query: GET_COLLECTION_BY_HANDLE_QUERY,
-    variables: { handle }
-  });
-
-  if (!response.collection) return null;
-
-  return {
-    id: response.collection.id,
-    handle: response.collection.handle,
-    title: response.collection.title,
-    description: response.collection.description,
-    image: response.collection.image,
-    products: response.collection.products.edges.map((e: any) => formatShopifyProduct(e.node)),
-    productCount: response.collection.products.edges.length
-  };
+  return null;
 }
 
 export async function getAllCollections(): Promise<Collection[]> {
-  if (isMockMode()) {
-    return MOCK_COLLECTIONS;
-  }
-
-  const response = await shopifyFetch<{ collections: { edges: Array<{ node: any }> } }>({
-    query: GET_ALL_COLLECTIONS_QUERY
-  });
-
-  return response.collections.edges.map(e => ({
-    id: e.node.id,
-    handle: e.node.handle,
-    title: e.node.title,
-    description: e.node.description,
-    image: e.node.image,
-    products: [],
-    productCount: 0
+  return MOCK_COLLECTIONS.map((c) => ({
+    ...c,
+    shopifyUrl: c.shopifyUrl || `https://glamgalbeauty.com/collections/${c.handle}`
   }));
 }
 
-// Cart Operations
+// Cart Operations (Local session state)
 export async function getCart(cartId: string): Promise<Cart | null> {
-  if (isMockMode()) {
-    if (!inMemoryMockCart) inMemoryMockCart = createMockCart();
-    return inMemoryMockCart;
-  }
-
-  const response = await shopifyFetch<{ cart: any }>({
-    query: GET_CART_QUERY,
-    variables: { cartId }
-  });
-
-  return response.cart ? formatShopifyCart(response.cart) : null;
+  if (!inMemoryMockCart) inMemoryMockCart = createMockCart();
+  return inMemoryMockCart;
 }
 
 export async function createCart(variantId: string, quantity: number = 1): Promise<Cart> {
-  if (isMockMode()) {
-    const newCart = createMockCart();
-    const product = MOCK_PRODUCTS.find(p => p.variants.some(v => v.id === variantId)) || MOCK_PRODUCTS[0];
-    const variant = product.variants.find(v => v.id === variantId) || product.variants[0];
-    
-    newCart.lines = [{
+  const newCart = createMockCart();
+  const products = getCMSProducts();
+  const product = products.find((p) => p.variants.some((v) => v.id === variantId)) || products[0];
+  const variant = product.variants.find((v) => v.id === variantId) || product.variants[0];
+
+  newCart.lines = [
+    {
       id: `mock-line-${Date.now()}`,
       quantity,
-      cost: { totalAmount: { amount: (parseFloat(variant.price.amount) * quantity).toFixed(2), currencyCode: 'USD' } },
+      cost: {
+        totalAmount: {
+          amount: (parseFloat(variant.price.amount) * quantity).toFixed(2),
+          currencyCode: 'USD'
+        }
+      },
       merchandise: {
         id: variant.id,
         title: variant.title,
@@ -201,35 +127,41 @@ export async function createCart(variantId: string, quantity: number = 1): Promi
           featuredImage: product.featuredImage
         }
       }
-    }];
-    recalculateMockCart(newCart);
-    inMemoryMockCart = newCart;
-    return newCart;
-  }
+    }
+  ];
 
-  const response = await shopifyFetch<{ cartCreate: { cart: any } }>({
-    query: CREATE_CART_MUTATION,
-    variables: { lineItems: [{ merchandiseId: variantId, quantity }] }
-  });
-
-  return formatShopifyCart(response.cartCreate.cart);
+  inMemoryMockCart = newCart;
+  return newCart;
 }
 
-export async function addToCart(cartId: string, variantId: string, quantity: number = 1): Promise<Cart> {
-  if (isMockMode()) {
-    if (!inMemoryMockCart) inMemoryMockCart = createMockCart();
-    const product = MOCK_PRODUCTS.find(p => p.variants.some(v => v.id === variantId)) || MOCK_PRODUCTS[0];
-    const variant = product.variants.find(v => v.id === variantId) || product.variants[0];
+export async function addToCart(cartId: string, lines: Array<{ merchandiseId: string; quantity: number }> | string, quantityParam?: number): Promise<Cart> {
+  if (!inMemoryMockCart) inMemoryMockCart = createMockCart();
+  const products = getCMSProducts();
 
-    const existingLine = inMemoryMockCart.lines.find(l => l.merchandise.id === variantId);
-    if (existingLine) {
-      existingLine.quantity += quantity;
-      existingLine.cost.totalAmount.amount = (parseFloat(variant.price.amount) * existingLine.quantity).toFixed(2);
+  let lineItems: Array<{ merchandiseId: string; quantity: number }> = [];
+  if (typeof lines === 'string') {
+    lineItems = [{ merchandiseId: lines, quantity: quantityParam || 1 }];
+  } else {
+    lineItems = lines;
+  }
+
+  lineItems.forEach((line) => {
+    const product = products.find((p) => p.variants.some((v) => v.id === line.merchandiseId)) || products[0];
+    const variant = product.variants.find((v) => v.id === line.merchandiseId) || product.variants[0];
+
+    const existingIndex = inMemoryMockCart!.lines.findIndex((l) => l.merchandise.id === line.merchandiseId);
+    if (existingIndex > -1) {
+      inMemoryMockCart!.lines[existingIndex].quantity += line.quantity;
     } else {
-      inMemoryMockCart.lines.push({
-        id: `mock-line-${Date.now()}`,
-        quantity,
-        cost: { totalAmount: { amount: (parseFloat(variant.price.amount) * quantity).toFixed(2), currencyCode: 'USD' } },
+      inMemoryMockCart!.lines.push({
+        id: `mock-line-${Date.now()}-${Math.random()}`,
+        quantity: line.quantity,
+        cost: {
+          totalAmount: {
+            amount: (parseFloat(variant.price.amount) * line.quantity).toFixed(2),
+            currencyCode: 'USD'
+          }
+        },
         merchandise: {
           id: variant.id,
           title: variant.title,
@@ -246,180 +178,68 @@ export async function addToCart(cartId: string, variantId: string, quantity: num
         }
       });
     }
-
-    recalculateMockCart(inMemoryMockCart);
-    return inMemoryMockCart;
-  }
-
-  const response = await shopifyFetch<{ cartLinesAdd: { cart: any } }>({
-    query: ADD_CART_LINES_MUTATION,
-    variables: { cartId, lines: [{ merchandiseId: variantId, quantity }] }
   });
 
-  return formatShopifyCart(response.cartLinesAdd.cart);
+  return inMemoryMockCart;
+}
+
+export async function updateCart(cartId: string, lines: Array<{ id: string; quantity: number }>): Promise<Cart> {
+  if (!inMemoryMockCart) inMemoryMockCart = createMockCart();
+
+  lines.forEach((line) => {
+    const index = inMemoryMockCart!.lines.findIndex((l) => l.id === line.id);
+    if (index > -1) {
+      if (line.quantity <= 0) {
+        inMemoryMockCart!.lines.splice(index, 1);
+      } else {
+        inMemoryMockCart!.lines[index].quantity = line.quantity;
+      }
+    }
+  });
+
+  return inMemoryMockCart;
 }
 
 export async function updateCartQuantity(cartId: string, lineId: string, quantity: number): Promise<Cart> {
-  if (isMockMode()) {
-    if (!inMemoryMockCart) inMemoryMockCart = createMockCart();
-    const lineIndex = inMemoryMockCart.lines.findIndex(l => l.id === lineId);
-    if (lineIndex !== -1) {
-      if (quantity <= 0) {
-        inMemoryMockCart.lines.splice(lineIndex, 1);
-      } else {
-        const line = inMemoryMockCart.lines[lineIndex];
-        line.quantity = quantity;
-        line.cost.totalAmount.amount = (parseFloat(line.merchandise.price.amount) * quantity).toFixed(2);
-      }
-    }
-    recalculateMockCart(inMemoryMockCart);
-    return inMemoryMockCart;
-  }
-
-  const response = await shopifyFetch<{ cartLinesUpdate: { cart: any } }>({
-    query: UPDATE_CART_LINES_MUTATION,
-    variables: { cartId, lines: [{ id: lineId, quantity }] }
-  });
-
-  return formatShopifyCart(response.cartLinesUpdate.cart);
+  return updateCart(cartId, [{ id: lineId, quantity }]);
 }
 
-export async function removeFromCart(cartId: string, lineId: string): Promise<Cart> {
-  if (isMockMode()) {
-    if (!inMemoryMockCart) inMemoryMockCart = createMockCart();
-    inMemoryMockCart.lines = inMemoryMockCart.lines.filter(l => l.id !== lineId);
-    recalculateMockCart(inMemoryMockCart);
-    return inMemoryMockCart;
-  }
-
-  const response = await shopifyFetch<{ cartLinesRemove: { cart: any } }>({
-    query: REMOVE_CART_LINES_MUTATION,
-    variables: { cartId, lineIds: [lineId] }
-  });
-
-  return formatShopifyCart(response.cartLinesRemove.cart);
+export async function removeFromCart(cartId: string, lineIds: string[] | string): Promise<Cart> {
+  if (!inMemoryMockCart) inMemoryMockCart = createMockCart();
+  const idsToRemove = Array.isArray(lineIds) ? lineIds : [lineIds];
+  inMemoryMockCart.lines = inMemoryMockCart.lines.filter((l) => !idsToRemove.includes(l.id));
+  return inMemoryMockCart;
 }
 
-// Metaobject and Editorial Getters
-export async function getIngredients(): Promise<BeautyIngredient[]> {
+// Metaobject & CMS content helpers
+export async function getBeautyIngredients(): Promise<BeautyIngredient[]> {
   return MOCK_INGREDIENTS;
 }
+export const getIngredients = getBeautyIngredients;
 
-export async function getRoutines(): Promise<BeautyRoutine[]> {
+export async function getBeautyRoutines(): Promise<BeautyRoutine[]> {
   return MOCK_ROUTINES;
 }
+export const getRoutines = getBeautyRoutines;
 
 export async function getRoutineByHandle(handle: string): Promise<BeautyRoutine | null> {
-  return MOCK_ROUTINES.find(r => r.handle === handle) || null;
+  return MOCK_ROUTINES.find((r) => r.handle === handle) || MOCK_ROUTINES[0] || null;
 }
 
-function getCMSArticles(): JournalArticle[] {
-  try {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('glamgal_cms_state');
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (parsed.articles && parsed.articles.length > 0) {
-          return parsed.articles;
-        }
-      }
-    }
-  } catch (e) {}
+export async function getJournalArticles(): Promise<JournalArticle[]> {
   return MOCK_ARTICLES;
 }
-
-export async function getArticles(): Promise<JournalArticle[]> {
-  if (isMockMode()) {
-    return getCMSArticles();
-  }
-  return MOCK_ARTICLES;
-}
+export const getArticles = getJournalArticles;
 
 export async function getArticleByHandle(handle: string): Promise<JournalArticle | null> {
-  if (isMockMode()) {
-    const articles = getCMSArticles();
-    return articles.find(a => a.handle === handle) || null;
-  }
-  return MOCK_ARTICLES.find(a => a.handle === handle) || null;
-}
-
-function getCMSHero(): HeroCampaignMetaobject {
-  try {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('glamgal_cms_state');
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (parsed.hero) {
-          return {
-            ...parsed.hero,
-            heading: parsed.hero.heading ? parsed.hero.heading.replace(/skin-first care/gi, 'skincare') : parsed.hero.heading,
-            subheading: parsed.hero.subheading ? parsed.hero.subheading.replace(/skin-first care/gi, 'skincare') : parsed.hero.subheading,
-          };
-        }
-      }
-    }
-  } catch (e) {}
-  return MOCK_HERO;
+  return MOCK_ARTICLES.find((a) => a.handle === handle) || MOCK_ARTICLES[0] || null;
 }
 
 export async function getHeroCampaign(): Promise<HeroCampaignMetaobject> {
-  if (isMockMode()) {
-    return getCMSHero();
-  }
   return MOCK_HERO;
 }
 
-export async function getAnnouncements(): Promise<AnnouncementMetaobject[]> {
+export async function getAnnouncementMetaobjects(): Promise<AnnouncementMetaobject[]> {
   return MOCK_ANNOUNCEMENTS;
 }
-
-// Helper formatting functions
-function formatShopifyProduct(node: any): Product {
-  const images = node.images?.edges ? node.images.edges.map((e: any) => e.node) : [];
-  const variants = node.variants?.edges ? node.variants.edges.map((e: any) => e.node) : [];
-  
-  return {
-    id: node.id,
-    handle: node.handle,
-    title: node.title,
-    description: node.description,
-    descriptionHtml: node.descriptionHtml,
-    category: node.productType || 'Beauty',
-    productType: node.productType || 'Product',
-    vendor: node.vendor || 'GLAMGAL',
-    availableForSale: node.availableForSale,
-    tags: node.tags || [],
-    priceRange: node.priceRange,
-    compareAtPriceRange: node.compareAtPriceRange,
-    featuredImage: node.featuredImage || images[0],
-    secondaryImage: images[1] || undefined,
-    images: images,
-    variants: variants,
-    options: node.options || [],
-    rating: 4.9,
-    reviewCount: 45
-  };
-}
-
-function formatShopifyCart(rawCart: any): Cart {
-  const lines = rawCart.lines?.edges ? rawCart.lines.edges.map((e: any) => e.node) : [];
-  return {
-    id: rawCart.id,
-    checkoutUrl: rawCart.checkoutUrl,
-    totalQuantity: rawCart.totalQuantity,
-    lines,
-    cost: rawCart.cost
-  };
-}
-
-function recalculateMockCart(cart: Cart) {
-  let qty = 0;
-  let total = 0;
-  cart.lines.forEach(l => {
-    qty += l.quantity;
-    total += parseFloat(l.cost.totalAmount.amount);
-  });
-  cart.totalQuantity = qty;
-  cart.cost.subtotalAmount.amount = total.toFixed(2);
-  cart.cost.totalAmount.amount = total.toFixed(2);
-}
+export const getAnnouncements = getAnnouncementMetaobjects;

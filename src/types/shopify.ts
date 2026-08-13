@@ -80,6 +80,7 @@ export interface Product {
   keyBenefits?: string[];
   ingredientsList?: string[];
   usageInstructions?: string;
+  shopifyUrl?: string;
 }
 
 export interface Collection {
@@ -90,6 +91,7 @@ export interface Collection {
   image?: Image | null;
   products: Product[];
   productCount: number;
+  shopifyUrl?: string;
 }
 
 export interface CartLine {
