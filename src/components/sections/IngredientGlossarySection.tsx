@@ -234,6 +234,31 @@ export const IngredientGlossarySection: React.FC = () => {
                 </div>
               </div>
 
+              {/* EDITORIAL BOTANICAL & LAB PHOTOGRAPHY CARD (MAGAZINE PAGE 42 PLATE) */}
+              <div className="pt-2">
+                <div className="relative aspect-[16/9] rounded-2xl overflow-hidden border border-[#E3D6C5] shadow-md group bg-black">
+                  <img
+                    src="/calming_rosewater_toner_mockup.png"
+                    alt="GLAMGAL Botanical Extraction Plate"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+
+                  <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[9px] font-display font-bold text-obsidian uppercase tracking-wider border border-[#E3D6C5]">
+                    BOTANICAL ARCHIVE • FIG. 04
+                  </div>
+
+                  <div className="absolute bottom-3 left-3 right-3 text-white space-y-0.5">
+                    <span className="text-[9px] font-display text-[#B89275] uppercase font-bold tracking-widest block">
+                      SWISS BIOTECHNOLOGY EXTRACTION
+                    </span>
+                    <p className="text-[11px] font-serif text-white/90 line-clamp-1 italic">
+                      "Pure molecular isolation of micro-hyaluronic spheres & alpine peptides."
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               {/* BOTTOM PAGE FOOTER MARQUEE */}
               <div className="pt-6 border-t border-[#E3D6C5]/60 flex items-center justify-between text-[9px] font-display text-[#A68064] uppercase tracking-widest">
                 <span>100% CLEAN & BIO-TRANSPARENT</span>
