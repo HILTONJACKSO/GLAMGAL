@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Sparkles, Search, Check, ExternalLink, X, ShieldCheck, Droplets, Sun, Activity } from 'lucide-react';
+import { Sparkles, Search, Check, ExternalLink, X, ShieldCheck, Droplets, Sun, Activity, BookOpen, MoveRight } from 'lucide-react';
 
 export interface IngredientDetail {
   id: string;
@@ -35,7 +35,7 @@ export const INGREDIENT_GLOSSARY_DATA: IngredientDetail[] = [
       'Engineered with micro-encapsulated hyaluronic spheres of varying molecular weights. Low molecular weight molecules reach deep dermal layers, while high molecular weight spheres form a breathable protective hydration shield on top.',
     featuredProductHandle: 'luminous-barrier-serum',
     featuredProductName: 'LUMINOUS BARRIER SERUM',
-    featuredProductImage: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80',
+    featuredProductImage: '/calming_rosewater_toner_mockup.png',
   },
   {
     id: 'ing-2',
@@ -54,7 +54,7 @@ export const INGREDIENT_GLOSSARY_DATA: IngredientDetail[] = [
       'A bio-identical amino acid peptide matrix that mimics natural cellular signals. It reinforces intercellular lipids and ceramides, creating an invincible barrier against environmental oxidation.',
     featuredProductHandle: 'cellular-overnight-repair-cream',
     featuredProductName: 'CELLULAR OVERNIGHT REPAIR CREAM',
-    featuredProductImage: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80',
+    featuredProductImage: '/calming_rosewater_toner_mockup.png',
   },
   {
     id: 'ing-3',
@@ -73,7 +73,7 @@ export const INGREDIENT_GLOSSARY_DATA: IngredientDetail[] = [
       'Ultra-purified Vitamin B3 designed to harmonize skin tone and strengthen lipid membranes. It prevents melanosome transfer, visibly illuminating dull skin while keeping oil production strictly balanced.',
     featuredProductHandle: 'calming-rosewater-hydrating-toner',
     featuredProductName: 'CALMING ROSEWATER TONER',
-    featuredProductImage: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80',
+    featuredProductImage: '/calming_rosewater_toner_mockup.png',
   },
   {
     id: 'ing-4',
@@ -92,7 +92,7 @@ export const INGREDIENT_GLOSSARY_DATA: IngredientDetail[] = [
       'Unrefined wild-harvested Marula Oil infused with light-reflecting micro-gold minerals. Antioxidant-rich Vitamin C and E defend skin while delivering a lit-from-within golden hourglass radiance.',
     featuredProductHandle: 'sculpting-glow-body-nectar',
     featuredProductName: 'SCULPTING GLOW BODY NECTAR',
-    featuredProductImage: 'https://images.unsplash.com/photo-1608248597261-833258057467?auto=format&fit=crop&w=600&q=80',
+    featuredProductImage: '/polished_smoothing_body_scrub_mockup.png',
   },
   {
     id: 'ing-5',
@@ -111,7 +111,7 @@ export const INGREDIENT_GLOSSARY_DATA: IngredientDetail[] = [
       'Hand-cut and polished natural volcanic obsidian stone. Known for its intense grounding thermal properties, it drains stagnant lymphatic fluids and releases facial micro-tensions for instant sculpting.',
     featuredProductHandle: 'obsidian-precision-contour-gua-sha',
     featuredProductName: 'OBSIDIAN PRECISION CONTOUR GUA SHA',
-    featuredProductImage: 'https://images.unsplash.com/photo-1608248597261-833258057467?auto=format&fit=crop&w=600&q=80',
+    featuredProductImage: '/ultimate_brow_eye_cream_liner_mockup.png',
   },
   {
     id: 'ing-6',
@@ -119,7 +119,7 @@ export const INGREDIENT_GLOSSARY_DATA: IngredientDetail[] = [
     chemicalName: 'Leontopodium Alpinum Callus Culture Extract',
     category: 'ANTI-AGING',
     origin: 'High-Altitude Swiss Alps',
-    concentration: '1.5% Concentrated Bio-Extract',
+    concentration: '1.5% Bio-Extract',
     iconType: 'shield',
     benefits: [
       'Contains 2x more antioxidant capacity than Vitamin C',
@@ -130,7 +130,7 @@ export const INGREDIENT_GLOSSARY_DATA: IngredientDetail[] = [
       'Harvested from resilient alpine flowers surviving extreme UV exposure in Swiss mountains. Packed with leontopodic acid to neutralize free radicals and preserve youthful dermal elasticity.',
     featuredProductHandle: 'luminous-barrier-serum',
     featuredProductName: 'LUMINOUS BARRIER SERUM',
-    featuredProductImage: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80',
+    featuredProductImage: '/calming_rosewater_toner_mockup.png',
   },
 ];
 
@@ -152,143 +152,182 @@ export const IngredientGlossarySection: React.FC = () => {
   const renderIcon = (type: string) => {
     switch (type) {
       case 'shield':
-        return <ShieldCheck className="w-5 h-5 text-amber-600" />;
+        return <ShieldCheck className="w-4 h-4 text-[#B89275]" />;
       case 'droplet':
-        return <Droplets className="w-5 h-5 text-blue-600" />;
+        return <Droplets className="w-4 h-4 text-[#B89275]" />;
       case 'sun':
-        return <Sun className="w-5 h-5 text-amber-500" />;
+        return <Sun className="w-4 h-4 text-[#B89275]" />;
       default:
-        return <Activity className="w-5 h-5 text-purple-600" />;
+        return <Activity className="w-4 h-4 text-[#B89275]" />;
     }
   };
 
   return (
-    <section className="bg-gradient-to-b from-[#FAF5F0] via-[#F4EBE2] to-[#FAF5F0] py-24 border-t border-[#E3D5C8] relative overflow-hidden">
-      {/* Background Ambient Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#B89275]/10 rounded-full blur-3xl pointer-events-none" />
+    <section className="bg-[#FAF5F0] py-24 border-t border-[#E3D6C5] relative overflow-hidden select-none">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 space-y-8">
+        
+        {/* PHYSICAL MAGAZINE OPEN SPREAD CONTAINER */}
+        <div className="bg-white rounded-[32px] border-2 border-[#E3D6C5] shadow-2xl p-6 sm:p-10 lg:p-14 relative overflow-hidden font-serif">
+          
+          {/* CENTER BOOK BINDING SPINE LINE (DESKTOP PRINT EFFECT) */}
+          <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-[#E3D6C5] to-transparent z-20 pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-12 relative z-10">
-        {/* SECTION HEADER */}
-        <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/80 border border-[#B89275]/40 shadow-xs backdrop-blur-md">
-            <Sparkles className="w-3.5 h-3.5 text-[#B89275]" />
-            <span className="font-display text-xs font-bold tracking-wider text-[#A68064] uppercase">
-              THE INGREDIENT GLOSSARY
-            </span>
+          {/* MAGAZINE PAGE MARGIN RUNNING HEADER */}
+          <div className="flex items-center justify-between pb-6 mb-8 border-b border-[#E3D6C5]/80 text-[10px] font-display font-bold tracking-widest text-[#A68064] uppercase">
+            <span>VOL. 04 — FORMULATION SCIENCE</span>
+            <span className="hidden sm:inline-block">GLAMGAL BOTANICAL INGREDIENT GLOSSARY</span>
+            <span>PAGE 42 / 43</span>
           </div>
 
-          <h2 className="font-display text-3xl sm:text-5xl md:text-6xl tracking-wider text-obsidian uppercase font-bold">
-            SCIENCE & ACTIVE FORMULATION GLOSSARY
-          </h2>
-
-          <p className="font-body text-sm sm:text-base text-[#5C5046] leading-relaxed max-w-2xl mx-auto font-light">
-            We believe in 100% bio-transparency. Explore the molecular science, botanical origins, and clinical benefits behind every active component in GLAMGAL formulations.
-          </p>
-        </div>
-
-        {/* SEARCH & FILTER CONTROLS */}
-        <div className="bg-white/90 p-4 sm:p-5 rounded-2xl border border-[#E3D5C8] shadow-sm flex flex-col md:flex-row gap-4 items-center justify-between">
-          <div className="relative w-full md:w-80">
-            <Search className="w-4 h-4 text-[#A68064] absolute left-3.5 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search active ingredient or benefits..."
-              className="w-full bg-[#FAF5F0] border border-[#E3D5C8] focus:border-[#B89275] text-obsidian text-xs font-body pl-10 pr-4 py-2.5 rounded-xl outline-none"
-            />
-          </div>
-
-          <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
-            {['ALL', 'BARRIER REPAIR', 'HYDRATION', 'RADIANCE', 'ANTI-AGING'].map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`text-[10px] sm:text-xs font-display tracking-wider uppercase px-4 py-2 rounded-full font-bold transition-all ${
-                  activeCategory === cat
-                    ? 'bg-obsidian text-warm-white shadow-md'
-                    : 'bg-[#FAF5F0] text-[#5C5046] hover:bg-white hover:text-obsidian border border-[#E3D5C8]'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* INGREDIENTS CARDS GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredIngredients.map((ing) => (
-            <div
-              key={ing.id}
-              onClick={() => setSelectedIngredient(ing)}
-              className="bg-white rounded-2xl p-6 border border-[#E3D5C8] hover:border-[#B89275] shadow-xs hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col justify-between group space-y-4"
-            >
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <div className="p-2.5 rounded-xl bg-[#FAF5F0] border border-[#E3D5C8]">
-                    {renderIcon(ing.iconType)}
-                  </div>
-                  <span className="text-[10px] font-display font-bold text-[#B89275] bg-[#FAF5F0] border border-[#B89275]/30 px-3 py-1 rounded-full uppercase">
-                    {ing.concentration}
-                  </span>
-                </div>
-
-                <div className="space-y-1">
-                  <span className="text-[10px] font-display text-[#A68064] uppercase font-bold block">
-                    {ing.origin}
-                  </span>
-                  <h3 className="font-display text-base font-bold text-obsidian uppercase tracking-wider group-hover:text-[#B89275] transition-colors">
-                    {ing.name}
-                  </h3>
-                  <p className="text-xs font-mono text-warm-taupe italic truncate">
-                    {ing.chemicalName}
-                  </p>
-                </div>
-
-                <p className="text-xs text-[#5C5046] font-body line-clamp-3 leading-relaxed">
-                  {ing.description}
-                </p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+            
+            {/* LEFT MAGAZINE PAGE (PAGE 42: TITLE, DROP-CAP & FILTER INDEX) */}
+            <div className="lg:col-span-5 space-y-6 lg:pr-6">
+              <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-[#FAF5F0] border border-[#B89275]/30">
+                <BookOpen className="w-3.5 h-3.5 text-[#B89275]" />
+                <span className="font-display text-[9px] font-bold tracking-widest text-[#A68064] uppercase">
+                  ACTIVE INGREDIENT SPECS
+                </span>
               </div>
 
-              <div className="pt-4 border-t border-[#E3D5C8]/60 flex items-center justify-between text-xs font-display font-bold text-[#B89275] group-hover:translate-x-1 transition-transform uppercase">
-                <span>VIEW MOLECULAR BREAKDOWN</span>
-                <span>→</span>
+              <h2 className="font-serif text-3xl sm:text-5xl font-black uppercase text-obsidian tracking-tight leading-none">
+                FORMULATION GLOSSARY.
+              </h2>
+
+              {/* DROP-CAP EDITORIAL PARAGRAPH */}
+              <p className="font-serif text-sm text-[#5C5046] leading-relaxed font-light first-letter:float-left first-letter:text-4xl first-letter:font-black first-letter:mr-2.5 first-letter:text-obsidian first-letter:leading-none">
+                We believe in 100% bio-transparency. Every active component in GLAMGAL formulations is ethically sourced from alpine flora, marine biotechnology labs, and pure mineral extractions engineered for high-potency barrier health.
+              </p>
+
+              {/* SEARCH REGISTER INPUT */}
+              <div className="relative pt-2">
+                <Search className="w-4 h-4 text-[#A68064] absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search active ingredient or chemical name..."
+                  className="w-full bg-[#FAF5F0] border border-[#E3D6C5] focus:border-[#B89275] text-obsidian text-xs font-body pl-10 pr-4 py-3 rounded-xl outline-none"
+                />
+              </div>
+
+              {/* INDEX TABS (PRINT STYLE) */}
+              <div className="space-y-2 pt-2">
+                <span className="text-[10px] font-display font-bold text-[#A68064] uppercase tracking-widest block">
+                  CATEGORY INDEX
+                </span>
+
+                <div className="flex flex-wrap gap-2">
+                  {['ALL', 'BARRIER REPAIR', 'HYDRATION', 'RADIANCE', 'ANTI-AGING'].map((cat) => (
+                    <button
+                      key={cat}
+                      onClick={() => setActiveCategory(cat)}
+                      className={`text-[10px] font-display font-bold tracking-wider uppercase px-4 py-2 rounded-lg transition-all ${
+                        activeCategory === cat
+                          ? 'bg-obsidian text-white shadow-md'
+                          : 'bg-[#FAF5F0] text-[#5C5046] hover:bg-[#E3D6C5] border border-[#E3D6C5]'
+                      }`}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* BOTTOM PAGE FOOTER MARQUEE */}
+              <div className="pt-6 border-t border-[#E3D6C5]/60 flex items-center justify-between text-[9px] font-display text-[#A68064] uppercase tracking-widest">
+                <span>100% CLEAN & BIO-TRANSPARENT</span>
+                <a
+                  href="https://glamgalbeauty.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-obsidian hover:text-[#B89275] font-bold"
+                >
+                  STORE ↗
+                </a>
               </div>
             </div>
-          ))}
+
+            {/* RIGHT MAGAZINE PAGE (PAGE 43: INGREDIENT SPECS CARDS GRID) */}
+            <div className="lg:col-span-7 lg:pl-6 space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {filteredIngredients.map((ing) => (
+                  <div
+                    key={ing.id}
+                    onClick={() => setSelectedIngredient(ing)}
+                    className="bg-[#FAF7F2] rounded-2xl p-5 border border-[#E3D6C5] hover:border-[#B89275] shadow-xs hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col justify-between space-y-4 group font-serif"
+                  >
+                    <div className="space-y-2.5">
+                      {/* Top Stamp Header */}
+                      <div className="flex items-center justify-between">
+                        <div className="p-2 rounded-xl bg-white border border-[#E3D6C5]">
+                          {renderIcon(ing.iconType)}
+                        </div>
+
+                        <span className="text-[9px] font-display font-bold text-[#B89275] bg-white border border-[#B89275]/40 px-2.5 py-1 rounded-full uppercase">
+                          {ing.concentration}
+                        </span>
+                      </div>
+
+                      <span className="text-[9px] font-display text-[#A68064] uppercase font-bold block">
+                        {ing.origin}
+                      </span>
+
+                      <h3 className="font-serif text-base font-bold text-obsidian uppercase tracking-wide group-hover:text-[#B89275] transition-colors leading-snug">
+                        {ing.name}
+                      </h3>
+
+                      <p className="text-[11px] font-serif text-warm-taupe italic truncate">
+                        {ing.chemicalName}
+                      </p>
+
+                      <p className="text-xs text-[#5C5046] font-body line-clamp-3 leading-relaxed">
+                        {ing.description}
+                      </p>
+                    </div>
+
+                    <div className="pt-3 border-t border-[#E3D6C5]/80 flex items-center justify-between text-[10px] font-display font-bold text-obsidian group-hover:text-[#B89275] uppercase">
+                      <span>SPECIFICATION</span>
+                      <MoveRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
 
       {/* INGREDIENT DETAIL MODAL */}
       {selectedIngredient && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-fade-in">
-          <div className="bg-white rounded-[28px] border border-[#B89275]/40 max-w-2xl w-full overflow-hidden shadow-2xl relative p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto">
+          <div className="bg-white rounded-[28px] border-2 border-[#E3D6C5] max-w-2xl w-full overflow-hidden shadow-2xl relative p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto font-serif">
             <button
               onClick={() => setSelectedIngredient(null)}
-              className="absolute top-4 right-4 bg-[#FAF5F0] hover:bg-obsidian text-obsidian hover:text-white p-2 rounded-full transition-all border border-[#E3D5C8]"
+              className="absolute top-4 right-4 bg-[#FAF5F0] hover:bg-obsidian text-obsidian hover:text-white p-2 rounded-full transition-all border border-[#E3D6C5]"
             >
               <X className="w-5 h-5" />
             </button>
 
             <div className="flex items-center space-x-3">
-              <div className="p-3 rounded-2xl bg-[#FAF5F0] border border-[#E3D5C8]">
+              <div className="p-3 rounded-2xl bg-[#FAF5F0] border border-[#E3D6C5]">
                 {renderIcon(selectedIngredient.iconType)}
               </div>
               <div>
                 <span className="text-[10px] font-display font-bold text-[#B89275] uppercase block">
                   {selectedIngredient.category} • {selectedIngredient.concentration}
                 </span>
-                <h3 className="font-display text-xl sm:text-2xl font-bold text-obsidian uppercase tracking-wider">
+                <h3 className="font-serif text-xl sm:text-2xl font-bold text-obsidian uppercase tracking-wider">
                   {selectedIngredient.name}
                 </h3>
-                <p className="text-xs font-mono text-warm-taupe italic">
+                <p className="text-xs font-serif text-warm-taupe italic">
                   {selectedIngredient.chemicalName}
                 </p>
               </div>
             </div>
 
-            <div className="space-y-3 bg-[#FAF5F0] p-4 rounded-2xl border border-[#E3D5C8]">
+            <div className="space-y-3 bg-[#FAF5F0] p-4 rounded-2xl border border-[#E3D6C5]">
               <span className="text-[10px] font-display font-bold text-obsidian uppercase tracking-wider block">
                 ORIGIN & EXTRACTION
               </span>
@@ -323,20 +362,21 @@ export const IngredientGlossarySection: React.FC = () => {
                   <span className="text-[9px] font-display text-[#B89275] font-bold uppercase block">
                     FEATURED IN THIS FORMULATION
                   </span>
-                  <h4 className="font-display text-xs font-bold text-white uppercase truncate">
+                  <h4 className="font-serif text-xs font-bold text-white uppercase truncate">
                     {selectedIngredient.featuredProductName}
                   </h4>
                 </div>
               </div>
 
-              <Link
-                to={`/products/${selectedIngredient.featuredProductHandle}`}
-                onClick={() => setSelectedIngredient(null)}
-                className="bg-[#B89275] hover:bg-[#A37E62] text-white text-[10px] font-display font-bold px-4 py-2.5 rounded-xl uppercase transition-all shrink-0 flex items-center space-x-1"
+              <a
+                href="https://glamgalbeauty.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-[#B89275] hover:bg-white hover:text-obsidian text-white text-[10px] font-display font-bold px-4 py-2.5 rounded-xl uppercase transition-all shrink-0 flex items-center space-x-1"
               >
-                <span>SHOP</span>
+                <span>STORE ↗</span>
                 <ExternalLink className="w-3.5 h-3.5" />
-              </Link>
+              </a>
             </div>
           </div>
         </div>
