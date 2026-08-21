@@ -27,6 +27,7 @@ import { PhilosophyPage } from './pages/PhilosophyPage';
 import { IngredientsPage } from './pages/IngredientsPage';
 import { JournalPage } from './pages/JournalPage';
 import { JournalArticlePage } from './pages/JournalArticlePage';
+import { MasterclassesPage } from './pages/MasterclassesPage';
 import { BehindTheStudioPage } from './pages/BehindTheStudioPage';
 import { VirtualVanityPage } from './pages/VirtualVanityPage';
 import { FaqPage } from './pages/FaqPage';
@@ -102,9 +103,10 @@ export const AppContent: React.FC = () => {
           <Route path="/behind-the-scenes" element={<BehindTheStudioPage />} />
           <Route path="/virtual-vanity" element={<VirtualVanityPage />} />
 
-          {/* 18-19. Journal */}
+          {/* 18-20. Journal & Masterclasses */}
           <Route path="/journal" element={<JournalPage />} />
           <Route path="/journal/:handle" element={<JournalArticlePage />} />
+          <Route path="/masterclasses" element={<MasterclassesPage />} />
 
           {/* 20-21. Support */}
           <Route path="/faq" element={<FaqPage />} />

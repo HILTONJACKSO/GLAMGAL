@@ -8,7 +8,7 @@ interface DesktopNavigationProps {
 export const DesktopNavigation: React.FC<DesktopNavigationProps> = ({ onHoverCategory }) => {
   const navLinks = [
     { label: 'BEAUTY JOURNAL', href: '/journal', hasMega: false },
-    { label: 'VIDEO MASTERCLASSES', href: '/#video-showcase', hasMega: false },
+    { label: 'VIDEO MASTERCLASSES', href: '/masterclasses', hasMega: false },
     { label: 'INGREDIENT SCIENCE', href: '/ingredients', hasMega: false },
     { label: 'ROUTINE GUIDES', href: '/routines', hasMega: false },
     { label: 'STUDIO REELS', href: '/behind-the-scenes', hasMega: false },
