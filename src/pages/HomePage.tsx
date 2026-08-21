@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { HeroCampaign } from '../components/sections/HeroCampaign';
 import { VideoShowcaseSection } from '../components/sections/VideoShowcaseSection';
 import { GlamgalJournalSection } from '../components/sections/GlamgalJournalSection';
+import { MagazineCoversSection } from '../components/sections/MagazineCoversSection';
 import { BehindTheStudioSection } from '../components/sections/BehindTheStudioSection';
 import { IngredientGlossarySection } from '../components/sections/IngredientGlossarySection';
 import { VirtualVanitySection } from '../components/sections/VirtualVanitySection';
@@ -15,12 +16,9 @@ import { LoadingState } from '../components/common/LoadingState';
 import { ScrollReveal } from '../components/common/ScrollReveal';
 import {
   getHeroCampaign,
-  getRoutines,
-  getIngredients,
-  getArticles,
 } from '../lib/shopify';
 import { HeroCampaignMetaobject } from '../types/shopify';
-import { ArrowRight, Play, BookOpen, Sparkles, ExternalLink } from 'lucide-react';
+import { ArrowRight, ExternalLink } from 'lucide-react';
 
 export const HomePage: React.FC = () => {
   const [hero, setHero] = useState<HeroCampaignMetaobject | null>(null);
@@ -41,17 +39,17 @@ export const HomePage: React.FC = () => {
   }, []);
 
   if (loading || !hero) {
-    return <LoadingState message="PREPARING GLAMGAL EDITORIAL JOURNAL & VIDEO HUB..." />;
+    return <LoadingState message="PREPARING GLAMGAL L'OFFICIEL EDITORIAL MAGAZINE..." />;
   }
 
   return (
-    <div className="space-y-0 select-none">
+    <div className="space-y-0 select-none bg-[#FAFAF8]">
       <SEO
-        title="GLAMGAL — Beauty Journal, Masterclasses & Formulation Science"
-        description="Explore 4K video beauty masterclasses, dermatological skincare science, skin tips, and routine tutorials curated by GLAMGAL editors."
+        title="GLAMGAL — High-Fashion Beauty Journal, Masterclasses & Magazine"
+        description="Explore 4K video beauty masterclasses, dermatological skincare science, skin tips, and routine tutorials curated by GLAMGAL senior editors."
       />
 
-      {/* 1. HERO CAMPAIGN (MAGAZINE COVER & FEATURED VIDEO TUTORIAL) */}
+      {/* 1. L'OFFICIEL DARK FULL-BLEED COVER HERO WITH MOSAIC FILMSTRIPS (SCREENSHOT 1) */}
       <ScrollReveal variant="fade-in" duration={0.8}>
         <HeroCampaign hero={hero} />
       </ScrollReveal>
@@ -64,14 +62,24 @@ export const HomePage: React.FC = () => {
         <TrustBar />
       </ScrollReveal>
 
-      {/* 2. INTERACTIVE VIDEO SHOWCASE MASTERCLASSES */}
+      {/* 2. EDITORS' CHOICE 5-COLUMN PORTRAIT GRID (SCREENSHOT 2) */}
+      <ScrollReveal variant="fade-up">
+        <GlamgalJournalSection />
+      </ScrollReveal>
+
+      {/* 3. INTERACTIVE VIDEO SHOWCASE MASTERCLASSES WITH DRAG BADGE (SCREENSHOTS 3 & 4) */}
       <section id="video-showcase">
         <ScrollReveal variant="fade-up">
           <VideoShowcaseSection />
         </ScrollReveal>
       </section>
 
-      {/* 3. BRAND CREED TYPOGRAPHY (DEEP BERRY OBSIDIAN VELVET PALETTE) */}
+      {/* 4. OVERLAPPING MAGAZINE COVERS CAROUSEL (SCREENSHOT 5) */}
+      <ScrollReveal variant="fade-up">
+        <MagazineCoversSection />
+      </ScrollReveal>
+
+      {/* 5. BRAND CREED TYPOGRAPHY (DEEP BERRY OBSIDIAN VELVET PALETTE) */}
       <ScrollReveal variant="fade-in">
         <section className="bg-gradient-to-r from-[#200615] via-[#3E0E27] to-[#1C0512] text-warm-white py-24 px-6 text-center border-y border-[#5C163C]/50 relative overflow-hidden shadow-2xl">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-pink-900/20 via-transparent to-transparent pointer-events-none" />
@@ -80,7 +88,7 @@ export const HomePage: React.FC = () => {
             <span className="font-display text-xs tracking-mega text-rose-300 uppercase font-bold">
               THE GLAMGAL CREED
             </span>
-            <h2 className="font-display text-3xl sm:text-5xl md:text-6xl tracking-widest text-warm-white uppercase font-black leading-tight drop-shadow-md">
+            <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight text-warm-white uppercase font-black leading-tight drop-shadow-md">
               GLAMOUR IS PERSONAL.<br />CONFIDENCE IS UNIVERSAL.
             </h2>
             <p className="font-body text-sm sm:text-base md:text-lg text-rose-100/90 max-w-2xl mx-auto leading-relaxed font-light">
@@ -108,43 +116,38 @@ export const HomePage: React.FC = () => {
         </section>
       </ScrollReveal>
 
-      {/* 4. GLAMGAL JOURNAL & STEP-BY-STEP BEAUTY ARTICLES */}
-      <ScrollReveal variant="fade-up">
-        <GlamgalJournalSection />
-      </ScrollReveal>
-
-      {/* 5. BEHIND THE STUDIO & LAB FORMULATION REELS */}
+      {/* 6. BEHIND THE STUDIO & LAB FORMULATION REELS */}
       <ScrollReveal variant="fade-up">
         <BehindTheStudioSection />
       </ScrollReveal>
 
-      {/* 6. INGREDIENT GLOSSARY & ACTIVE SCIENCE */}
+      {/* 7. INGREDIENT GLOSSARY & ACTIVE SCIENCE */}
       <ScrollReveal variant="fade-up">
         <IngredientGlossarySection />
       </ScrollReveal>
 
-      {/* 7. FEATURED EDITORIAL CAMPAIGN */}
+      {/* 8. FEATURED EDITORIAL CAMPAIGN */}
       <ScrollReveal variant="fade-up">
         <EditorialSection />
       </ScrollReveal>
 
-      {/* 8. TESTIMONIALS & VERIFIED BUYER PRAISE */}
+      {/* 9. TESTIMONIALS & VERIFIED BUYER PRAISE */}
       <ScrollReveal variant="fade-up">
         <TestimonialsSection />
       </ScrollReveal>
 
-      {/* 9. VIRTUAL VANITY COMMUNITY VIDEO GALLERY */}
+      {/* 10. VIRTUAL VANITY COMMUNITY VIDEO GALLERY */}
       <ScrollReveal variant="fade-in">
         <VirtualVanitySection />
       </ScrollReveal>
 
-      {/* 10. DIRECT STORE GATEWAY CALLOUT SECTION */}
+      {/* 11. DIRECT STORE GATEWAY CALLOUT SECTION */}
       <section className="bg-[#FAF4EF] py-20 border-t border-[#E8D9CC]">
         <div className="max-w-5xl mx-auto px-6 text-center space-y-6">
           <span className="font-display text-xs tracking-mega text-[#A68064] uppercase font-bold">
             READY TO EXPERIENCE THE FORMULATIONS?
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl tracking-widest text-obsidian uppercase font-black">
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl tracking-tight text-obsidian uppercase font-black">
             EXPLORE THE OFFICIAL GLAMGAL STORE
           </h2>
           <p className="font-body text-xs sm:text-sm text-[#5C5046] max-w-xl mx-auto leading-relaxed">

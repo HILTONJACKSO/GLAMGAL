@@ -112,25 +112,25 @@ export const VideoShowcaseSection: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-12 relative z-10">
         {/* SECTION HEADER (TIKTOK STYLE) */}
+        {/* SECTION HEADER (L'OFFICIEL EDITORIAL STYLE) */}
         <div className="text-center max-w-2xl mx-auto space-y-4">
-          <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-pink-500/20 via-amber-500/20 to-pink-500/20 border border-pink-500/30 backdrop-blur-md">
-            <VideoIcon className="w-3.5 h-3.5 text-pink-400 animate-pulse" />
-            <span className="font-display text-[10px] sm:text-xs font-bold tracking-mega text-pink-300 uppercase">
-              {secData?.subtitle || 'TIKTOK BEAUTY REELS'}
+          <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md">
+            <VideoIcon className="w-3.5 h-3.5 text-[#B89275] animate-pulse" />
+            <span className="font-display text-[10px] sm:text-xs font-bold tracking-mega text-[#B89275] uppercase">
+              EDITORIAL VIDEO REELS
             </span>
           </div>
 
-          <h2 className="font-display text-3xl sm:text-5xl md:text-6xl tracking-widest text-warm-white uppercase font-black">
-            {secData?.title || 'SEE GLAMGAL IN ACTION'}
+          <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight text-warm-white uppercase font-black">
+            BEAUTY MASTERCLASSES
           </h2>
 
           <p className="font-body text-xs sm:text-sm text-soft-stone leading-relaxed font-light max-w-xl mx-auto">
-            {secData?.description ||
-              'Watch high-definition texture reels, application tutorials, and real results from our lab artists.'}
+            Watch 4K high-definition texture reels, application tutorials, and real dermatological results from our lab artists.
           </p>
         </div>
 
-        {/* TIKTOK VIDEO CARDS GRID */}
+        {/* TIKTOK VIDEO CARDS GRID WITH INTERACTIVE DRAG PILL (SCREENSHOTS 3 & 4) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {videos.map((vid, idx) => {
             const isLiked = !!likedVideos[vid.id];
@@ -142,8 +142,12 @@ export const VideoShowcaseSection: React.FC = () => {
                   setActiveVideo(vid);
                   setIsPlaying(true);
                 }}
-                className="group relative aspect-[9/16] rounded-[32px] overflow-hidden bg-black border border-white/15 hover:border-pink-500/60 shadow-2xl hover:shadow-[0_0_40px_rgba(236,72,153,0.25)] transition-all duration-500 cursor-pointer flex flex-col justify-between"
+                className="group relative aspect-[9/16] rounded-[32px] overflow-hidden bg-black border border-white/15 hover:border-[#B89275] shadow-2xl hover:shadow-[0_0_40px_rgba(184,146,117,0.3)] transition-all duration-500 cursor-pointer flex flex-col justify-between"
               >
+                {/* INTERACTIVE DRAG PILL OVERLAY (SCREENSHOTS 3 & 4) */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 w-16 h-16 rounded-full bg-white text-obsidian shadow-2xl flex items-center justify-center font-display text-[10px] font-bold uppercase tracking-wider opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 border-2 border-obsidian pointer-events-none">
+                  <span>DRAG</span>
+                </div>
                 {/* 1. AUTOPLAYING VIDEO BACKGROUND */}
                 <video
                   ref={(el) => {
