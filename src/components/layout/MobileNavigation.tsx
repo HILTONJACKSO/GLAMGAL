@@ -13,6 +13,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onCl
 
   const links = [
     { label: 'BEAUTY JOURNAL', href: '/journal' },
+    { label: 'BEAUTY GALLERY', href: '/gallery' },
     { label: 'VIDEO MASTERCLASSES', href: '/masterclasses' },
     { label: 'INGREDIENT SCIENCE', href: '/ingredients' },
     { label: 'ROUTINE GUIDES', href: '/routines' },
