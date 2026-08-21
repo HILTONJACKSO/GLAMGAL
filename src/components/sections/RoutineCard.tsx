@@ -85,21 +85,12 @@ export const RoutineCard: React.FC<{ routine: BeautyRoutine }> = ({ routine }) =
 
       {/* Card Footer Actions */}
       <div className="p-6 sm:p-7 pt-0 space-y-3 bg-white">
-        <button
-          onClick={() => addRoutineToCart(routine)}
-          disabled={isLoading}
-          className="w-full bg-obsidian hover:bg-[#B89275] text-warm-white font-display text-xs font-bold tracking-widest py-4 px-6 uppercase rounded-full transition-all duration-300 shadow-md hover:shadow-xl hover:scale-[1.01] active:scale-98 flex items-center justify-center space-x-2.5 cursor-pointer"
-        >
-          <ShoppingBag className="w-4 h-4 stroke-[2.2]" />
-          <span>ADD ENTIRE ROUTINE TO BAG</span>
-        </button>
-
         <Link
           to={`/routines/${routine.handle}`}
-          className="group/link flex items-center justify-center space-x-1.5 w-full text-center font-display text-[11px] tracking-widest text-obsidian uppercase py-2 hover:text-[#B89275] transition-colors font-bold"
+          className="w-full bg-obsidian hover:bg-[#B89275] text-warm-white font-display text-xs font-bold tracking-widest py-3.5 px-6 uppercase rounded-full transition-all duration-300 shadow-md hover:shadow-xl flex items-center justify-center space-x-2 cursor-pointer"
         >
-          <span>VIEW FULL RITUAL INSTRUCTIONS</span>
-          <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-1 transition-transform" />
+          <span>VIEW RITUAL GUIDE</span>
+          <ArrowRight className="w-3.5 h-3.5" />
         </Link>
       </div>
     </div>
