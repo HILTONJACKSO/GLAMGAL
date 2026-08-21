@@ -201,6 +201,7 @@ export interface AnnouncementMetaobject {
 
 export interface TestimonialItem {
   id: string;
+  title?: string;
   name: string;
   rating: number;
   testimonial: string;
@@ -208,6 +209,7 @@ export interface TestimonialItem {
   productHandle: string;
   verified: boolean;
   skinType?: string;
+  location?: string;
 }
 
 export interface PromoCode {
