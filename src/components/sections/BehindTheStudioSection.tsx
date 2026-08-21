@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Camera, Sparkles, Film, Eye, X, Play } from 'lucide-react';
+import { Camera, Film, Eye, X, MoveRight, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export interface StudioSessionItem {
   id: string;
@@ -9,7 +10,6 @@ export interface StudioSessionItem {
   date: string;
   photographer: string;
   imageUrl: string;
-  videoUrl?: string;
   artistNotes: string;
   featuredShades: string[];
 }
@@ -20,7 +20,7 @@ export const STUDIO_SESSIONS_DATA: StudioSessionItem[] = [
     title: 'NEW YORK COUTURE FALL CAMPAIGN',
     category: 'CAMPAIGN SHOOT',
     location: 'Pier 59 Studios, SoHo NYC',
-    date: 'OCTOBER 2026',
+    date: '10.24.2026',
     photographer: 'Sora Kim & Marcus Vance',
     imageUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1000&q=80',
     artistNotes:
@@ -31,8 +31,8 @@ export const STUDIO_SESSIONS_DATA: StudioSessionItem[] = [
     id: 'studio-2',
     title: 'LAB STABILITY & PEPTIDE BLENDING',
     category: 'BACKSTAGE LAB',
-    location: 'GLAMGAL Formulation Lab, Geneva',
-    date: 'SEPTEMBER 2026',
+    location: 'GLAMGAL Lab, Geneva',
+    date: '09.18.2026',
     photographer: 'Dr. Elena Vance',
     imageUrl: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1000&q=80',
     artistNotes:
@@ -44,19 +44,19 @@ export const STUDIO_SESSIONS_DATA: StudioSessionItem[] = [
     title: 'PARIS FASHION WEEK BACKSTAGE TOUCHUPS',
     category: 'EDITORIAL FITTING',
     location: 'Grand Palais, Paris',
-    date: 'MARCH 2026',
+    date: '03.28.2026',
     photographer: 'Chloe Bennett',
     imageUrl: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=1000&q=80',
     artistNotes:
-      'Backstage panic resolved in seconds. Models had dry skin patches from frequent runway changes. We pressed 3 drops of Sculpting Glow Nectar into collarbones and cheekbones for instantaneous high-definition glass radiance.',
+      'Backstage panic resolved in seconds. Models had dry skin patches from frequent runway changes. We pressed 3 drops of Sculpting Glow Nectar into collarbones and cheekbones for instantaneous glass radiance.',
     featuredShades: ['Couture Red', 'Bronze Nectar'],
   },
   {
     id: 'studio-4',
-    title: 'MASTERCLASS: ONE-SWIPE SWATCH TECHNIQUE',
+    title: 'ONE-SWIPE COUTURE SWATCH TECHNIQUE',
     category: 'MASTERCLASS',
-    location: 'GLAMGAL Flagship Studio, Los Angeles',
-    date: 'AUGUST 2026',
+    location: 'GLAMGAL Studio, Los Angeles',
+    date: '08.12.2026',
     photographer: 'Maya Lin',
     imageUrl: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1000&q=80',
     artistNotes:
@@ -68,87 +68,148 @@ export const STUDIO_SESSIONS_DATA: StudioSessionItem[] = [
 export const BehindTheStudioSection: React.FC = () => {
   const [selectedSession, setSelectedSession] = useState<StudioSessionItem | null>(null);
 
+  const featuredSpotlight = STUDIO_SESSIONS_DATA[0];
+  const stackedArticles = STUDIO_SESSIONS_DATA.slice(1);
+
   return (
-    <section className="bg-[#120D0B] text-warm-white py-24 border-t border-deep-charcoal relative overflow-hidden">
-      {/* Ambient Studio Lighting Glow */}
-      <div className="absolute top-1/3 left-1/3 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-1/3 right-1/3 w-[500px] h-[500px] bg-pink-600/10 rounded-full blur-[140px] pointer-events-none" />
+    <section className="bg-[#0A0A0A] text-warm-white py-24 border-t border-white/10 relative overflow-hidden select-none">
+      {/* Background Subtle Ambient Glow */}
+      <div className="absolute top-1/3 left-1/3 w-[500px] h-[500px] bg-[#B89275]/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-12 relative z-10">
-        {/* SECTION HEADER */}
-        <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/5 border border-amber-400/30 backdrop-blur-md">
-            <Camera className="w-3.5 h-3.5 text-amber-400" />
-            <span className="font-display text-xs font-bold tracking-wider text-amber-300 uppercase">
-              BEHIND THE STUDIO & BACKSTAGE
-            </span>
+        {/* SECTION HEADER (L'OFFICIEL ART MAGAZINE STYLE - SCREENSHOT 4) */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/15">
+          <div className="space-y-3 max-w-2xl">
+            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md">
+              <Camera className="w-3.5 h-3.5 text-[#B89275]" />
+              <span className="font-display text-[10px] sm:text-xs font-bold tracking-mega text-[#B89275] uppercase">
+                STUDIO & LAB DOSSIER
+              </span>
+            </div>
+
+            <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight text-warm-white uppercase font-black">
+              BEHIND THE SCENES
+            </h2>
+
+            <p className="font-body text-xs sm:text-sm text-white/70 leading-relaxed font-light">
+              Take an editorial backstage look into Paris & NYC runway fittings, studio strobe tests, and formulation lab breakthroughs.
+            </p>
           </div>
 
-          <h2 className="font-display text-3xl sm:text-5xl md:text-6xl tracking-wider text-warm-white uppercase font-bold">
-            INSIDE OUR CAMPAIGN SHOOTS & LAB SESSIONS
-          </h2>
-
-          <p className="font-body text-sm sm:text-base text-soft-stone leading-relaxed max-w-2xl mx-auto font-light">
-            Take a backstage peek into our lighting tests, Paris & NYC runway fittings, and formulation lab breakthroughs with lead makeup artists and chemists.
-          </p>
+          <div className="flex items-center space-x-3">
+            <Link
+              to="/behind-the-scenes"
+              className="inline-flex items-center space-x-2 border border-white/30 hover:border-white text-white font-display text-xs font-bold tracking-widest uppercase px-6 py-3 rounded-full transition-all"
+            >
+              <span>VIEW ALL DOSSIERS</span>
+              <ArrowRight className="w-4 h-4 text-[#B89275]" />
+            </Link>
+          </div>
         </div>
 
-        {/* STUDIO SESSIONS GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {STUDIO_SESSIONS_DATA.map((session) => (
-            <div
-              key={session.id}
-              onClick={() => setSelectedSession(session)}
-              className="bg-[#1A1310] rounded-[28px] border border-white/10 hover:border-amber-400/50 overflow-hidden group cursor-pointer shadow-2xl transition-all duration-500 flex flex-col justify-between"
-            >
-              {/* IMAGE CONTAINER */}
-              <div className="relative aspect-[16/10] overflow-hidden bg-black">
-                <img
-                  src={session.imageUrl}
-                  alt={session.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent pointer-events-none" />
+        {/* L'OFFICIEL ART 2-COLUMN SPLIT GRID (SCREENSHOT 4 INSPIRATION) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+          {/* LEFT COLUMN: LARGE SPOTLIGHT FEATURED ARTICLE (SCREENSHOT 4) */}
+          <div
+            onClick={() => setSelectedSession(featuredSpotlight)}
+            className="lg:col-span-7 group bg-black rounded-3xl overflow-hidden border border-white/20 hover:border-[#B89275] p-6 sm:p-8 transition-all duration-500 cursor-pointer flex flex-col justify-between space-y-6 shadow-2xl"
+          >
+            {/* Image Container */}
+            <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-neutral-900">
+              <img
+                src={featuredSpotlight.imageUrl}
+                alt={featuredSpotlight.title}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent pointer-events-none" />
 
-                {/* Category & Date Pill */}
-                <div className="absolute top-4 left-4 flex items-center space-x-2 bg-black/70 backdrop-blur-md px-3.5 py-1.5 rounded-full text-[10px] font-display font-bold text-amber-300 border border-white/10 uppercase tracking-wider">
-                  <Film className="w-3.5 h-3.5" />
-                  <span>{session.category}</span>
-                </div>
+              <span className="absolute top-4 left-4 bg-white/20 backdrop-blur-md border border-white/30 text-white font-display text-[9px] font-bold tracking-widest px-3 py-1 rounded-full uppercase">
+                {featuredSpotlight.category}
+              </span>
+            </div>
 
-                <div className="absolute bottom-4 left-4 right-4 space-y-1">
-                  <span className="text-[10px] font-display text-warm-taupe uppercase tracking-widest block">
-                    {session.location} • {session.date}
-                  </span>
-                  <h3 className="font-display text-lg sm:text-xl font-bold text-white uppercase tracking-wider group-hover:text-amber-300 transition-colors">
-                    {session.title}
-                  </h3>
-                </div>
-              </div>
+            {/* Article Headline & Excerpt */}
+            <div className="space-y-3">
+              <span className="text-[10px] font-display text-[#B89275] tracking-widest uppercase block font-bold">
+                {featuredSpotlight.location} • {featuredSpotlight.date}
+              </span>
 
-              {/* CARD FOOTER */}
-              <div className="p-6 space-y-3 bg-[#1A1310]">
-                <p className="text-xs text-soft-stone font-body line-clamp-2 leading-relaxed">
-                  {session.artistNotes}
-                </p>
+              <h3 className="font-serif text-2xl sm:text-3xl font-bold uppercase text-white tracking-tight leading-snug group-hover:text-[#B89275] transition-colors">
+                {featuredSpotlight.title}
+              </h3>
 
-                <div className="pt-2 flex items-center justify-between text-xs font-display font-bold text-amber-400 group-hover:translate-x-1 transition-transform uppercase">
-                  <span>READ ARTIST BACKSTAGE NOTES</span>
-                  <Eye className="w-4 h-4" />
-                </div>
+              <p className="font-body text-xs sm:text-sm text-white/80 line-clamp-3 leading-relaxed font-light">
+                {featuredSpotlight.artistNotes}
+              </p>
+            </div>
+
+            {/* Card Footer Link */}
+            <div className="pt-4 border-t border-white/15 flex items-center justify-between">
+              <span className="text-[10px] font-body text-white/60">
+                {featuredSpotlight.date} by {featuredSpotlight.photographer}
+              </span>
+
+              <div className="inline-flex items-center space-x-2 bg-white text-obsidian font-display text-[10px] font-bold tracking-widest uppercase px-4 py-2 rounded-full group-hover:bg-[#B89275] group-hover:text-white transition-all">
+                <span>READ ARTICLE</span>
+                <MoveRight className="w-3.5 h-3.5" />
               </div>
             </div>
-          ))}
+          </div>
+
+          {/* RIGHT COLUMN: STACKED LIST OF 3 DARK ARTICLE CARDS (SCREENSHOT 4) */}
+          <div className="lg:col-span-5 flex flex-col justify-between space-y-4">
+            {stackedArticles.map((article) => (
+              <div
+                key={article.id}
+                onClick={() => setSelectedSession(article)}
+                className="group bg-black rounded-2xl border border-white/20 hover:border-[#B89275] p-4 transition-all duration-300 cursor-pointer flex flex-col sm:flex-row gap-4 items-center flex-1 justify-between shadow-xl"
+              >
+                {/* Square Image Thumbnail */}
+                <div className="relative w-full sm:w-36 aspect-square rounded-xl overflow-hidden shrink-0 bg-neutral-900">
+                  <img
+                    src={article.imageUrl}
+                    alt={article.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
+                  />
+                  <div className="absolute inset-0 bg-black/30 pointer-events-none" />
+                </div>
+
+                {/* Article Info */}
+                <div className="space-y-2 min-w-0 flex-1 flex flex-col justify-between h-full">
+                  <div>
+                    <span className="text-[9px] font-display font-bold text-[#B89275] tracking-widest uppercase block mb-1">
+                      {article.category}
+                    </span>
+
+                    <h4 className="font-serif text-sm font-bold uppercase text-white tracking-wide group-hover:text-[#B89275] transition-colors leading-snug line-clamp-2">
+                      {article.title}
+                    </h4>
+                  </div>
+
+                  <div className="pt-2 border-t border-white/10 flex items-center justify-between">
+                    <span className="text-[9px] font-body text-white/50 truncate">
+                      {article.date} by {article.photographer}
+                    </span>
+
+                    <span className="text-[9px] font-display font-bold text-white uppercase tracking-wider group-hover:text-[#B89275] flex items-center space-x-1 shrink-0">
+                      <span>READ</span>
+                      <MoveRight className="w-3 h-3" />
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* STUDIO SESSION MODAL */}
       {selectedSession && (
         <div className="fixed inset-0 z-50 bg-black/95 backdrop-blur-2xl flex items-center justify-center p-4 sm:p-6 animate-fade-in">
-          <div className="bg-[#17110E] rounded-[32px] border border-amber-500/40 max-w-3xl w-full overflow-hidden shadow-2xl relative p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto text-warm-white">
+          <div className="bg-[#141414] rounded-3xl border border-white/20 max-w-3xl w-full overflow-hidden shadow-2xl relative p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto text-warm-white">
             <button
               onClick={() => setSelectedSession(null)}
-              className="absolute top-4 right-4 bg-black/70 hover:bg-amber-500 text-white hover:text-obsidian p-2.5 rounded-full backdrop-blur-md transition-all border border-white/20"
+              className="absolute top-4 right-4 bg-white/10 hover:bg-white text-white hover:text-obsidian p-2.5 rounded-full backdrop-blur-md transition-all border border-white/20"
             >
               <X className="w-5 h-5" />
             </button>
@@ -163,22 +224,22 @@ export const BehindTheStudioSection: React.FC = () => {
             </div>
 
             <div className="space-y-2">
-              <span className="text-[10px] font-display font-bold text-amber-400 uppercase tracking-widest block">
+              <span className="text-[10px] font-display font-bold text-[#B89275] uppercase tracking-widest block">
                 {selectedSession.category} • {selectedSession.location}
               </span>
-              <h3 className="font-display text-2xl font-bold text-white uppercase tracking-wider">
+              <h3 className="font-serif text-2xl font-bold text-white uppercase tracking-wider">
                 {selectedSession.title}
               </h3>
-              <p className="text-xs font-mono text-soft-stone">
+              <p className="text-xs font-mono text-white/60">
                 PHOTOGRAPHY & ART DIRECTION BY {selectedSession.photographer.toUpperCase()}
               </p>
             </div>
 
-            <div className="bg-[#241A16] p-5 rounded-2xl border border-amber-500/30 space-y-2">
-              <span className="text-[10px] font-display font-bold text-amber-300 uppercase tracking-wider block">
+            <div className="bg-white/5 p-5 rounded-2xl border border-white/10 space-y-2">
+              <span className="text-[10px] font-display font-bold text-[#B89275] uppercase tracking-wider block">
                 ARTIST & CHEMIST BACKSTAGE NOTES
               </span>
-              <p className="text-xs text-soft-stone font-body leading-relaxed">
+              <p className="text-xs text-white/80 font-body leading-relaxed">
                 {selectedSession.artistNotes}
               </p>
             </div>
@@ -191,7 +252,7 @@ export const BehindTheStudioSection: React.FC = () => {
                 {selectedSession.featuredShades.map((shade, idx) => (
                   <span
                     key={idx}
-                    className="text-[10px] font-display font-bold text-amber-300 bg-black/60 px-3 py-1 rounded-full border border-white/10 uppercase"
+                    className="text-[10px] font-display font-bold text-[#B89275] bg-black/60 px-3 py-1 rounded-full border border-white/20 uppercase"
                   >
                     {shade}
                   </span>
