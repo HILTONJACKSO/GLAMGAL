@@ -7,20 +7,21 @@ interface DesktopNavigationProps {
 
 export const DesktopNavigation: React.FC<DesktopNavigationProps> = ({ onHoverCategory }) => {
   const navLinks = [
-    { label: 'JOURNAL', href: '/journal', hasMega: false },
-    { label: 'GLOSSARY', href: '/ingredients', hasMega: false },
-    { label: 'STUDIO', href: '/behind-the-scenes', hasMega: false },
-    { label: 'UGC HUB', href: '/virtual-vanity', hasMega: false },
+    { label: 'BEAUTY JOURNAL', href: '/journal', hasMega: false },
+    { label: 'VIDEO MASTERCLASSES', href: '/#video-showcase', hasMega: false },
+    { label: 'INGREDIENT SCIENCE', href: '/ingredients', hasMega: false },
+    { label: 'ROUTINE GUIDES', href: '/routines', hasMega: false },
+    { label: 'STUDIO REELS', href: '/behind-the-scenes', hasMega: false },
   ];
 
   return (
-    <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8 2xl:space-x-10 flex-shrink-0" aria-label="Main Navigation">
+    <nav className="hidden lg:flex items-center space-x-5 xl:space-x-7 2xl:space-x-8 flex-shrink-0" aria-label="Main Navigation">
       {navLinks.map((link) => (
         <Link
           key={link.label}
           to={link.href}
           onMouseEnter={() => onHoverCategory(link.hasMega ? link.label : null)}
-          className="font-display text-sm xl:text-base 2xl:text-lg tracking-widest text-obsidian uppercase font-bold relative py-2 transition-all hover:text-[#B89275] whitespace-nowrap after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#B89275] hover:after:w-full after:transition-all after:duration-300"
+          className="font-display text-xs xl:text-sm tracking-widest text-obsidian uppercase font-bold relative py-2 transition-all hover:text-[#B89275] whitespace-nowrap after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#B89275] hover:after:w-full after:transition-all after:duration-300"
         >
           {link.label}
         </Link>

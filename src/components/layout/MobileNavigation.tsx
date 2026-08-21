@@ -12,23 +12,18 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onCl
   if (!isOpen) return null;
 
   const links = [
-    { label: 'JOURNAL', href: '/journal' },
-    { label: 'GLOSSARY', href: '/ingredients' },
-    { label: 'STUDIO', href: '/behind-the-scenes' },
-    { label: 'UGC HUB', href: '/virtual-vanity' },
-    { label: 'SKINCARE', href: '/collections/skincare' },
-    { label: 'MAKEUP', href: '/collections/makeup' },
-    { label: 'SHOP ALL', href: '/collections/all' },
-    { label: 'BODY CARE', href: '/collections/body-care' },
-    { label: 'BEAUTY TOOLS', href: '/collections/beauty-tools' },
-    { label: 'ABOUT GLAMGAL', href: '/about' },
+    { label: 'BEAUTY JOURNAL', href: '/journal' },
+    { label: 'VIDEO MASTERCLASSES', href: '/#video-showcase' },
+    { label: 'INGREDIENT SCIENCE', href: '/ingredients' },
+    { label: 'ROUTINE GUIDES', href: '/routines' },
+    { label: 'STUDIO REELS', href: '/behind-the-scenes' },
+    { label: 'UGC BEAUTY HUB', href: '/virtual-vanity' },
     { label: 'OUR PHILOSOPHY', href: '/philosophy' },
-    { label: 'FAQS', href: '/faq' },
-    { label: 'CONTACT', href: '/contact' },
+    { label: 'FAQS & HELP', href: '/faq' },
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-warm-white text-obsidian animate-fade-in lg:hidden">
+    <div className="fixed inset-0 z-50 flex flex-col bg-warm-white text-obsidian animate-fade-in lg:hidden select-none">
       {/* Header Bar */}
       <div className="flex items-center justify-between p-6 border-b border-soft-stone">
         <Logo size="sm" />
@@ -48,7 +43,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onCl
             key={link.label}
             to={link.href}
             onClick={onClose}
-            className="flex items-center justify-between py-4 border-b border-soft-stone/60 font-display text-base sm:text-lg font-bold tracking-widest text-obsidian uppercase hover:pl-2 transition-all"
+            className="flex items-center justify-between py-4 border-b border-soft-stone/60 font-display text-sm sm:text-base font-bold tracking-widest text-obsidian uppercase hover:pl-2 transition-all"
           >
             <span>{link.label}</span>
             <ChevronRight className="w-4 h-4 text-warm-taupe" />
@@ -57,9 +52,18 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onCl
       </div>
 
       {/* Footer Banner in Menu */}
-      <div className="p-6 bg-obsidian text-warm-white text-center border-t border-white/10">
-        <p className="font-display text-xs tracking-widest uppercase mb-2">GLAMGAL BEAUTY COMMUNITY</p>
-        <p className="text-xs text-soft-stone">High-impact makeup & skincare</p>
+      <div className="p-6 bg-obsidian text-warm-white text-center border-t border-white/10 space-y-3">
+        <a
+          href="https://glamgalbeauty.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full inline-flex items-center justify-center space-x-2 bg-[#B89275] hover:bg-[#A37E62] text-white font-display text-xs font-bold tracking-widest uppercase py-3 rounded-full transition-all shadow-md"
+        >
+          <span>VISIT OFFICIAL STORE ↗</span>
+        </a>
+        <p className="text-[10px] text-warm-taupe font-display tracking-widest uppercase">
+          © 2026 GLAMGAL EDITORIAL JOURNAL
+        </p>
       </div>
     </div>
   );

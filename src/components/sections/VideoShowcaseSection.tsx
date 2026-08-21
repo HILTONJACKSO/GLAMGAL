@@ -306,33 +306,24 @@ export const VideoShowcaseSection: React.FC = () => {
                       />
                       <div className="min-w-0 flex-1">
                         <span className="text-[8px] font-display text-amber-400 font-bold tracking-widest uppercase block truncate">
-                          TIKTOK SHOP
+                          FEATURED FORMULATION
                         </span>
                         <h4 className="text-[10px] font-display font-bold text-white uppercase truncate">
                           {vid.featuredProductName}
                         </h4>
-                        <span className="text-xs font-display font-bold text-pink-300 block">
-                          {vid.featuredProductPrice}
-                        </span>
                       </div>
                     </div>
 
-                    <button
-                      onClick={(e) => handleAddToCart(e, vid.featuredProductHandle)}
-                      className="bg-gradient-to-r from-pink-500 to-amber-500 hover:from-pink-600 hover:to-amber-600 text-white font-display text-[10px] font-bold tracking-wider px-3 py-2 rounded-xl uppercase transition-all shadow-md shrink-0 flex items-center space-x-1"
+                    <a
+                      href="https://glamgalbeauty.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="bg-gradient-to-r from-pink-500 to-amber-500 hover:from-pink-600 hover:to-amber-600 text-white font-display text-[10px] font-bold tracking-wider px-3.5 py-2 rounded-xl uppercase transition-all shadow-md shrink-0 flex items-center space-x-1"
                     >
-                      {addedToCartId === vid.featuredProductHandle ? (
-                        <>
-                          <Check className="w-3.5 h-3.5 text-white" />
-                          <span>ADDED</span>
-                        </>
-                      ) : (
-                        <>
-                          <ShoppingBag className="w-3.5 h-3.5" />
-                          <span>BUY</span>
-                        </>
-                      )}
-                    </button>
+                      <span>STORE</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
                   </div>
                 </div>
               </div>
@@ -438,37 +429,29 @@ export const VideoShowcaseSection: React.FC = () => {
                     <h4 className="font-display text-xs tracking-wider text-white uppercase font-bold truncate">
                       {activeVideo.featuredProductName}
                     </h4>
-                    <span className="font-display text-sm font-bold text-pink-300 block">
-                      {activeVideo.featuredProductPrice} USD
+                    <span className="font-display text-[11px] font-bold text-pink-300 block uppercase">
+                      FEATURED FORMULATION
                     </span>
                   </div>
                 </div>
 
                 {/* ACTION BUTTONS */}
                 <div className="space-y-2.5 pt-1">
-                  <button
-                    onClick={(e) => handleAddToCart(e, activeVideo.featuredProductHandle)}
+                  <a
+                    href="https://glamgalbeauty.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-full bg-gradient-to-r from-pink-500 to-amber-500 hover:from-pink-600 hover:to-amber-600 text-white font-display text-xs font-bold tracking-widest py-3 rounded-xl transition-all flex items-center justify-center space-x-2 uppercase shadow-lg"
                   >
-                    {addedToCartId === activeVideo.featuredProductHandle ? (
-                      <>
-                        <Check className="w-4 h-4 text-white" />
-                        <span>ADDED TO BAG!</span>
-                      </>
-                    ) : (
-                      <>
-                        <ShoppingBag className="w-4 h-4" />
-                        <span>BUY NOW • {activeVideo.featuredProductPrice}</span>
-                      </>
-                    )}
-                  </button>
+                    <span>VISIT OFFICIAL STORE ↗</span>
+                  </a>
 
                   <Link
                     to={`/products/${activeVideo.featuredProductHandle}`}
                     onClick={() => setActiveVideo(null)}
                     className="w-full bg-white/10 hover:bg-pink-600 text-white font-display text-[11px] font-bold tracking-wider py-3 rounded-xl transition-all flex items-center justify-center space-x-2 uppercase border border-white/20 hover:border-pink-500 shadow-md"
                   >
-                    <span>VIEW FULL PRODUCT DETAILS</span>
+                    <span>VIEW FORMULATION DOSSIER</span>
                     <ExternalLink className="w-3.5 h-3.5" />
                   </Link>
                 </div>

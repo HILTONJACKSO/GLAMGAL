@@ -56,15 +56,15 @@ export const Header: React.FC<HeaderProps> = ({ announcements = [], onOpenSearch
             <Search className="w-5 h-5" />
           </button>
 
-          {/* Direct Main Shopify Store Button */}
+          {/* Direct Main Shopify Store Gateway Button */}
           <a
             href="https://glamgalbeauty.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden sm:inline-flex items-center space-x-1.5 bg-obsidian hover:bg-[#B89275] text-warm-white font-display text-[10px] xl:text-[11px] font-bold tracking-wider uppercase px-4 py-2 rounded-full transition-all shadow-xs"
+            className="hidden sm:inline-flex items-center space-x-1.5 bg-obsidian hover:bg-[#B89275] text-warm-white font-display text-[10px] xl:text-[11px] font-bold tracking-wider uppercase px-5 py-2.5 rounded-full transition-all shadow-xs hover:scale-105"
           >
             <ShoppingBag className="w-3.5 h-3.5" />
-            <span>SHOP STORE</span>
+            <span>VISIT STORE ↗</span>
           </a>
         </div>
 
