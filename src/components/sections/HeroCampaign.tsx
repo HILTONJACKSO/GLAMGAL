@@ -27,38 +27,6 @@ export const HeroCampaign: React.FC<HeroCampaignProps> = ({ hero: initialHero })
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-black/40 to-black/90 pointer-events-none" />
       </div>
 
-      {/* 1. TOP EDITORIAL MASTHEAD BAR (SCREENSHOT 1) */}
-      <div className="relative z-20 max-w-7xl mx-auto w-full px-6 py-6 flex items-center justify-between border-b border-white/15 backdrop-blur-xs">
-        <div className="flex items-center space-x-6">
-          <span className="font-display text-[10px] sm:text-xs font-bold tracking-mega uppercase text-white/70">
-            ≡ MENU
-          </span>
-          <span className="hidden sm:inline-block font-display text-[10px] tracking-widest text-[#B89275] uppercase font-bold">
-            ISSUE 04 • S/S 2026
-          </span>
-        </div>
-
-        {/* Centered Serif Logo */}
-        <div className="text-center">
-          <span className="font-serif text-2xl sm:text-4xl font-black tracking-widest uppercase text-white drop-shadow-md">
-            GLAMGAL
-          </span>
-        </div>
-
-        {/* Right Gateway Action Link */}
-        <div className="flex items-center space-x-4">
-          <a
-            href="https://glamgalbeauty.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center space-x-1.5 bg-white/10 hover:bg-white text-white hover:text-obsidian backdrop-blur-md px-4 py-2 rounded-full font-display text-[10px] font-bold tracking-widest uppercase transition-all border border-white/20"
-          >
-            <span>VISIT STORE</span>
-            <ExternalLink className="w-3 h-3" />
-          </a>
-        </div>
-      </div>
-
       {/* 2. FLOATING MOSAIC FILMSTRIP THUMBNAIL CARDS (SCREENSHOT 1 INSPIRATION) */}
       <div className="relative z-10 max-w-7xl mx-auto w-full px-6 my-auto py-12 grid grid-cols-12 items-center gap-6">
         {/* Left Floating Mosaic Thumbnails */}
