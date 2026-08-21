@@ -6,7 +6,7 @@ import { GlamgalJournalSection } from '../components/sections/GlamgalJournalSect
 import { MagazineCoversSection } from '../components/sections/MagazineCoversSection';
 import { BehindTheStudioSection } from '../components/sections/BehindTheStudioSection';
 import { IngredientGlossarySection } from '../components/sections/IngredientGlossarySection';
-import { CoutureProductGallerySection } from '../components/sections/CoutureProductGallerySection';
+import { HomepageBentoGallerySection } from '../components/sections/HomepageBentoGallerySection';
 import { VirtualVanitySection } from '../components/sections/VirtualVanitySection';
 import { TestimonialsSection } from '../components/sections/TestimonialsSection';
 import { EditorialSection } from '../components/sections/EditorialSection';
@@ -127,9 +127,9 @@ export const HomePage: React.FC = () => {
         <IngredientGlossarySection />
       </ScrollReveal>
 
-      {/* 7.5. COUTURE BEAUTY PRODUCT GALLERY ARCHIVE */}
+      {/* 7.5. COUTURE BEAUTY BENTO GALLERY MATRIX */}
       <ScrollReveal variant="fade-up">
-        <CoutureProductGallerySection />
+        <HomepageBentoGallerySection />
       </ScrollReveal>
 
       {/* 8. FEATURED EDITORIAL CAMPAIGN */}
