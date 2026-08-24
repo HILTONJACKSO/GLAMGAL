@@ -18,8 +18,11 @@ export default {
         'deep-charcoal': '#222222',
       },
       fontFamily: {
-        display: ['"Bebas Neue"', 'Impact', 'sans-serif'],
-        body: ['Chivo', 'sans-serif'],
+        serif: ['"Playfair Display"', '"Bodoni Moda"', 'Georgia', 'serif'],
+        display: ['"Playfair Display"', '"Bodoni Moda"', 'Georgia', 'serif'],
+        sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+        body: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+        mono: ['"Cormorant Garamond"', 'Georgia', 'serif'],
       },
       letterSpacing: {
         wider: '0.06em',
