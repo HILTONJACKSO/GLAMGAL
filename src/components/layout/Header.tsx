@@ -27,12 +27,12 @@ export const Header: React.FC<HeaderProps> = ({ announcements = [], onOpenSearch
       <AnnouncementBar />
 
       {/* Main Header Container */}
-      <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between relative">
-        {/* Left Group: Mobile Hamburger + Brand Logo */}
-        <div className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0 mr-2 lg:mr-4">
+      <div className="max-w-[1480px] w-full mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between relative">
+        {/* Left Group: Mobile/Tablet Hamburger + Brand Logo */}
+        <div className="flex items-center space-x-2 sm:space-x-3 shrink-0 mr-4 xl:mr-10 2xl:mr-14">
           <button
             onClick={() => setIsMobileMenuOpen(true)}
-            className="lg:hidden p-2 text-obsidian hover:opacity-75 focus-visible:outline-none rounded-lg hover:bg-warm-white"
+            className="xl:hidden p-2 text-obsidian hover:opacity-75 focus-visible:outline-none rounded-lg hover:bg-warm-white"
             aria-label="Open Navigation Menu"
           >
             <Menu className="w-6 h-6" />
@@ -41,13 +41,13 @@ export const Header: React.FC<HeaderProps> = ({ announcements = [], onOpenSearch
           <Logo size="md" />
         </div>
 
-        {/* Center: Desktop Navigation Links */}
-        <div className="flex-1 hidden lg:flex justify-center items-center px-2 min-w-0">
+        {/* Center: Desktop Navigation Links (Visible on 1280px+ Screens) */}
+        <div className="flex-1 hidden xl:flex justify-center items-center px-4 min-w-0">
           <DesktopNavigation onHoverCategory={setActiveCategory} />
         </div>
 
         {/* Right: Action Controls */}
-        <div className="flex items-center space-x-2 sm:space-x-3 text-obsidian flex-shrink-0 ml-2 lg:ml-4">
+        <div className="flex items-center space-x-2 sm:space-x-3 text-obsidian shrink-0 ml-4 xl:ml-10 2xl:ml-14">
           {/* Search Trigger */}
           <button
             onClick={onOpenSearch}
@@ -62,7 +62,7 @@ export const Header: React.FC<HeaderProps> = ({ announcements = [], onOpenSearch
             href="https://glamgalbeauty.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center space-x-1.5 bg-obsidian hover:bg-[#B89275] text-white font-display text-[10px] xl:text-[11px] font-bold tracking-wider uppercase px-4 py-2 rounded-full transition-all shadow-xs shrink-0 whitespace-nowrap"
+            className="inline-flex items-center space-x-1.5 bg-obsidian hover:bg-[#B89275] text-white font-display text-[10px] xl:text-[11px] font-bold tracking-wider uppercase px-4 py-2.5 rounded-full transition-all shadow-xs shrink-0 whitespace-nowrap"
           >
             <ShoppingBag className="w-3.5 h-3.5" />
             <span>VISIT STORE ↗</span>
