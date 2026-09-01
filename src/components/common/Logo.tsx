@@ -18,10 +18,10 @@ export const Logo: React.FC<LogoProps> = ({
 
   const sizeClasses =
     size === 'sm'
-      ? 'h-8 sm:h-9'
+      ? 'h-5 sm:h-6'
       : size === 'lg'
-      ? 'h-14 sm:h-16 md:h-20'
-      : 'h-10 sm:h-12 md:h-14';
+      ? 'h-10 sm:h-12 md:h-14'
+      : 'h-6 sm:h-7 md:h-8';
 
   return (
     <Link to="/" className={`inline-flex items-center ${className}`} aria-label="GLAMGAL Home">
