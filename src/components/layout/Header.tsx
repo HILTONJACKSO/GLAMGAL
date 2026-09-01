@@ -22,12 +22,12 @@ export const Header: React.FC<HeaderProps> = ({ announcements = [], onOpenSearch
   const cartQuantity = cart?.totalQuantity || 0;
 
   return (
-    <header className="sticky top-0 z-40 bg-warm-white/95 backdrop-blur-md border-b border-soft-stone/60 transition-all duration-300">
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#E3D6C5]/80 transition-all duration-300">
       {/* Announcement Bar */}
       <AnnouncementBar />
 
       {/* Main Header Container */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between relative">
+      <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between relative gap-2 sm:gap-4">
         {/* Left Group: Mobile Hamburger + Brand Logo */}
         <div className="flex items-center space-x-3 sm:space-x-4 flex-shrink-0 mr-4 xl:mr-8">
           <button

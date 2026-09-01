@@ -86,32 +86,29 @@ export const VirtualVanitySection: React.FC = () => {
   });
 
   return (
-    <section className="bg-[#0A0A0A] text-warm-white py-24 border-t border-white/10 relative overflow-hidden select-none">
-      {/* Background Ambient Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#B89275]/10 rounded-full blur-[140px] pointer-events-none" />
-
+    <section className="bg-white text-obsidian py-28 lg:py-36 border-t border-[#E3D6C5] relative overflow-hidden select-none">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-12 relative z-10">
-        {/* SECTION HEADER (L'OFFICIEL EDITORIAL STYLE) */}
+        {/* SECTION HEADER */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md">
+          <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white border border-[#B89275]/40 shadow-xs">
             <Sparkles className="w-3.5 h-3.5 text-[#B89275]" />
-            <span className="font-display text-[10px] sm:text-xs font-bold tracking-mega text-[#B89275] uppercase">
+            <span className="font-display text-[10px] sm:text-xs font-bold tracking-mega text-[#A68064] uppercase">
               READER BEAUTY GALLERY • #GLAMGALVANITY
             </span>
           </div>
 
-          <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight text-warm-white uppercase font-black">
+          <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight text-obsidian uppercase font-black">
             VIRTUAL VANITY
           </h2>
 
-          <p className="font-body text-xs sm:text-sm text-white/70 leading-relaxed max-w-2xl mx-auto font-light">
+          <p className="font-body text-xs sm:text-sm text-[#5C5046] leading-relaxed max-w-2xl mx-auto font-light">
             Real reader street style, live beauty posts, and skin match results across all complexions. Filter by skin tone to explore exact shade pairings.
           </p>
 
-          {/* SKIN TONE FILTER PILLS (PRINT INDEX STYLE) */}
+          {/* SKIN TONE FILTER PILLS */}
           <div className="pt-4 flex flex-wrap justify-center items-center gap-2">
-            <span className="text-[10px] font-display font-bold text-[#B89275] uppercase tracking-widest flex items-center space-x-1 mr-2">
-              <Filter className="w-3 h-3" />
+            <span className="text-[10px] font-display font-bold text-[#A68064] uppercase tracking-widest flex items-center space-x-1 mr-2">
+              <Filter className="w-3 h-3 text-[#B89275]" />
               <span>SKIN MATCH:</span>
             </span>
 
@@ -121,8 +118,8 @@ export const VirtualVanitySection: React.FC = () => {
                 onClick={() => setSelectedSkinTone(tone)}
                 className={`text-[10px] font-display font-bold tracking-wider uppercase px-4 py-2 rounded-full transition-all ${
                   selectedSkinTone === tone
-                    ? 'bg-white text-obsidian font-black shadow-md'
-                    : 'bg-white/5 text-white/70 border border-white/15 hover:bg-white/10 hover:text-white'
+                    ? 'bg-obsidian text-white font-black shadow-md'
+                    : 'bg-white text-[#5C5046] border border-[#E3D6C5] hover:bg-obsidian hover:text-white'
                 }`}
               >
                 {tone}
@@ -137,7 +134,7 @@ export const VirtualVanitySection: React.FC = () => {
             <div
               key={post.id}
               onClick={() => setActivePost(post)}
-              className="bg-[#121212] rounded-3xl border border-white/20 hover:border-[#B89275] p-4 shadow-2xl transition-all duration-500 font-serif flex flex-col justify-between group cursor-pointer"
+              className="bg-[#FAF7F2] rounded-3xl border border-[#E3D6C5] hover:border-[#B89275] p-4 shadow-xs hover:shadow-xl transition-all duration-500 font-serif flex flex-col justify-between group cursor-pointer text-obsidian"
             >
               {/* PHOTO / VIDEO CONTAINER */}
               <div className="relative aspect-[3/4] bg-black rounded-2xl overflow-hidden mb-4">

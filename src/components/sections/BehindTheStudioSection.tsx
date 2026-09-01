@@ -72,26 +72,23 @@ export const BehindTheStudioSection: React.FC = () => {
   const stackedArticles = STUDIO_SESSIONS_DATA.slice(1);
 
   return (
-    <section className="bg-[#0A0A0A] text-warm-white py-24 border-t border-white/10 relative overflow-hidden select-none">
-      {/* Background Subtle Ambient Glow */}
-      <div className="absolute top-1/3 left-1/3 w-[500px] h-[500px] bg-[#B89275]/10 rounded-full blur-[140px] pointer-events-none" />
-
+    <section className="bg-white text-obsidian py-28 lg:py-36 border-t border-[#E3D6C5] relative overflow-hidden select-none">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-12 relative z-10">
-        {/* SECTION HEADER (L'OFFICIEL ART MAGAZINE STYLE - SCREENSHOT 4) */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/15">
+        {/* SECTION HEADER */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[#E3D6C5]">
           <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md">
+            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white border border-[#B89275]/40 shadow-xs">
               <Camera className="w-3.5 h-3.5 text-[#B89275]" />
-              <span className="font-display text-[10px] sm:text-xs font-bold tracking-mega text-[#B89275] uppercase">
+              <span className="font-display text-[10px] sm:text-xs font-bold tracking-mega text-[#A68064] uppercase">
                 STUDIO & LAB DOSSIER
               </span>
             </div>
 
-            <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight text-warm-white uppercase font-black">
+            <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight text-obsidian uppercase font-black">
               BEHIND THE SCENES
             </h2>
 
-            <p className="font-body text-xs sm:text-sm text-white/70 leading-relaxed font-light">
+            <p className="font-body text-xs sm:text-sm text-[#5C5046] leading-relaxed font-light">
               Take an editorial backstage look into Paris & NYC runway fittings, studio strobe tests, and formulation lab breakthroughs.
             </p>
           </div>
@@ -99,7 +96,7 @@ export const BehindTheStudioSection: React.FC = () => {
           <div className="flex items-center space-x-3">
             <Link
               to="/behind-the-scenes"
-              className="inline-flex items-center space-x-2 border border-white/30 hover:border-white text-white font-display text-xs font-bold tracking-widest uppercase px-6 py-3 rounded-full transition-all"
+              className="inline-flex items-center space-x-2 border border-[#E3D6C5] hover:bg-obsidian hover:text-white text-obsidian font-display text-xs font-bold tracking-widest uppercase px-6 py-3 rounded-full transition-all"
             >
               <span>VIEW ALL DOSSIERS</span>
               <ArrowRight className="w-4 h-4 text-[#B89275]" />
@@ -107,15 +104,15 @@ export const BehindTheStudioSection: React.FC = () => {
           </div>
         </div>
 
-        {/* L'OFFICIEL ART 2-COLUMN SPLIT GRID (SCREENSHOT 4 INSPIRATION) */}
+        {/* L'OFFICIEL ART 2-COLUMN SPLIT GRID */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-          {/* LEFT COLUMN: LARGE SPOTLIGHT FEATURED ARTICLE (SCREENSHOT 4) */}
+          {/* LEFT COLUMN: LARGE SPOTLIGHT FEATURED ARTICLE */}
           <div
             onClick={() => setSelectedSession(featuredSpotlight)}
-            className="lg:col-span-7 group bg-black rounded-3xl overflow-hidden border border-white/20 hover:border-[#B89275] p-6 sm:p-8 transition-all duration-500 cursor-pointer flex flex-col justify-between space-y-6 shadow-2xl"
+            className="lg:col-span-7 group bg-white rounded-3xl overflow-hidden border border-[#E3D6C5] hover:border-[#B89275] p-6 sm:p-8 transition-all duration-500 cursor-pointer flex flex-col justify-between space-y-6 shadow-sm hover:shadow-2xl"
           >
             {/* Image Container */}
-            <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-neutral-900">
+            <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-black">
               <img
                 src={featuredSpotlight.imageUrl}
                 alt={featuredSpotlight.title}
@@ -123,75 +120,75 @@ export const BehindTheStudioSection: React.FC = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent pointer-events-none" />
 
-              <span className="absolute top-4 left-4 bg-white/20 backdrop-blur-md border border-white/30 text-white font-display text-[9px] font-bold tracking-widest px-3 py-1 rounded-full uppercase">
+              <span className="absolute top-4 left-4 bg-obsidian/90 backdrop-blur-md border border-white/20 text-white font-display text-[9px] font-bold tracking-widest px-3 py-1 rounded-full uppercase">
                 {featuredSpotlight.category}
               </span>
             </div>
 
             {/* Article Headline & Excerpt */}
             <div className="space-y-3">
-              <span className="text-[10px] font-display text-[#B89275] tracking-widest uppercase block font-bold">
+              <span className="text-[10px] font-display text-[#A68064] tracking-widest uppercase block font-bold">
                 {featuredSpotlight.location} • {featuredSpotlight.date}
               </span>
 
-              <h3 className="font-serif text-2xl sm:text-3xl font-bold uppercase text-white tracking-tight leading-snug group-hover:text-[#B89275] transition-colors">
+              <h3 className="font-serif text-2xl sm:text-3xl font-bold uppercase text-obsidian tracking-tight leading-snug group-hover:text-[#B89275] transition-colors">
                 {featuredSpotlight.title}
               </h3>
 
-              <p className="font-body text-xs sm:text-sm text-white/80 line-clamp-3 leading-relaxed font-light">
+              <p className="font-body text-xs sm:text-sm text-[#5C5046] line-clamp-3 leading-relaxed font-light">
                 {featuredSpotlight.artistNotes}
               </p>
             </div>
 
             {/* Card Footer Link */}
-            <div className="pt-4 border-t border-white/15 flex items-center justify-between">
-              <span className="text-[10px] font-body text-white/60">
+            <div className="pt-4 border-t border-[#E3D6C5] flex items-center justify-between">
+              <span className="text-[10px] font-body text-warm-taupe">
                 {featuredSpotlight.date} by {featuredSpotlight.photographer}
               </span>
 
-              <div className="inline-flex items-center space-x-2 bg-white text-obsidian font-display text-[10px] font-bold tracking-widest uppercase px-4 py-2 rounded-full group-hover:bg-[#B89275] group-hover:text-white transition-all">
+              <div className="inline-flex items-center space-x-2 bg-obsidian text-white font-display text-[10px] font-bold tracking-widest uppercase px-4 py-2 rounded-full group-hover:bg-[#B89275] transition-all">
                 <span>READ ARTICLE</span>
                 <MoveRight className="w-3.5 h-3.5" />
               </div>
             </div>
           </div>
 
-          {/* RIGHT COLUMN: STACKED LIST OF 3 DARK ARTICLE CARDS (SCREENSHOT 4) */}
+          {/* RIGHT COLUMN: STACKED LIST OF 3 ARTICLE CARDS */}
           <div className="lg:col-span-5 flex flex-col justify-between space-y-4">
             {stackedArticles.map((article) => (
               <div
                 key={article.id}
                 onClick={() => setSelectedSession(article)}
-                className="group bg-black rounded-2xl border border-white/20 hover:border-[#B89275] p-4 transition-all duration-300 cursor-pointer flex flex-col sm:flex-row gap-4 items-center flex-1 justify-between shadow-xl"
+                className="group bg-[#FAF7F2] rounded-2xl border border-[#E3D6C5] hover:border-[#B89275] p-4 transition-all duration-300 cursor-pointer flex flex-col sm:flex-row gap-4 items-center flex-1 justify-between shadow-xs hover:shadow-xl"
               >
                 {/* Square Image Thumbnail */}
-                <div className="relative w-full sm:w-36 aspect-square rounded-xl overflow-hidden shrink-0 bg-neutral-900">
+                <div className="relative w-full sm:w-36 aspect-square rounded-xl overflow-hidden shrink-0 bg-black">
                   <img
                     src={article.imageUrl}
                     alt={article.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
                   />
-                  <div className="absolute inset-0 bg-black/30 pointer-events-none" />
+                  <div className="absolute inset-0 bg-black/20 pointer-events-none" />
                 </div>
 
                 {/* Article Info */}
                 <div className="space-y-2 min-w-0 flex-1 flex flex-col justify-between h-full">
                   <div>
-                    <span className="text-[9px] font-display font-bold text-[#B89275] tracking-widest uppercase block mb-1">
+                    <span className="text-[9px] font-display font-bold text-[#A68064] tracking-widest uppercase block mb-1">
                       {article.category}
                     </span>
 
-                    <h4 className="font-serif text-sm font-bold uppercase text-white tracking-wide group-hover:text-[#B89275] transition-colors leading-snug line-clamp-2">
+                    <h4 className="font-serif text-sm font-bold uppercase text-obsidian tracking-wide group-hover:text-[#B89275] transition-colors leading-snug line-clamp-2">
                       {article.title}
                     </h4>
                   </div>
 
-                  <div className="pt-2 border-t border-white/10 flex items-center justify-between">
-                    <span className="text-[9px] font-body text-white/50 truncate">
+                  <div className="pt-2 border-t border-[#E3D6C5] flex items-center justify-between">
+                    <span className="text-[9px] font-body text-warm-taupe truncate">
                       {article.date} by {article.photographer}
                     </span>
 
-                    <span className="text-[9px] font-display font-bold text-white uppercase tracking-wider group-hover:text-[#B89275] flex items-center space-x-1 shrink-0">
+                    <span className="text-[9px] font-display font-bold text-obsidian uppercase tracking-wider group-hover:text-[#B89275] flex items-center space-x-1 shrink-0">
                       <span>READ</span>
                       <MoveRight className="w-3 h-3" />
                     </span>

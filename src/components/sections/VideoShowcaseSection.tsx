@@ -50,26 +50,23 @@ export const VideoShowcaseSection: React.FC = () => {
   };
 
   return (
-    <section className="bg-[#0D0D0D] text-warm-white py-24 border-t border-white/10 relative overflow-hidden select-none">
-      {/* Subtle Background Glow */}
-      <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-[#B89275]/10 rounded-full blur-[140px] pointer-events-none" />
-
+    <section className="bg-white text-obsidian py-28 lg:py-36 border-t border-[#E3D6C5] relative overflow-hidden select-none">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-12 relative z-10">
-        {/* SECTION HEADER (L'OFFICIEL EDITORIAL STYLE - SCREENSHOTS 3 & 4) */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/15">
+        {/* SECTION HEADER */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[#E3D6C5]">
           <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md">
+            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white border border-[#B89275]/40 shadow-xs">
               <VideoIcon className="w-3.5 h-3.5 text-[#B89275] animate-pulse" />
-              <span className="font-display text-[10px] sm:text-xs font-bold tracking-mega text-[#B89275] uppercase">
+              <span className="font-display text-[10px] sm:text-xs font-bold tracking-mega text-[#A68064] uppercase">
                 EDITORIAL VIDEO DOSSIER
               </span>
             </div>
 
-            <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight text-warm-white uppercase font-black">
+            <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight text-obsidian uppercase font-black">
               BEAUTY MASTERCLASSES
             </h2>
 
-            <p className="font-body text-xs sm:text-sm text-white/70 leading-relaxed font-light">
+            <p className="font-body text-xs sm:text-sm text-[#5C5046] leading-relaxed font-light">
               Watch 4K high-definition texture reels, application masterclasses, and dermatological skin tips curated by GLAMGAL senior chemists.
             </p>
           </div>
@@ -79,14 +76,14 @@ export const VideoShowcaseSection: React.FC = () => {
               href="https://glamgalbeauty.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center space-x-2 bg-[#B89275] hover:bg-white hover:text-obsidian text-white font-display text-xs font-bold tracking-widest uppercase px-6 py-3 rounded-full transition-all shadow-md"
+              className="inline-flex items-center space-x-2 bg-[#B89275] hover:bg-obsidian text-white font-display text-xs font-bold tracking-widest uppercase px-6 py-3 rounded-full transition-all shadow-md"
             >
               <span>VISIT OFFICIAL STORE ↗</span>
             </a>
           </div>
         </div>
 
-        {/* L'OFFICIEL ASYMMETRICAL EDITORIAL SPREAD GRID (SCREENSHOTS 3 & 4 INSPIRATION) */}
+        {/* L'OFFICIEL ASYMMETRICAL EDITORIAL SPREAD GRID */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           {/* LEFT COLUMN: LARGE SPOTLIGHT FEATURED VIDEO HERO CARD */}
           {featuredVideo && (
@@ -95,7 +92,7 @@ export const VideoShowcaseSection: React.FC = () => {
                 setActiveVideo(featuredVideo);
                 setIsPlaying(true);
               }}
-              className="lg:col-span-7 group relative rounded-3xl overflow-hidden bg-black border border-white/20 hover:border-[#B89275] shadow-2xl transition-all duration-500 cursor-pointer flex flex-col justify-between min-h-[420px] sm:min-h-[500px]"
+              className="lg:col-span-7 group relative rounded-3xl overflow-hidden bg-black border border-[#E3D6C5] hover:border-[#B89275] shadow-xl transition-all duration-500 cursor-pointer flex flex-col justify-between min-h-[420px] sm:min-h-[500px]"
             >
               {/* Autoplay Video Background */}
               <video
@@ -118,7 +115,7 @@ export const VideoShowcaseSection: React.FC = () => {
 
               {/* Top Header Badge */}
               <div className="relative z-10 p-6 flex items-center justify-between">
-                <span className="bg-white/20 backdrop-blur-md border border-white/30 text-white font-display text-[9px] font-bold tracking-widest px-3.5 py-1.5 rounded-full uppercase">
+                <span className="bg-obsidian/90 backdrop-blur-md border border-white/20 text-white font-display text-[9px] font-bold tracking-widest px-3.5 py-1.5 rounded-full uppercase">
                   COVER STORY TUTORIAL
                 </span>
 
@@ -128,7 +125,7 @@ export const VideoShowcaseSection: React.FC = () => {
                 </div>
               </div>
 
-              {/* Central Interactive Floating DRAG Badge (Screenshot 3 & 4) */}
+              {/* Central Interactive Floating DRAG Badge */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-20 h-20 rounded-full bg-white text-obsidian shadow-2xl flex flex-col items-center justify-center font-display text-xs font-bold uppercase tracking-wider group-hover:scale-110 transition-all duration-300 border-2 border-obsidian pointer-events-none">
                 <Play className="w-5 h-5 fill-obsidian ml-0.5" />
                 <span className="text-[9px] mt-0.5">DRAG</span>
@@ -162,7 +159,7 @@ export const VideoShowcaseSection: React.FC = () => {
             </div>
           )}
 
-          {/* RIGHT COLUMN: STACKED / CAROUSEL EDITORIAL VIDEO CARDS (SCREENSHOT 4) */}
+          {/* RIGHT COLUMN: STACKED / CAROUSEL EDITORIAL VIDEO CARDS */}
           <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
             {galleryVideos.map((vid) => (
               <div
@@ -171,10 +168,10 @@ export const VideoShowcaseSection: React.FC = () => {
                   setActiveVideo(vid);
                   setIsPlaying(true);
                 }}
-                className="group relative rounded-2xl overflow-hidden bg-black border border-white/20 hover:border-[#B89275] p-4 transition-all duration-300 cursor-pointer flex flex-col sm:flex-row gap-4 items-center"
+                className="group relative rounded-2xl overflow-hidden bg-[#FAF7F2] border border-[#E3D6C5] hover:border-[#B89275] p-4 transition-all duration-300 cursor-pointer flex flex-col sm:flex-row gap-4 items-center shadow-xs hover:shadow-xl text-obsidian"
               >
                 {/* Small Video Thumbnail Frame */}
-                <div className="relative w-full sm:w-36 aspect-[4/3] rounded-xl overflow-hidden shrink-0 bg-neutral-900">
+                <div className="relative w-full sm:w-36 aspect-[4/3] rounded-xl overflow-hidden shrink-0 bg-black">
                   <video
                     src={vid.videoUrl}
                     poster={vid.posterImage}
@@ -185,7 +182,7 @@ export const VideoShowcaseSection: React.FC = () => {
                   />
                   <div className="absolute inset-0 bg-black/30 pointer-events-none" />
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-8 h-8 rounded-full bg-white/90 text-obsidian flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                    <div className="w-8 h-8 rounded-full bg-white text-obsidian flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
                       <Play className="w-3.5 h-3.5 fill-obsidian ml-0.5" />
                     </div>
                   </div>
@@ -194,24 +191,24 @@ export const VideoShowcaseSection: React.FC = () => {
                 {/* Article Info */}
                 <div className="space-y-1.5 min-w-0 flex-1">
                   <div className="flex items-center justify-between">
-                    <span className="text-[9px] font-display font-bold text-[#B89275] tracking-widest uppercase">
+                    <span className="text-[9px] font-display font-bold text-[#A68064] tracking-widest uppercase">
                       REEL MASTERCLASS
                     </span>
-                    <span className="text-[9px] font-mono text-white/60">
+                    <span className="text-[9px] font-mono text-warm-taupe">
                       {vid.duration}
                     </span>
                   </div>
 
-                  <h4 className="font-serif text-sm font-bold uppercase text-white tracking-wide group-hover:text-[#B89275] transition-colors leading-snug line-clamp-1">
+                  <h4 className="font-serif text-sm font-bold uppercase text-obsidian tracking-wide group-hover:text-[#B89275] transition-colors leading-snug line-clamp-1">
                     {vid.title}
                   </h4>
 
-                  <p className="text-[11px] font-body text-white/70 line-clamp-1">
+                  <p className="text-[11px] font-body text-[#5C5046] line-clamp-1">
                     {vid.subtitle}
                   </p>
 
                   <div className="pt-1 flex items-center justify-between">
-                    <span className="text-[9px] font-body text-white/50">
+                    <span className="text-[9px] font-body text-warm-taupe">
                       by @{vid.authorName.toLowerCase().replace(/\s+/g, '')}
                     </span>
 
