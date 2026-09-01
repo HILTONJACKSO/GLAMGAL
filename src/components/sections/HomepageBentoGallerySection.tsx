@@ -4,11 +4,8 @@ import { Sparkles, MoveRight, ExternalLink, ArrowRight, Grid } from 'lucide-reac
 
 export const HomepageBentoGallerySection: React.FC = () => {
   return (
-    <section className="bg-[#FAF5F0] py-24 border-t border-[#E3D6C5] relative overflow-hidden select-none font-serif">
-      {/* Background Ambient Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#B89275]/10 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 space-y-12">
+    <section className="bg-white py-28 lg:py-36 border-t border-[#E3D6C5] relative overflow-hidden select-none font-serif">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 space-y-14">
         
         {/* SECTION HEADER */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[#E3D6C5]">
@@ -41,7 +38,7 @@ export const HomepageBentoGallerySection: React.FC = () => {
         </div>
 
         {/* ASYMMETRICAL HIGH-FASHION BENTO GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
           
           {/* BENTO ITEM 1: HERO FEATURE CARD (7 COLUMNS) */}
           <div className="md:col-span-7 bg-white rounded-3xl p-6 sm:p-8 border border-[#E3D6C5] shadow-xs hover:shadow-2xl transition-all duration-500 flex flex-col justify-between group font-serif relative overflow-hidden min-h-[400px]">
@@ -93,8 +90,8 @@ export const HomepageBentoGallerySection: React.FC = () => {
           </div>
 
           {/* BENTO ITEM 2: COUTURE ACCENT CARD (5 COLUMNS) */}
-          <div className="md:col-span-5 bg-[#121212] text-white rounded-3xl p-6 sm:p-8 border border-white/20 shadow-2xl hover:border-[#B89275] transition-all duration-500 flex flex-col justify-between group font-serif relative overflow-hidden min-h-[400px]">
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-black mb-6 border border-white/20">
+          <div className="md:col-span-5 bg-white text-obsidian rounded-3xl p-6 sm:p-8 border border-[#E3D6C5] shadow-xs hover:shadow-2xl hover:border-[#B89275] transition-all duration-500 flex flex-col justify-between group font-serif relative overflow-hidden min-h-[400px]">
+            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-black mb-6 border border-[#E3D6C5]">
               <img
                 src="/liquid_velvet_lipstick_mockup.png"
                 alt="Velvet Matte Couture Lipstick"
@@ -102,7 +99,7 @@ export const HomepageBentoGallerySection: React.FC = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent pointer-events-none" />
 
-              <div className="absolute top-4 left-4 bg-white text-obsidian font-display text-[9px] font-bold tracking-widest px-3 py-1 rounded-full uppercase">
+              <div className="absolute top-4 left-4 bg-obsidian text-white font-display text-[9px] font-bold tracking-widest px-3 py-1 rounded-full uppercase">
                 COUTURE LIP PIGMENT
               </div>
             </div>
@@ -112,19 +109,19 @@ export const HomepageBentoGallerySection: React.FC = () => {
                 <span className="text-[9px] font-display text-[#B89275] font-bold uppercase tracking-widest block">
                   16-HOUR VELVET FINISH
                 </span>
-                <h3 className="font-serif text-lg sm:text-xl font-bold uppercase tracking-wide text-white">
+                <h3 className="font-serif text-lg sm:text-xl font-bold uppercase tracking-wide text-obsidian">
                   VELVET MATTE COUTURE LIPSTICK
                 </h3>
               </div>
 
-              <p className="text-xs text-white/80 font-body leading-relaxed font-light">
+              <p className="text-xs text-[#5C5046] font-body leading-relaxed font-light">
                 Non-drying 16-hour velvet pigment infused with hyaluronic spheres and wild rose wax for a soft-focus suede stain.
               </p>
 
-              <div className="pt-4 border-t border-white/20 flex items-center justify-between">
+              <div className="pt-4 border-t border-[#E3D6C5] flex items-center justify-between">
                 <Link
                   to="/products/velvet-matte-lipstick"
-                  className="font-display text-xs font-bold text-white hover:text-[#B89275] uppercase tracking-wider flex items-center space-x-1.5"
+                  className="font-display text-xs font-bold text-obsidian hover:text-[#B89275] uppercase tracking-wider flex items-center space-x-1.5"
                 >
                   <span>VIEW SHADES & DOSSIER</span>
                   <MoveRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -133,7 +130,7 @@ export const HomepageBentoGallerySection: React.FC = () => {
                   href="https://glamgalbeauty.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs font-display font-bold text-[#B89275] hover:text-white uppercase"
+                  className="text-xs font-display font-bold text-[#B89275] hover:text-obsidian uppercase"
                 >
                   STORE ↗
                 </a>

@@ -21,7 +21,7 @@ export const CoutureProductGallerySection: React.FC = () => {
   });
 
   return (
-    <section className="bg-[#FAF5F0] py-24 border-t border-[#E3D6C5] relative overflow-hidden select-none font-serif">
+    <section className="bg-white py-28 lg:py-36 border-t border-[#E3D6C5] relative overflow-hidden select-none font-serif">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 space-y-8">
         
         {/* PHYSICAL MAGAZINE OPEN SPREAD CONTAINER */}

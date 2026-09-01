@@ -9,7 +9,7 @@ export default {
       colors: {
         obsidian: '#090909',
         'true-black': '#000000',
-        'warm-white': '#F8F6F2',
+        'warm-white': '#FFFFFF',
         'pure-white': '#FFFFFF',
         'soft-stone': '#E9E5DF',
         'warm-taupe': '#B9ADA2',

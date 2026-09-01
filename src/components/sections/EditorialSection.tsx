@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react';
 
 export const EditorialSection: React.FC = () => {
   return (
-    <section className="bg-warm-white py-20 border-t border-soft-stone">
+    <section className="bg-white py-28 lg:py-36 border-t border-soft-stone">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         {/* Asymmetrical Editorial Image */}
         <div className="lg:col-span-7 relative">

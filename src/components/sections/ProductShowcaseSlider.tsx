@@ -81,7 +81,7 @@ export const ProductShowcaseSlider: React.FC = () => {
   };
 
   return (
-    <section className="bg-gradient-to-b from-[#FAF5F0] via-[#F5ECE3] to-[#FAF5F0] py-24 border-t border-[#E8D9CC] relative overflow-hidden">
+    <section className="bg-white py-28 lg:py-36 border-t border-[#E8D9CC] relative overflow-hidden">
       {/* Background Soft Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#B89275]/10 rounded-full blur-3xl pointer-events-none" />
 

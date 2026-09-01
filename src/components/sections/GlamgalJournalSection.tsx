@@ -93,7 +93,7 @@ export const GlamgalJournalSection: React.FC = () => {
   ];
 
   return (
-    <section className="bg-[#FAF5F0] py-24 border-t border-[#E3D5C8] relative overflow-hidden select-none">
+    <section className="bg-white py-28 lg:py-36 border-t border-[#E3D5C8] relative overflow-hidden select-none">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-12 relative z-10">
         {/* SECTION HEADER (L'OFFICIEL EDITORS' CHOICE STYLE - SCREENSHOT 2) */}
         <div className="text-center max-w-3xl mx-auto space-y-4">

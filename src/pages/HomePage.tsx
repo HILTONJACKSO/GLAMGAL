@@ -44,7 +44,7 @@ export const HomePage: React.FC = () => {
   }
 
   return (
-    <div className="space-y-0 select-none bg-[#FAFAF8]">
+    <div className="space-y-0 select-none bg-white">
       <SEO
         title="GLAMGAL — High-Fashion Beauty Journal, Masterclasses & Magazine"
         description="Explore 4K video beauty masterclasses, dermatological skincare science, skin tips, and routine tutorials curated by GLAMGAL senior editors."
@@ -80,25 +80,23 @@ export const HomePage: React.FC = () => {
         <MagazineCoversSection />
       </ScrollReveal>
 
-      {/* 5. BRAND CREED TYPOGRAPHY (DEEP BERRY OBSIDIAN VELVET PALETTE) */}
+      {/* 5. BRAND CREED TYPOGRAPHY (CLEAN BRIGHT EDITORIAL WHITE SPREAD) */}
       <ScrollReveal variant="fade-in">
-        <section className="bg-gradient-to-r from-[#200615] via-[#3E0E27] to-[#1C0512] text-warm-white py-24 px-6 text-center border-y border-[#5C163C]/50 relative overflow-hidden shadow-2xl">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-pink-900/20 via-transparent to-transparent pointer-events-none" />
-
-          <div className="max-w-4xl mx-auto space-y-6 relative z-10">
-            <span className="font-display text-xs tracking-mega text-rose-300 uppercase font-bold">
+        <section className="bg-white text-obsidian py-32 px-6 text-center border-y border-[#E3D6C5] relative overflow-hidden">
+          <div className="max-w-4xl mx-auto space-y-8 relative z-10">
+            <span className="font-display text-xs tracking-mega text-[#A68064] uppercase font-bold">
               THE GLAMGAL CREED
             </span>
-            <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight text-warm-white uppercase font-black leading-tight drop-shadow-md">
+            <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl tracking-tight text-obsidian uppercase font-black leading-tight">
               GLAMOUR IS PERSONAL.<br />CONFIDENCE IS UNIVERSAL.
             </h2>
-            <p className="font-body text-sm sm:text-base md:text-lg text-rose-100/90 max-w-2xl mx-auto leading-relaxed font-light">
+            <p className="font-body text-sm sm:text-base md:text-lg text-[#5C5046] max-w-2xl mx-auto leading-relaxed font-light">
               GLAMGAL was founded to unite clinical barrier-repair science with high-payoff couture aesthetics. We believe beauty is an empowering medium of individual self-expression.
             </p>
             <div className="pt-4 flex flex-wrap justify-center items-center gap-4">
               <Link
                 to="/philosophy"
-                className="inline-flex items-center space-x-2 border-2 border-rose-200/80 bg-white/5 hover:bg-rose-200 hover:text-obsidian text-rose-100 font-display text-xs tracking-[0.2em] py-3.5 px-8 uppercase transition-all rounded-full font-bold shadow-lg"
+                className="inline-flex items-center space-x-2 border border-[#E3D6C5] bg-white hover:bg-obsidian hover:text-white text-obsidian font-display text-xs tracking-[0.2em] py-3.5 px-8 uppercase transition-all rounded-full font-bold shadow-xs"
               >
                 <span>OUR FORMULATION PHILOSOPHY</span>
                 <ArrowRight className="w-4 h-4" />
@@ -107,7 +105,7 @@ export const HomePage: React.FC = () => {
                 href="https://glamgalbeauty.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center space-x-2 bg-[#B89275] hover:bg-white hover:text-obsidian text-white font-display text-xs tracking-[0.2em] py-3.5 px-8 uppercase transition-all rounded-full font-bold shadow-lg"
+                className="inline-flex items-center space-x-2 bg-[#B89275] hover:bg-obsidian text-white font-display text-xs tracking-[0.2em] py-3.5 px-8 uppercase transition-all rounded-full font-bold shadow-md"
               >
                 <span>VISIT OFFICIAL STORE ↗</span>
                 <ExternalLink className="w-4 h-4" />
@@ -148,7 +146,7 @@ export const HomePage: React.FC = () => {
       </ScrollReveal>
 
       {/* 11. DIRECT STORE GATEWAY CALLOUT SECTION */}
-      <section className="bg-[#FAF4EF] py-20 border-t border-[#E8D9CC]">
+      <section className="bg-white py-28 border-t border-[#E3D6C5]">
         <div className="max-w-5xl mx-auto px-6 text-center space-y-6">
           <span className="font-display text-xs tracking-mega text-[#A68064] uppercase font-bold">
             READY TO EXPERIENCE THE FORMULATIONS?
